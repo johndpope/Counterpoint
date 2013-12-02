@@ -17,8 +17,6 @@
 @property (nonatomic, strong) IBOutlet NSTableView* googleTable;
 @property (nonatomic, strong) IBOutlet NSTableView* spotifyTable;
 
-@property (assign) IBOutlet NSWindow* preferencesPanel;
-
 -(IBAction)play:(id)sender;
 
 -(IBAction)showPreferences:(id)sender;

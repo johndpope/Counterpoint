@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB166D2184D422800683551 /* PreferencesWindowController.m */; };
+		0DB166D5184D422800683551 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DB166D3184D422800683551 /* PreferencesWindowController.xib */; };
 		0DCE2493184CFA5C0039DDC0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */; };
 		0DCE249D184CFA5C0039DDC0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DCE249B184CFA5C0039DDC0 /* InfoPlist.strings */; };
 		0DCE249F184CFA5C0039DDC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE249E184CFA5C0039DDC0 /* main.m */; };
@@ -46,6 +48,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DB166D1184D422800683551 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		0DB166D2184D422800683551 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		0DB166D3184D422800683551 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		0DCE248F184CFA5C0039DDC0 /* Counterpoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counterpoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0DCE2495184CFA5C0039DDC0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -136,6 +141,9 @@
 			children = (
 				0DCE24A4184CFA5D0039DDC0 /* AppDelegate.h */,
 				0DCE24A5184CFA5D0039DDC0 /* AppDelegate.m */,
+				0DB166D1184D422800683551 /* PreferencesWindowController.h */,
+				0DB166D2184D422800683551 /* PreferencesWindowController.m */,
+				0DB166D3184D422800683551 /* PreferencesWindowController.xib */,
 				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
 				0DCE24AA184CFA5D0039DDC0 /* Images.xcassets */,
 				0DCE2552184D20780039DDC0 /* Externals */,
@@ -292,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DCE249D184CFA5C0039DDC0 /* InfoPlist.strings in Resources */,
+				0DB166D5184D422800683551 /* PreferencesWindowController.xib in Resources */,
 				0DCE24AB184CFA5D0039DDC0 /* Images.xcassets in Resources */,
 				0DCE24A3184CFA5D0039DDC0 /* Credits.rtf in Resources */,
 				0DCE24A9184CFA5D0039DDC0 /* MainMenu.xib in Resources */,
@@ -316,6 +325,7 @@
 				0DCE24A6184CFA5D0039DDC0 /* AppDelegate.m in Sources */,
 				0DCE2555184D21BA0039DDC0 /* GoogleMusicAPI.m in Sources */,
 				0DCE249F184CFA5C0039DDC0 /* main.m in Sources */,
+				0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

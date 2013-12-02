@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PreferencesWindowController.h"
 
 @implementation AppDelegate
 
@@ -22,8 +23,14 @@
 
 -(IBAction)showPreferences:(id)sender
 {
-	NSWindowController* windowController = [[NSWindowController alloc] initWithWindow:[self preferencesPanel]];
+	PreferencesWindowController* windowController = [[PreferencesWindowController alloc] init];
 	[windowController showWindow:self];
+}
+
+-(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
+{
+	[[self window] setIsVisible:YES];
+	return YES;
 }
 
 @end
