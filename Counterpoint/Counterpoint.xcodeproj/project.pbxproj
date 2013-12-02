@@ -18,6 +18,7 @@
 		0DCE24B3184CFA5D0039DDC0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */; };
 		0DCE24BB184CFA5D0039DDC0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DCE24B9184CFA5D0039DDC0 /* InfoPlist.strings */; };
 		0DCE24BD184CFA5D0039DDC0 /* CounterpointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE24BC184CFA5D0039DDC0 /* CounterpointTests.m */; };
+		0DCE2555184D21BA0039DDC0 /* GoogleMusicAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE2554184D21BA0039DDC0 /* GoogleMusicAPI.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0DCE248E184CFA5C0039DDC0;
 			remoteInfo = Counterpoint;
+		};
+		0DCE254E184D20450039DDC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0DCE2549184D20450039DDC0 /* CocoaLibSpotify Mac Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 503D630F13258041007772CA;
+			remoteInfo = CocoaLibSpotify;
+		};
+		0DCE2550184D20450039DDC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0DCE2549184D20450039DDC0 /* CocoaLibSpotify Mac Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 504E4934155AA85400E1C0F7;
+			remoteInfo = CocoaLSTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -50,6 +65,9 @@
 		0DCE24B8184CFA5D0039DDC0 /* CounterpointTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CounterpointTests-Info.plist"; sourceTree = "<group>"; };
 		0DCE24BA184CFA5D0039DDC0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0DCE24BC184CFA5D0039DDC0 /* CounterpointTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CounterpointTests.m; sourceTree = "<group>"; };
+		0DCE2549184D20450039DDC0 /* CocoaLibSpotify Mac Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CocoaLibSpotify Mac Framework.xcodeproj"; path = "../cocoalibspotify/Mac Framework/CocoaLibSpotify Mac Framework.xcodeproj"; sourceTree = "<group>"; };
+		0DCE2553184D21BA0039DDC0 /* GoogleMusicAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoogleMusicAPI.h; path = "../../gmusicapi-objc/GoogleMusicAPI.h"; sourceTree = "<group>"; };
+		0DCE2554184D21BA0039DDC0 /* GoogleMusicAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoogleMusicAPI.m; path = "../../gmusicapi-objc/GoogleMusicAPI.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +113,7 @@
 		0DCE2491184CFA5C0039DDC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DCE2549184D20450039DDC0 /* CocoaLibSpotify Mac Framework.xcodeproj */,
 				0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */,
 				0DCE24B1184CFA5D0039DDC0 /* XCTest.framework */,
 				0DCE2494184CFA5C0039DDC0 /* Other Frameworks */,
@@ -119,6 +138,7 @@
 				0DCE24A5184CFA5D0039DDC0 /* AppDelegate.m */,
 				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
 				0DCE24AA184CFA5D0039DDC0 /* Images.xcassets */,
+				0DCE2552184D20780039DDC0 /* Externals */,
 				0DCE2499184CFA5C0039DDC0 /* Supporting Files */,
 			);
 			path = Counterpoint;
@@ -152,6 +172,24 @@
 				0DCE24B9184CFA5D0039DDC0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0DCE254A184D20450039DDC0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0DCE254F184D20450039DDC0 /* CocoaLibSpotify.framework */,
+				0DCE2551184D20450039DDC0 /* CocoaLSTests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0DCE2552184D20780039DDC0 /* Externals */ = {
+			isa = PBXGroup;
+			children = (
+				0DCE2553184D21BA0039DDC0 /* GoogleMusicAPI.h */,
+				0DCE2554184D21BA0039DDC0 /* GoogleMusicAPI.m */,
+			);
+			name = Externals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +255,12 @@
 			mainGroup = 0DCE2486184CFA5C0039DDC0;
 			productRefGroup = 0DCE2490184CFA5C0039DDC0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0DCE254A184D20450039DDC0 /* Products */;
+					ProjectRef = 0DCE2549184D20450039DDC0 /* CocoaLibSpotify Mac Framework.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0DCE248E184CFA5C0039DDC0 /* Counterpoint */,
@@ -224,6 +268,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0DCE254F184D20450039DDC0 /* CocoaLibSpotify.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaLibSpotify.framework;
+			remoteRef = 0DCE254E184D20450039DDC0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0DCE2551184D20450039DDC0 /* CocoaLSTests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = CocoaLSTests.app;
+			remoteRef = 0DCE2550184D20450039DDC0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0DCE248D184CFA5C0039DDC0 /* Resources */ = {
@@ -253,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DCE24A6184CFA5D0039DDC0 /* AppDelegate.m in Sources */,
+				0DCE2555184D21BA0039DDC0 /* GoogleMusicAPI.m in Sources */,
 				0DCE249F184CFA5C0039DDC0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +526,7 @@
 				0DCE24C2184CFA5D0039DDC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0DCE24C3184CFA5D0039DDC0 /* Build configuration list for PBXNativeTarget "CounterpointTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +535,7 @@
 				0DCE24C5184CFA5D0039DDC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,8 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (nonatomic, strong) IBOutlet NSToolbar* toolbar;
+
+@property (nonatomic, strong) IBOutlet NSTableView* localTable;
+@property (nonatomic, strong) IBOutlet NSTableView* googleTable;
+@property (nonatomic, strong) IBOutlet NSTableView* spotifyTable;
+
+@property (assign) IBOutlet NSWindow* preferencesPanel;
+
+-(IBAction)play:(id)sender;
+
+-(IBAction)showPreferences:(id)sender;
 
 @end

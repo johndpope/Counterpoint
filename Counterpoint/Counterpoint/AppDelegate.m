@@ -15,4 +15,15 @@
 	// Insert code here to initialize your application
 }
 
+-(IBAction)play:(id)sender
+{
+	;
+}
+
+-(IBAction)showPreferences:(id)sender
+{
+	NSWindowController* windowController = [[NSWindowController alloc] initWithWindow:[self preferencesPanel]];
+	[windowController showWindow:self];
+}
+
 @end

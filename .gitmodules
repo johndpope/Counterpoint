@@ -1,0 +1,6 @@
+[submodule "CocoaLibSpotify"]
+	path = cocoalibspotify
+	url = https://github.com/spotify/cocoalibspotify.git
+[submodule "GMusicAPI-ObjC"]
+	path = gmusicapi-objc
+	url = https://github.com/gwicks/gmusicapi-objc.git
