@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class PreferencesWindowController;
+
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
@@ -17,8 +19,9 @@
 @property (nonatomic, strong) IBOutlet NSTableView* googleTable;
 @property (nonatomic, strong) IBOutlet NSTableView* spotifyTable;
 
--(IBAction)play:(id)sender;
+@property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 
+-(IBAction)play:(id)sender;
 -(IBAction)showPreferences:(id)sender;
 
 @end

@@ -14,6 +14,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	// Insert code here to initialize your application
+	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
 }
 
 -(IBAction)play:(id)sender
@@ -23,8 +24,7 @@
 
 -(IBAction)showPreferences:(id)sender
 {
-	PreferencesWindowController* windowController = [[PreferencesWindowController alloc] init];
-	[windowController showWindow:self];
+	[[self preferencesWindowController] showWindow:self];
 }
 
 -(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag

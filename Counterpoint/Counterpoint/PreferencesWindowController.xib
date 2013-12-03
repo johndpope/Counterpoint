@@ -43,7 +43,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values.googleUsername" id="eCe-84-6Ye"/>
+                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values.googleUsername" id="TC8-42-Dg0"/>
                                     </connections>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4JP-v5-x7Z">
@@ -55,7 +55,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values" id="vkA-Yc-4EV"/>
+                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values.googlePassword" id="mDs-Pf-4lb"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QxS-8b-mid">
@@ -118,7 +118,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values.spotifyUsername" id="dxT-gu-GTb"/>
+                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values.spotifyUsername" id="136-TJ-y9X"/>
                                     </connections>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Kbd-cY-jU4">
@@ -130,7 +130,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values.spotifyPassword" id="Pea-WM-duV"/>
+                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values.spotifyPassword" id="t08-3U-mxi"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s1t-nf-1Ga">
@@ -190,47 +190,55 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values.localMusicPath" id="YUO-tx-FxU"/>
+                                        <binding destination="A56-Nu-BGq" name="value" keyPath="values.localMusicFolderPath" id="ojb-lO-COZ"/>
                                     </connections>
                                 </textField>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AYq-9X-2Nt">
                                     <rect key="frame" x="289" y="18" width="97" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="85" id="KCQ-lt-K3h"/>
+                                        <constraint firstAttribute="height" constant="21" id="ux1-7r-FqC"/>
+                                    </constraints>
                                     <buttonCell key="cell" type="push" title="Browse..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kA4-wF-sSx">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="browse:" target="-2" id="9Nb-me-F0B"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
                         <constraints>
-                            <constraint firstItem="c66-XY-dnu" firstAttribute="leading" secondItem="Wkj-EF-33g" secondAttribute="leading" constant="16" id="K2B-Ib-GJW"/>
-                            <constraint firstItem="AYq-9X-2Nt" firstAttribute="leading" secondItem="Wkj-EF-33g" secondAttribute="leading" constant="293" id="M61-m1-Zhj"/>
-                            <constraint firstItem="AYq-9X-2Nt" firstAttribute="leading" secondItem="c66-XY-dnu" secondAttribute="trailing" constant="8" symbolic="YES" id="MWE-0k-JEA"/>
-                            <constraint firstAttribute="trailing" secondItem="AYq-9X-2Nt" secondAttribute="trailing" constant="16" id="Tj6-OZ-K3F"/>
-                            <constraint firstAttribute="bottom" secondItem="c66-XY-dnu" secondAttribute="bottom" constant="21" id="Y4j-J4-mjK"/>
-                            <constraint firstItem="c66-XY-dnu" firstAttribute="top" secondItem="Wkj-EF-33g" secondAttribute="top" constant="36" id="v21-JO-Vgy"/>
+                            <constraint firstItem="AYq-9X-2Nt" firstAttribute="leading" secondItem="c66-XY-dnu" secondAttribute="trailing" constant="8" id="2nU-6c-9Wp"/>
+                            <constraint firstAttribute="trailing" secondItem="AYq-9X-2Nt" secondAttribute="trailing" constant="16" id="7oj-fp-pfI"/>
+                            <constraint firstAttribute="bottom" secondItem="AYq-9X-2Nt" secondAttribute="bottom" constant="22" id="Ahe-55-zPB"/>
+                            <constraint firstItem="c66-XY-dnu" firstAttribute="top" secondItem="Wkj-EF-33g" secondAttribute="top" constant="36" id="EcN-Gt-gQL"/>
+                            <constraint firstAttribute="bottom" secondItem="c66-XY-dnu" secondAttribute="bottom" constant="21" id="TD6-RQ-qcc"/>
+                            <constraint firstItem="c66-XY-dnu" firstAttribute="leading" secondItem="Wkj-EF-33g" secondAttribute="leading" constant="16" id="Y7C-dk-Qzz"/>
                             <constraint firstItem="AYq-9X-2Nt" firstAttribute="top" secondItem="c66-XY-dnu" secondAttribute="top" id="v3b-tr-Qxy"/>
+                            <constraint firstItem="AYq-9X-2Nt" firstAttribute="top" secondItem="Wkj-EF-33g" secondAttribute="top" constant="36" id="xaH-Xn-4ts"/>
                         </constraints>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Wkj-EF-33g" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cap-OV-OFk" secondAttribute="leading" constant="20" id="0l5-fO-8rf"/>
                     <constraint firstAttribute="trailing" secondItem="N4Z-3P-mhn" secondAttribute="trailing" constant="20" id="2x2-rY-HTa"/>
+                    <constraint firstItem="Wkj-EF-33g" firstAttribute="top" secondItem="A70-Sy-JtX" secondAttribute="bottom" constant="8" id="7d9-ka-WjK"/>
                     <constraint firstItem="A70-Sy-JtX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cap-OV-OFk" secondAttribute="leading" constant="20" id="8GS-Bk-ZkS"/>
                     <constraint firstItem="A70-Sy-JtX" firstAttribute="top" secondItem="N4Z-3P-mhn" secondAttribute="bottom" constant="8" id="8RI-ie-X4o"/>
                     <constraint firstItem="A70-Sy-JtX" firstAttribute="top" secondItem="N4Z-3P-mhn" secondAttribute="bottom" constant="8" id="8zb-iI-w7S"/>
                     <constraint firstItem="A70-Sy-JtX" firstAttribute="top" secondItem="N4Z-3P-mhn" secondAttribute="bottom" constant="8" id="9tV-d3-YWC"/>
                     <constraint firstItem="N4Z-3P-mhn" firstAttribute="top" secondItem="cap-OV-OFk" secondAttribute="top" constant="20" id="BcT-Ow-XBE"/>
                     <constraint firstAttribute="trailing" secondItem="A70-Sy-JtX" secondAttribute="trailing" constant="20" id="EJ4-32-Y7b"/>
-                    <constraint firstItem="Wkj-EF-33g" firstAttribute="top" secondItem="A70-Sy-JtX" secondAttribute="bottom" constant="8" id="NaJ-PC-TXv"/>
                     <constraint firstItem="N4Z-3P-mhn" firstAttribute="leading" secondItem="cap-OV-OFk" secondAttribute="leading" constant="20" id="PhN-OV-uk9"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A70-Sy-JtX" secondAttribute="trailing" constant="20" id="RAN-Uz-jIZ"/>
+                    <constraint firstAttribute="trailing" secondItem="Wkj-EF-33g" secondAttribute="trailing" constant="20" id="TAm-wS-LC2"/>
                     <constraint firstItem="A70-Sy-JtX" firstAttribute="leading" secondItem="cap-OV-OFk" secondAttribute="leading" constant="20" id="apR-bv-ii6"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Wkj-EF-33g" secondAttribute="trailing" constant="20" id="cdo-g5-qpz"/>
-                    <constraint firstAttribute="bottom" secondItem="Wkj-EF-33g" secondAttribute="bottom" constant="20" id="xIa-he-IJz"/>
+                    <constraint firstAttribute="bottom" secondItem="Wkj-EF-33g" secondAttribute="bottom" constant="20" id="dta-CW-rFI"/>
+                    <constraint firstItem="Wkj-EF-33g" firstAttribute="leading" secondItem="cap-OV-OFk" secondAttribute="leading" constant="20" id="oMJ-Vu-nh8"/>
                 </constraints>
             </view>
         </window>

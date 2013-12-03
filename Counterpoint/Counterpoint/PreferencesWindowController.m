@@ -23,4 +23,27 @@
 
 @implementation PreferencesWindowController
 
+-(id)init
+{
+	self = [super initWithWindowNibName:@"PreferencesWindowController"];
+	if (self)
+	{
+		
+	}
+	return self;
+}
+
+-(IBAction)browse:(id)sender
+{
+	[self setOpenPanel:[NSOpenPanel openPanel]];
+	[[self openPanel] setCanChooseFiles:NO];
+	[[self openPanel] setCanChooseDirectories:YES];
+	[[self openPanel] beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
+		if (result == NSFileHandlingPanelOKButton)
+		{
+			[[NSUserDefaults standardUserDefaults] setObject:[[[self openPanel] directoryURL] absoluteString] forKey:@"localMusicFolderPath"];
+		}
+	}];
+}
+
 @end

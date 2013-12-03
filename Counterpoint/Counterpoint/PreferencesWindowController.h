@@ -10,4 +10,6 @@
 
 @interface PreferencesWindowController : NSWindowController
 
+@property (nonatomic, retain) NSOpenPanel* openPanel;
+
 @end
