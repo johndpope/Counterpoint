@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PreferencesWindowController.h"
+#import "GoogleMusicAPI.h"
 
 @implementation AppDelegate
 
@@ -15,6 +16,7 @@
 {
 	// Insert code here to initialize your application
 	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
+	[self loadGoogleTable];
 }
 
 -(IBAction)play:(id)sender
@@ -31,6 +33,16 @@
 {
 	[[self window] setIsVisible:YES];
 	return YES;
+}
+
+-(void)loadGoogleTable
+{
+	[self setGoogleMusicAPI:[[GoogleMusicAPI alloc] init]];
+	BOOL loggedIn = [[self googleMusicAPI] loginWithUsername:[[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"] withPassword:[[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"]];
+	if (!loggedIn)
+		; //ALERT!
+//	NSMutableArray* songsArray = [[self googleMusicAPI] getAllSongs];
+//	[[self googleArrayController] setContent:songsArray];
 }
 
 @end
