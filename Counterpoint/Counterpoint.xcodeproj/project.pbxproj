@@ -20,7 +20,8 @@
 		0DCE24B3184CFA5D0039DDC0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */; };
 		0DCE24BB184CFA5D0039DDC0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DCE24B9184CFA5D0039DDC0 /* InfoPlist.strings */; };
 		0DCE24BD184CFA5D0039DDC0 /* CounterpointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE24BC184CFA5D0039DDC0 /* CounterpointTests.m */; };
-		0DCE2555184D21BA0039DDC0 /* GoogleMusicAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE2554184D21BA0039DDC0 /* GoogleMusicAPI.m */; };
+		0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE159571858BF880066A829 /* GoogleMusicController.m */; };
+		0DE15A7A185A6C120066A829 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE15A79185A6C120066A829 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,8 +72,9 @@
 		0DCE24BA184CFA5D0039DDC0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0DCE24BC184CFA5D0039DDC0 /* CounterpointTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CounterpointTests.m; sourceTree = "<group>"; };
 		0DCE2549184D20450039DDC0 /* CocoaLibSpotify Mac Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CocoaLibSpotify Mac Framework.xcodeproj"; path = "../cocoalibspotify/Mac Framework/CocoaLibSpotify Mac Framework.xcodeproj"; sourceTree = "<group>"; };
-		0DCE2553184D21BA0039DDC0 /* GoogleMusicAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoogleMusicAPI.h; path = "../../gmusicapi-objc/GoogleMusicAPI.h"; sourceTree = "<group>"; };
-		0DCE2554184D21BA0039DDC0 /* GoogleMusicAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoogleMusicAPI.m; path = "../../gmusicapi-objc/GoogleMusicAPI.m"; sourceTree = "<group>"; };
+		0DE159561858BF880066A829 /* GoogleMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleMusicController.h; sourceTree = "<group>"; };
+		0DE159571858BF880066A829 /* GoogleMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleMusicController.m; sourceTree = "<group>"; };
+		0DE15A79185A6C120066A829 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DE15A7A185A6C120066A829 /* AVFoundation.framework in Frameworks */,
 				0DCE2493184CFA5C0039DDC0 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +121,7 @@
 		0DCE2491184CFA5C0039DDC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DE15A79185A6C120066A829 /* AVFoundation.framework */,
 				0DCE2549184D20450039DDC0 /* CocoaLibSpotify Mac Framework.xcodeproj */,
 				0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */,
 				0DCE24B1184CFA5D0039DDC0 /* XCTest.framework */,
@@ -141,12 +145,13 @@
 			children = (
 				0DCE24A4184CFA5D0039DDC0 /* AppDelegate.h */,
 				0DCE24A5184CFA5D0039DDC0 /* AppDelegate.m */,
+				0DE159561858BF880066A829 /* GoogleMusicController.h */,
+				0DE159571858BF880066A829 /* GoogleMusicController.m */,
 				0DB166D1184D422800683551 /* PreferencesWindowController.h */,
 				0DB166D2184D422800683551 /* PreferencesWindowController.m */,
 				0DB166D3184D422800683551 /* PreferencesWindowController.xib */,
 				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
 				0DCE24AA184CFA5D0039DDC0 /* Images.xcassets */,
-				0DCE2552184D20780039DDC0 /* Externals */,
 				0DCE2499184CFA5C0039DDC0 /* Supporting Files */,
 			);
 			path = Counterpoint;
@@ -189,15 +194,6 @@
 				0DCE2551184D20450039DDC0 /* CocoaLSTests.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		0DCE2552184D20780039DDC0 /* Externals */ = {
-			isa = PBXGroup;
-			children = (
-				0DCE2553184D21BA0039DDC0 /* GoogleMusicAPI.h */,
-				0DCE2554184D21BA0039DDC0 /* GoogleMusicAPI.m */,
-			);
-			name = Externals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,7 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DCE24A6184CFA5D0039DDC0 /* AppDelegate.m in Sources */,
-				0DCE2555184D21BA0039DDC0 /* GoogleMusicAPI.m in Sources */,
+				0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */,
 				0DCE249F184CFA5C0039DDC0 /* main.m in Sources */,
 				0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */,
 			);
@@ -387,6 +383,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -424,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;

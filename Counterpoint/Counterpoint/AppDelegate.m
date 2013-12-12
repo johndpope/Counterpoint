@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PreferencesWindowController.h"
-#import "GoogleMusicAPI.h"
+#import "GoogleMusicController.h"
 
 @implementation AppDelegate
 
@@ -16,12 +16,34 @@
 {
 	// Insert code here to initialize your application
 	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
-	[self loadGoogleTable];
+	[self populateGoogleTable];
+}
+
+-(IBAction)pause:(id)sender
+{
+	[[self player] pause];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	[[self player] play];
 }
 
 -(IBAction)play:(id)sender
 {
-	;
+	NSTabViewItem* selectedTabView = [[self tabView] selectedTabViewItem];
+	if ([[selectedTabView label] isEqualToString:@"Google Music"])
+	{
+		NSInteger selectedRow = [[self googleTable] selectedRow];
+		NSDictionary* songDictionary = [[[self googleArrayController] arrangedObjects] objectAtIndex:selectedRow];
+		NSString* songId = [songDictionary objectForKey:@"id"];
+		NSString* streamURLString = [[self googleMusicController] getStreamUrl:songId];
+		NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
+		
+		[self setPlayerItem:[AVPlayerItem playerItemWithURL:streamURL]];
+		[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+		[self setPlayer:[AVPlayer playerWithPlayerItem:[self playerItem]]];
+	}
 }
 
 -(IBAction)showPreferences:(id)sender
@@ -35,14 +57,20 @@
 	return YES;
 }
 
--(void)loadGoogleTable
+-(void)loadGoogleTracks
 {
-	[self setGoogleMusicAPI:[[GoogleMusicAPI alloc] init]];
-	BOOL loggedIn = [[self googleMusicAPI] loginWithUsername:[[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"] withPassword:[[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"]];
-	if (!loggedIn)
-		; //ALERT!
-//	NSMutableArray* songsArray = [[self googleMusicAPI] getAllSongs];
-//	[[self googleArrayController] setContent:songsArray];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[self googleArrayController] setContent:[[self googleMusicController] songArray]];
+}
+
+-(void)populateGoogleTable
+{
+	if (![self googleMusicController])
+		[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGoogleTracks) name:@"GoogleMusicTracksLoaded" object:nil];
+	
+	[[self googleMusicController] loginWithUsername:[[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"] password:[[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"]];
 }
 
 @end

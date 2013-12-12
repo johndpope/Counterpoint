@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -655,7 +655,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="816" height="428"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="816" height="428"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -715,11 +715,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="smT-wQ-SSo">
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="smT-wQ-SSo">
                                                 <rect key="frame" x="1" y="1" width="0.0" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="rod-5H-WNr">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="rod-5H-WNr">
                                                 <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -742,10 +742,10 @@
                                     <rect key="frame" x="10" y="33" width="812" height="398"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xrf-mT-FmA">
+                                        <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xrf-mT-FmA">
                                             <rect key="frame" x="17" y="16" width="778" height="379"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <clipView key="contentView" id="hpz-9V-QOv">
+                                            <clipView key="contentView" misplaced="YES" id="hpz-9V-QOv">
                                                 <rect key="frame" x="1" y="17" width="776" height="361"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -756,8 +756,8 @@
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
-                                                            <tableColumn width="116" minWidth="40" maxWidth="1000" id="obe-Jm-v5H">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                            <tableColumn width="269" minWidth="40" maxWidth="1000" id="obe-Jm-v5H">
+                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Song Title">
                                                                     <font key="font" metaFont="smallSystem"/>
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -767,10 +767,14 @@
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
+                                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="name"/>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                <connections>
+                                                                    <binding destination="Q1e-uI-mMJ" name="value" keyPath="arrangedObjects.name" id="l5o-9R-O1R"/>
+                                                                </connections>
                                                             </tableColumn>
-                                                            <tableColumn width="654" minWidth="40" maxWidth="1000" id="nMz-nI-ZYu">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                            <tableColumn width="155" minWidth="40" maxWidth="1000" id="nMz-nI-ZYu">
+                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Artist">
                                                                     <font key="font" metaFont="smallSystem"/>
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -780,18 +784,39 @@
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
+                                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="artist"/>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                <connections>
+                                                                    <binding destination="Q1e-uI-mMJ" name="value" keyPath="arrangedObjects.artist" id="1J8-Vq-Lhj"/>
+                                                                </connections>
+                                                            </tableColumn>
+                                                            <tableColumn width="155" minWidth="10" maxWidth="3.4028234663852886e+38" id="5Av-nV-Pdy">
+                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Album">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                </tableHeaderCell>
+                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="Udr-ns-zvH">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="album"/>
+                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                <connections>
+                                                                    <binding destination="Q1e-uI-mMJ" name="value" keyPath="arrangedObjects.album" id="s6f-fa-2vF"/>
+                                                                </connections>
                                                             </tableColumn>
                                                         </tableColumns>
                                                     </tableView>
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="rmq-9D-Gmv">
-                                                <rect key="frame" x="1" y="1" width="0.0" height="16"/>
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="rmq-9D-Gmv">
+                                                <rect key="frame" x="1" y="362" width="776" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="qg4-Lb-Dz4">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="qg4-Lb-Dz4">
                                                 <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -859,11 +884,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="kn9-bh-1nS">
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="kn9-bh-1nS">
                                                 <rect key="frame" x="1" y="1" width="0.0" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="GV8-6q-fBG">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="GV8-6q-fBG">
                                                 <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -900,6 +925,7 @@
                             <action selector="play:" target="494" id="jjk-lK-Wwn"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="FDB66FB8-FCE7-4F54-8F36-5041898EDA24" label="Pause" paletteLabel="Pause" tag="1" image="NSFolder" id="eE3-7V-gEb"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="adB-09-R90"/>
@@ -913,6 +939,7 @@
                 <outlet property="googleTable" destination="tkr-lP-ZBP" id="REc-sv-MVs"/>
                 <outlet property="localTable" destination="Nxg-ZX-CYA" id="0gj-1A-wxm"/>
                 <outlet property="spotifyTable" destination="Pov-ut-P7d" id="fH8-as-3Ke"/>
+                <outlet property="tabView" destination="xBc-0O-zFI" id="APv-vG-YQs"/>
                 <outlet property="toolbar" destination="gQu-fE-5hG" id="4AF-hN-hZ3"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
@@ -921,6 +948,7 @@
         <arrayController id="Q1e-uI-mMJ" userLabel="Google Array Controller"/>
     </objects>
     <resources>
+        <image name="NSFolder" width="32" height="32"/>
         <image name="NSGoRightTemplate" width="9" height="9"/>
     </resources>
 </document>
