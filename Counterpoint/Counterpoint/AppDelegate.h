@@ -10,9 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 
 @class PreferencesWindowController;
-@class GoogleMusicController;
+@class GoogleTableController;
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, strong) IBOutlet NSToolbar* toolbar;
@@ -27,12 +27,6 @@
 
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 
-@property (nonatomic, strong) IBOutlet NSTableView* googleTable;
-@property (nonatomic, strong) GoogleMusicController* googleMusicController;
-@property (nonatomic, strong) IBOutlet NSArrayController* googleArrayController;
-
-
--(IBAction)play:(id)sender;
--(IBAction)showPreferences:(id)sender;
+@property (nonatomic, strong) IBOutlet GoogleTableController* googleTableController;
 
 @end

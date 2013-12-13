@@ -35,6 +35,11 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	[self setUsername:username];
 	[self setPassword:password];
 	
+	[self setAuthenticationToken:@""];
+	[self setXtToken:@""];
+	[self setFinalResponse:[[NSMutableString alloc] init]];
+	[[self songArray] removeAllObjects];
+	
 	NSString *post = [NSString stringWithFormat:@"&Email=%@&Passwd=%@&service=sj",[self username],[self password]];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];

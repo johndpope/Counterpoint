@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -655,7 +655,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="816" height="428"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="816" height="428"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -667,13 +667,13 @@
                         <tabViewItems>
                             <tabViewItem label="Local" identifier="1" id="EVO-xJ-dA1">
                                 <view key="view" id="cAr-ae-9wx">
-                                    <rect key="frame" x="10" y="33" width="808" height="398"/>
+                                    <rect key="frame" x="10" y="33" width="812" height="398"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgD-hq-sFj">
+                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgD-hq-sFj">
                                             <rect key="frame" x="17" y="17" width="778" height="378"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <clipView key="contentView" misplaced="YES" id="OZz-eH-OsF">
+                                            <clipView key="contentView" id="OZz-eH-OsF">
                                                 <rect key="frame" x="1" y="17" width="776" height="360"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -715,11 +715,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="smT-wQ-SSo">
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="smT-wQ-SSo">
                                                 <rect key="frame" x="1" y="1" width="0.0" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="rod-5H-WNr">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="rod-5H-WNr">
                                                 <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -741,97 +741,6 @@
                                 <view key="view" id="2Wz-9i-S46">
                                     <rect key="frame" x="10" y="33" width="812" height="398"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xrf-mT-FmA">
-                                            <rect key="frame" x="17" y="16" width="778" height="379"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <clipView key="contentView" misplaced="YES" id="hpz-9V-QOv">
-                                                <rect key="frame" x="1" y="17" width="776" height="361"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="f53-cF-7wg" id="tkr-lP-ZBP">
-                                                        <rect key="frame" x="0.0" y="0.0" width="776" height="361"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <size key="intercellSpacing" width="3" height="2"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                        <tableColumns>
-                                                            <tableColumn width="269" minWidth="40" maxWidth="1000" id="obe-Jm-v5H">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Song Title">
-                                                                    <font key="font" metaFont="smallSystem"/>
-                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                                                </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="zGN-Qc-R5t">
-                                                                    <font key="font" metaFont="system"/>
-                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                </textFieldCell>
-                                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="name"/>
-                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                <connections>
-                                                                    <binding destination="Q1e-uI-mMJ" name="value" keyPath="arrangedObjects.name" id="l5o-9R-O1R"/>
-                                                                </connections>
-                                                            </tableColumn>
-                                                            <tableColumn width="155" minWidth="40" maxWidth="1000" id="nMz-nI-ZYu">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Artist">
-                                                                    <font key="font" metaFont="smallSystem"/>
-                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                                                </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="eVu-6d-NhO">
-                                                                    <font key="font" metaFont="system"/>
-                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                </textFieldCell>
-                                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="artist"/>
-                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                <connections>
-                                                                    <binding destination="Q1e-uI-mMJ" name="value" keyPath="arrangedObjects.artist" id="1J8-Vq-Lhj"/>
-                                                                </connections>
-                                                            </tableColumn>
-                                                            <tableColumn width="155" minWidth="10" maxWidth="3.4028234663852886e+38" id="5Av-nV-Pdy">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Album">
-                                                                    <font key="font" metaFont="smallSystem"/>
-                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                                </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="Udr-ns-zvH">
-                                                                    <font key="font" metaFont="system"/>
-                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                </textFieldCell>
-                                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="album"/>
-                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                <connections>
-                                                                    <binding destination="Q1e-uI-mMJ" name="value" keyPath="arrangedObjects.album" id="s6f-fa-2vF"/>
-                                                                </connections>
-                                                            </tableColumn>
-                                                        </tableColumns>
-                                                    </tableView>
-                                                </subviews>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="rmq-9D-Gmv">
-                                                <rect key="frame" x="1" y="362" width="776" height="16"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="qg4-Lb-Dz4">
-                                                <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                            <tableHeaderView key="headerView" id="f53-cF-7wg">
-                                                <rect key="frame" x="0.0" y="0.0" width="776" height="17"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </tableHeaderView>
-                                        </scrollView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="Xrf-mT-FmA" secondAttribute="bottom" constant="16" id="6Ye-80-skm"/>
-                                        <constraint firstAttribute="trailing" secondItem="Xrf-mT-FmA" secondAttribute="trailing" constant="17" id="bBI-yZ-iCp"/>
-                                        <constraint firstItem="Xrf-mT-FmA" firstAttribute="leading" secondItem="2Wz-9i-S46" secondAttribute="leading" constant="17" id="shY-72-cl4"/>
-                                        <constraint firstItem="Xrf-mT-FmA" firstAttribute="top" secondItem="2Wz-9i-S46" secondAttribute="top" constant="3" id="ze1-iu-t6A"/>
-                                    </constraints>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Spotify" identifier="" id="IhI-MF-fHX">
@@ -884,11 +793,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="kn9-bh-1nS">
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="kn9-bh-1nS">
                                                 <rect key="frame" x="1" y="1" width="0.0" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="GV8-6q-fBG">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="GV8-6q-fBG">
                                                 <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -918,25 +827,30 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="D70BEB21-A0C1-412E-9369-9C2235A818E0" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="gQu-fE-5hG">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Tl7-Em-PHO"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="bDM-RA-Tzq"/>
-                    <toolbarItem implicitItemIdentifier="6D9CD88F-C9A4-47BE-9123-150E74F1F242" explicitItemIdentifier="NSToolbarPlayItemIdentifier" label="Play" paletteLabel="Play" image="NSGoRightTemplate" autovalidates="NO" selectable="YES" id="adB-09-R90">
-                        <connections>
-                            <action selector="play:" target="494" id="jjk-lK-Wwn"/>
-                        </connections>
+                    <toolbarItem implicitItemIdentifier="927B570D-C2BB-4C14-B159-2104AEE5FEFB" label="Play" paletteLabel="Play" image="NSRightFacingTriangleTemplate" autovalidates="NO" selectable="YES" id="dvB-Ef-5TH">
+                        <size key="maxSize" width="0.0" height="20"/>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="FDB66FB8-FCE7-4F54-8F36-5041898EDA24" label="Pause" paletteLabel="Pause" tag="1" image="NSFolder" id="eE3-7V-gEb"/>
+                    <toolbarItem implicitItemIdentifier="EC93F08E-E1B1-43B3-AC0E-1C96092D5BC5" label="Pause" paletteLabel="Pause" tag="1" image="NSStatusUnavailable" autovalidates="NO" selectable="YES" id="Kw8-j8-jHn"/>
+                    <toolbarItem implicitItemIdentifier="A19AC099-8D18-41EF-B42B-4DFB441793CC" label="Reload" paletteLabel="Reload" tag="2" image="NSRefreshTemplate" autovalidates="NO" selectable="YES" id="Sk5-5P-AcN"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="MDi-0u-SnJ"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="adB-09-R90"/>
-                    <toolbarItem reference="bDM-RA-Tzq"/>
+                    <toolbarItem reference="dvB-Ef-5TH"/>
+                    <toolbarItem reference="Kw8-j8-jHn"/>
+                    <toolbarItem reference="MDi-0u-SnJ"/>
+                    <toolbarItem reference="MDi-0u-SnJ"/>
+                    <toolbarItem reference="MDi-0u-SnJ"/>
+                    <toolbarItem reference="MDi-0u-SnJ"/>
+                    <toolbarItem reference="MDi-0u-SnJ"/>
+                    <toolbarItem reference="MDi-0u-SnJ"/>
+                    <toolbarItem reference="Sk5-5P-AcN"/>
                 </defaultToolbarItems>
             </toolbar>
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
-                <outlet property="googleArrayController" destination="Q1e-uI-mMJ" id="xKq-ht-BJP"/>
-                <outlet property="googleTable" destination="tkr-lP-ZBP" id="REc-sv-MVs"/>
+                <outlet property="googleTable" destination="Nxg-ZX-CYA" id="ENk-7m-WEG"/>
+                <outlet property="googleTableController" destination="yDb-TG-oae" id="fJV-Sz-2dK"/>
                 <outlet property="localTable" destination="Nxg-ZX-CYA" id="0gj-1A-wxm"/>
                 <outlet property="spotifyTable" destination="Pov-ut-P7d" id="fH8-as-3Ke"/>
                 <outlet property="tabView" destination="xBc-0O-zFI" id="APv-vG-YQs"/>
@@ -945,10 +859,16 @@
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
+        <customObject id="yDb-TG-oae" customClass="GoogleTableController">
+            <connections>
+                <outlet property="googleArrayController" destination="Q1e-uI-mMJ" id="nWK-lU-kS5"/>
+            </connections>
+        </customObject>
         <arrayController id="Q1e-uI-mMJ" userLabel="Google Array Controller"/>
     </objects>
     <resources>
-        <image name="NSFolder" width="32" height="32"/>
-        <image name="NSGoRightTemplate" width="9" height="9"/>
+        <image name="NSRefreshTemplate" width="10" height="12"/>
+        <image name="NSRightFacingTriangleTemplate" width="9" height="9"/>
+        <image name="NSStatusUnavailable" width="16" height="16"/>
     </resources>
 </document>

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PreferencesWindowController.h"
-#import "GoogleMusicController.h"
+#import "GoogleTableController.h"
 
 @implementation AppDelegate
 
@@ -16,8 +16,19 @@
 {
 	// Insert code here to initialize your application
 	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
-	[self populateGoogleTable];
+	
+	[self setGoogleTableController:[[GoogleTableController alloc] init]];
+	[[[self tabView] tabViewItemAtIndex:1] setView:[[self googleTableController] view]];
+	[[self googleTableController] populateGoogleTable];
 }
+
+-(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
+{
+	[[self window] setIsVisible:YES];
+	return YES;
+}
+
+#pragma mark - Player
 
 -(IBAction)pause:(id)sender
 {
@@ -34,43 +45,28 @@
 	NSTabViewItem* selectedTabView = [[self tabView] selectedTabViewItem];
 	if ([[selectedTabView label] isEqualToString:@"Google Music"])
 	{
-		NSInteger selectedRow = [[self googleTable] selectedRow];
-		NSDictionary* songDictionary = [[[self googleArrayController] arrangedObjects] objectAtIndex:selectedRow];
-		NSString* songId = [songDictionary objectForKey:@"id"];
-		NSString* streamURLString = [[self googleMusicController] getStreamUrl:songId];
-		NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
+		AVPlayerItem* googlePlayerItem = [[self googleTableController] getPlayerItemForSelectedSong];
 		
-		[self setPlayerItem:[AVPlayerItem playerItemWithURL:streamURL]];
+		[self setPlayerItem:googlePlayerItem];
 		[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 		[self setPlayer:[AVPlayer playerWithPlayerItem:[self playerItem]]];
 	}
 }
 
+-(IBAction)reload:(id)sender
+{
+	NSTabViewItem* selectedTabView = [[self tabView] selectedTabViewItem];
+	if ([[selectedTabView label] isEqualToString:@"Google Music"])
+	{
+		[[self googleTableController] populateGoogleTable];
+	}
+}
+
+#pragma mark - Preferences
+
 -(IBAction)showPreferences:(id)sender
 {
 	[[self preferencesWindowController] showWindow:self];
-}
-
--(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
-{
-	[[self window] setIsVisible:YES];
-	return YES;
-}
-
--(void)loadGoogleTracks
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[[self googleArrayController] setContent:[[self googleMusicController] songArray]];
-}
-
--(void)populateGoogleTable
-{
-	if (![self googleMusicController])
-		[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGoogleTracks) name:@"GoogleMusicTracksLoaded" object:nil];
-	
-	[[self googleMusicController] loginWithUsername:[[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"] password:[[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"]];
 }
 
 @end
