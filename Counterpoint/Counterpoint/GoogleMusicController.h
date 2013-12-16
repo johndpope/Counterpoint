@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString* authenticationToken;
 @property (nonatomic, retain) NSString* xtToken;
+@property (nonatomic, retain) NSString* continuationToken;
 @property (nonatomic, retain) NSString* finalResponse;
 
 @property (nonatomic) NSInteger requestStage;

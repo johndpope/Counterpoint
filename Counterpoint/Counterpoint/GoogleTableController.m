@@ -9,6 +9,7 @@
 #import "GoogleTableController.h"
 #import "GoogleMusicController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "AppDelegate.h"
 
 @interface GoogleTableController ()
 
@@ -39,6 +40,7 @@
 -(void)loadGoogleTracks
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[self songsLabel] setStringValue:[NSString stringWithFormat:@"%ld Songs Available", [[[self googleMusicController] songArray] count]]];
 	[[self googleArrayController] setContent:[[self googleMusicController] songArray]];
 }
 
@@ -51,6 +53,13 @@
 	NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
 	
 	return [AVPlayerItem playerItemWithURL:streamURL];
+}
+
+-(void)doubleClickTableRow
+{
+	AVPlayerItem* playerItem = [self getPlayerItemForSelectedSong];
+	
+	[(AppDelegate*)[NSApp delegate] playWithPlayerItem:playerItem];
 }
 
 @end

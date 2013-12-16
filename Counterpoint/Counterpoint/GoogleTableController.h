@@ -11,11 +11,13 @@
 @class GoogleMusicController;
 @class AVPlayerItem;
 
-@interface GoogleTableController : NSViewController
+@interface GoogleTableController : NSViewController <NSTableViewDelegate>
 
 @property (nonatomic, strong) GoogleMusicController* googleMusicController;
 @property (nonatomic, strong) IBOutlet NSArrayController* googleArrayController;
 @property (nonatomic, strong) IBOutlet NSTableView* googleTable;
+
+@property (nonatomic, weak) IBOutlet NSTextField* songsLabel;
 
 -(void)populateGoogleTable;
 -(AVPlayerItem*)getPlayerItemForSelectedSong;

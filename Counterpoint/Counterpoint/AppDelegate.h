@@ -29,4 +29,7 @@
 
 @property (nonatomic, strong) IBOutlet GoogleTableController* googleTableController;
 
+
+-(void)playWithPlayerItem:(AVPlayerItem*)playerItem;
+
 @end

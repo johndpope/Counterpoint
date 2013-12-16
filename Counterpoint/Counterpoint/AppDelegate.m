@@ -14,6 +14,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+	[NSApp setDelegate:self];
+	
 	// Insert code here to initialize your application
 	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
 	
@@ -51,6 +53,14 @@
 		[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 		[self setPlayer:[AVPlayer playerWithPlayerItem:[self playerItem]]];
 	}
+}
+
+-(void)playWithPlayerItem:(AVPlayerItem*)playerItem
+{
+	[self setPlayerItem:playerItem];
+	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	[[self toolbar] setSelectedItemIdentifier:@"play"];
+	[self setPlayer:[AVPlayer playerWithPlayerItem:[self playerItem]]];
 }
 
 -(IBAction)reload:(id)sender

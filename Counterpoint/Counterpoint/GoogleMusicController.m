@@ -24,6 +24,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	{
 		_authenticationToken = [[NSString alloc] init];
 		_xtToken = [[NSString alloc] init];
+		_continuationToken = [[NSString alloc] init];
 		_songArray = [[NSMutableArray alloc] init];
 		_finalResponse = [[NSMutableString alloc] init];
 	}
@@ -37,6 +38,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	
 	[self setAuthenticationToken:@""];
 	[self setXtToken:@""];
+	[self setContinuationToken:@""];
 	[self setFinalResponse:[[NSMutableString alloc] init]];
 	[[self songArray] removeAllObjects];
 	
@@ -79,6 +81,12 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 
 -(BOOL)loadAllTracks
 {
+//	NSString* continuationString = @"";
+//	if ([self continuationToken] && ![[self continuationToken] isEqualToString:@""])
+//	{
+//		continuationString = [NSString stringWithFormat:@"&cont=%@", [self continuationToken]];
+//	}
+	
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://play.google.com/music/services/loadalltracks?u=0&xt=%@",[self xtToken]]]];
     [request setHTTPMethod:@"POST"];
@@ -86,8 +94,26 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
     
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 	
-	[self setRequestStage:LoadAllTracks];
+	if ([self continuationToken] && ![[self continuationToken] isEqualToString:@""])
+	{
+		
+		
+		NSData *stringAsData = [NSJSONSerialization dataWithJSONObject:jsonCompatibleDict
+															   options:0
+																 error:error];
+		
+		
+		
+		
+		NSString *jsonPostBody = [NSString stringWithFormat:@"'json' = '{\"continuationToken\":"
+								  "\"%@\"}'",
+								  [self continuationToken]];
+		
+		[request setHTTPBody:stringAsData];
+	}
 	
+	[self setRequestStage:LoadAllTracks];
+		
     NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
 	if (!connection)
 		return NO;
@@ -135,7 +161,8 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	else if ([self requestStage] == LoadAllTracks)
 	{
 		NSString *response = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-		[self setFinalResponse:[[self finalResponse] stringByAppendingString:response]];
+		if (response)
+			[self setFinalResponse:[[self finalResponse] stringByAppendingString:response]];
 	}	
 }
 
@@ -161,12 +188,19 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
         }
         else
         {
-            [self setSongArray:[[NSMutableArray alloc] init]];
             for (NSDictionary *song in songDict[@"playlist"])
             {
                 [[self songArray] addObject:song];
             }
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"GoogleMusicTracksLoaded" object:nil];
+			
+			NSString* continuationToken = songDict[@"continuationToken"];
+			if (continuationToken && ![continuationToken isEqualToString:@""])
+			{
+				[self setContinuationToken:continuationToken];
+				[self loadAllTracks];
+			}
+			else
+				[[NSNotificationCenter defaultCenter] postNotificationName:@"GoogleMusicTracksLoaded" object:nil];
         }
 	}
 }
