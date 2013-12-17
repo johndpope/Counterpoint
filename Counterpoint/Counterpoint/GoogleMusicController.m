@@ -81,35 +81,47 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 
 -(BOOL)loadAllTracks
 {
-//	NSString* continuationString = @"";
-//	if ([self continuationToken] && ![[self continuationToken] isEqualToString:@""])
-//	{
-//		continuationString = [NSString stringWithFormat:@"&cont=%@", [self continuationToken]];
-//	}
-	
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://play.google.com/music/services/loadalltracks?u=0&xt=%@",[self xtToken]]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[self authenticationToken]] forHTTPHeaderField:@"Authorization"];
+	
+	NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	NSDateComponents* dateComponents = [[NSDateComponents alloc] init];
+	[dateComponents setYear:0001];
+	[dateComponents setMonth:01];
+	[dateComponents setDay:01];
+	[dateComponents setHour:00];
+	[dateComponents setMinute:00];
+	[dateComponents setSecond:00];
+	
+	NSDate* startDate = [calendar dateFromComponents:dateComponents];
+	
+	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:startDate];
+	double ticks = timeInterval * 10000000;
+	
+	NSString* hexTicks = [NSString stringWithFormat:@"%x", (int)ticks];
     
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", hexTicks] forHTTPHeaderField:@"Content-Type"];
 	
 	if ([self continuationToken] && ![[self continuationToken] isEqualToString:@""])
 	{
+		NSMutableString* jsonString = [NSMutableString string];
 		
+		[jsonString appendFormat:@"\r\n--%@\r\n", hexTicks];
+		[jsonString appendFormat:@"Content-Disposition: form-data; name=\"continuationToken\";\r\n\r\n%@", [self continuationToken]];
+		[jsonString appendFormat:@"\r\n--%@--\r\n", hexTicks];
 		
-		NSData *stringAsData = [NSJSONSerialization dataWithJSONObject:jsonCompatibleDict
+		NSDictionary* jsonDict = @{@"json": jsonString};
+		
+		NSError* error = nil;
+		NSData *stringAsData = [NSJSONSerialization dataWithJSONObject:jsonDict
 															   options:0
-																 error:error];
-		
-		
-		
-		
-		NSString *jsonPostBody = [NSString stringWithFormat:@"'json' = '{\"continuationToken\":"
-								  "\"%@\"}'",
-								  [self continuationToken]];
-		
-		[request setHTTPBody:stringAsData];
+																 error:&error];
+		if (!stringAsData)
+			NSLog(@"%@",[error description]);
+		else
+			[request setHTTPBody:stringAsData];
 	}
 	
 	[self setRequestStage:LoadAllTracks];
@@ -197,6 +209,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 			if (continuationToken && ![continuationToken isEqualToString:@""])
 			{
 				[self setContinuationToken:continuationToken];
+				[self setFinalResponse:@""];
 				[self loadAllTracks];
 			}
 			else
