@@ -79,19 +79,19 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	return YES;
 }
 
--(BOOL)loadAllTracks
+-(BOOL)loadAllTracksMobile
 {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://play.google.com/music/services/loadalltracks?u=0&xt=%@", [self xtToken]]]];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.googleapis.com/sj/v1.1/trackfeed"]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[self authenticationToken]] forHTTPHeaderField:@"Authorization"];
 	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+	
 	if ([self continuationToken] && ![[self continuationToken] isEqualToString:@""])
 	{
-		[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+		NSDictionary* jsonDict = @{@"start-token" : [self continuationToken]};
 		
-		NSDictionary* jsonDict = @{@"continuationToken" : [self continuationToken]};
-						
 		NSError* error = nil;
 		NSData* body = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
 		
@@ -103,11 +103,9 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 		else
 			[request setHTTPBody:body];
 	}
-	else
-		[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 	
 	[self setRequestStage:LoadAllTracks];
-		
+	
     NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
 	if (!connection)
 		return NO;
@@ -168,7 +166,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	}
 	else if ([self requestStage] == LoginContinuedRequestWithAuthenticationToken)
 	{
-		[self loadAllTracks];
+		[self loadAllTracksMobile];
 	}
 	else if ([self requestStage] == LoadAllTracks)
 	{
@@ -182,19 +180,20 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
         }
         else
         {
-            for (NSDictionary *song in songDict[@"playlist"])
+			NSArray* songs = songDict[@"data"][@"items"];
+            for (NSDictionary *song in songs)
             {
                 [[self songArray] addObject:song];
             }
 			
-//			NSString* continuationToken = songDict[@"continuationToken"];
-//			if (continuationToken && ![continuationToken isEqualToString:@""])
-//			{
-//				[self setContinuationToken:continuationToken];
-//				[self setFinalResponse:@""];
-//				[self loadAllTracks];
-//			}
-//			else
+			NSString* continuationToken = songDict[@"nextPageToken"];
+			if (continuationToken && ![continuationToken isEqualToString:@""])
+			{
+				[self setContinuationToken:continuationToken];
+				[self setFinalResponse:@""];
+				[self loadAllTracksMobile];
+			}
+			else
 				[[NSNotificationCenter defaultCenter] postNotificationName:@"GoogleMusicTracksLoaded" object:nil];
         }
 	}
