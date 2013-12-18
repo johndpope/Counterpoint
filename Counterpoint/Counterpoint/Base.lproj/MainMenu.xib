@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -655,7 +655,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="816" height="428"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="816" height="428"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -715,11 +715,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="smT-wQ-SSo">
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="smT-wQ-SSo">
                                                 <rect key="frame" x="1" y="1" width="0.0" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="rod-5H-WNr">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="rod-5H-WNr">
                                                 <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -793,11 +793,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="kn9-bh-1nS">
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="kn9-bh-1nS">
                                                 <rect key="frame" x="1" y="1" width="0.0" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="GV8-6q-fBG">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="GV8-6q-fBG">
                                                 <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -825,7 +825,7 @@
                     <constraint firstItem="xBc-0O-zFI" firstAttribute="top" secondItem="372" secondAttribute="top" id="kGx-N2-zNZ"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="D70BEB21-A0C1-412E-9369-9C2235A818E0" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="gQu-fE-5hG">
+            <toolbar key="toolbar" implicitIdentifier="D70BEB21-A0C1-412E-9369-9C2235A818E0" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="small" id="gQu-fE-5hG">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="927B570D-C2BB-4C14-B159-2104AEE5FEFB" explicitItemIdentifier="play" label="Play" paletteLabel="Play" image="NSRightFacingTriangleTemplate" autovalidates="NO" selectable="YES" id="dvB-Ef-5TH">
                         <size key="maxSize" width="0.0" height="20"/>
@@ -843,16 +843,39 @@
                             <action selector="reload:" target="494" id="J18-Xi-sMi"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="371DACB7-6F25-463D-B2C4-2493479F5BF2" explicitItemIdentifier="next" label="Next" paletteLabel="Next" tag="3" image="NSGoRightTemplate" autovalidates="NO" selectable="YES" id="AcS-59-dln">
+                        <connections>
+                            <action selector="next:" target="494" id="2Bg-CV-awH"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="30A02CEC-8824-43B8-A779-B8EF7AEF6ABF" explicitItemIdentifier="queue" label="Queue" paletteLabel="Queue" tag="4" image="NSAddTemplate" autovalidates="NO" selectable="YES" id="D8o-02-8aC">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="32" height="31"/>
+                        <size key="maxSize" width="104" height="43"/>
+                        <button key="view" tag="4" id="d1Q-RS-dh5">
+                            <rect key="frame" x="5" y="14" width="32" height="43"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSAddTemplate" imageScaling="proportionallyDown" inset="2" id="U2I-8v-zJv">
+                                <behavior key="behavior" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="showQueue:" target="494" id="LJL-h2-ePT"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="MDi-0u-SnJ"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="dvB-Ef-5TH"/>
                     <toolbarItem reference="Kw8-j8-jHn"/>
+                    <toolbarItem reference="AcS-59-dln"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
+                    <toolbarItem reference="D8o-02-8aC"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
                     <toolbarItem reference="Sk5-5P-AcN"/>
                 </defaultToolbarItems>
@@ -860,9 +883,10 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
-                <outlet property="googleTable" destination="Nxg-ZX-CYA" id="ENk-7m-WEG"/>
                 <outlet property="googleTableController" destination="yDb-TG-oae" id="fJV-Sz-2dK"/>
                 <outlet property="localTable" destination="Nxg-ZX-CYA" id="0gj-1A-wxm"/>
+                <outlet property="queuePopover" destination="bBg-bh-CZl" id="Y4S-iA-ViB"/>
+                <outlet property="queueToolbarItem" destination="D8o-02-8aC" id="ugC-0v-9FW"/>
                 <outlet property="spotifyTable" destination="Pov-ut-P7d" id="fH8-as-3Ke"/>
                 <outlet property="tabView" destination="xBc-0O-zFI" id="APv-vG-YQs"/>
                 <outlet property="toolbar" destination="gQu-fE-5hG" id="4AF-hN-hZ3"/>
@@ -876,8 +900,16 @@
             </connections>
         </customObject>
         <arrayController id="Q1e-uI-mMJ" userLabel="Google Array Controller"/>
+        <viewController title="Queue Popover View Controller" nibName="QueuePopoverViewController" id="gKS-u8-39a" userLabel="Popover View Controller" customClass="QueuePopoverViewController"/>
+        <popover behavior="t" id="bBg-bh-CZl">
+            <connections>
+                <outlet property="contentViewController" destination="gKS-u8-39a" id="3Vm-nY-wQb"/>
+            </connections>
+        </popover>
     </objects>
     <resources>
+        <image name="NSAddTemplate" width="8" height="8"/>
+        <image name="NSGoRightTemplate" width="9" height="9"/>
         <image name="NSRefreshTemplate" width="10" height="12"/>
         <image name="NSRightFacingTriangleTemplate" width="9" height="9"/>
         <image name="NSStatusUnavailable" width="16" height="16"/>

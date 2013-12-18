@@ -20,6 +20,6 @@
 @property (nonatomic, weak) IBOutlet NSTextField* songsLabel;
 
 -(void)populateGoogleTable;
--(AVPlayerItem*)getPlayerItemForSelectedSong;
+-(void)playSelectedSongAndQueueFollowingTracks;
 
 @end

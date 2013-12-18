@@ -32,35 +32,48 @@
 
 #pragma mark - Player
 
+-(IBAction)showQueue:(NSToolbarItem*)queueToolbarItem
+{
+	[[self queuePopover] showRelativeToRect:[[[self queueToolbarItem] view] bounds] ofView:[[self queueToolbarItem] view] preferredEdge:NSMaxYEdge];
+}
+
+-(IBAction)next:(id)sender
+{
+	[[self player] advanceToNextItem];
+	[self setPlayerItem:[[self player] currentItem]];
+	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+}
+
 -(IBAction)pause:(id)sender
 {
 	[[self player] pause];
 }
 
+-(void)playerItemDidReachEnd:(id)object
+{
+	[[self player] advanceToNextItem];
+	[self setPlayerItem:[[self player] currentItem]];
+	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+}
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+	[[self playerItem] removeObserver:self forKeyPath:keyPath];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:object];
 	[[self player] play];
 }
 
 -(IBAction)play:(id)sender
 {
-	NSTabViewItem* selectedTabView = [[self tabView] selectedTabViewItem];
-	if ([[selectedTabView label] isEqualToString:@"Google Music"])
-	{
-		AVPlayerItem* googlePlayerItem = [[self googleTableController] getPlayerItemForSelectedSong];
-		
-		[self setPlayerItem:googlePlayerItem];
-		[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
-		[self setPlayer:[AVPlayer playerWithPlayerItem:[self playerItem]]];
-	}
+	[[self player] play];
 }
 
--(void)playWithPlayerItem:(AVPlayerItem*)playerItem
+-(void)playWithPlayerItemQueue:(NSArray*)playerItemQueue
 {
-	[self setPlayerItem:playerItem];
+	[self setPlayer:[AVQueuePlayer queuePlayerWithItems:playerItemQueue]];
+	[self setPlayerItem:[[self player] currentItem]];
 	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	[[self toolbar] setSelectedItemIdentifier:@"play"];
-	[self setPlayer:[AVPlayer playerWithPlayerItem:[self playerItem]]];
 }
 
 -(IBAction)reload:(id)sender

@@ -34,6 +34,7 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGoogleTracks) name:@"GoogleMusicTracksLoaded" object:nil];
 	
+	[[self songsLabel] setStringValue:@"Loading Songs..."];
 	[[self googleMusicController] loginWithUsername:[[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"] password:[[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"]];
 }
 
@@ -44,10 +45,9 @@
 	[[self googleArrayController] setContent:[[self googleMusicController] songArray]];
 }
 
--(AVPlayerItem*)getPlayerItemForSelectedSong
+-(AVPlayerItem*)getPlayerItemForSong:(NSInteger)songRow
 {
-	NSInteger selectedRow = [[self googleTable] selectedRow];
-	NSDictionary* songDictionary = [[[self googleArrayController] arrangedObjects] objectAtIndex:selectedRow];
+	NSDictionary* songDictionary = [[[self googleArrayController] arrangedObjects] objectAtIndex:songRow];
 	NSString* songId = [songDictionary objectForKey:@"id"];
 	NSString* streamURLString = [[self googleMusicController] getStreamUrl:songId];
 	NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
@@ -55,11 +55,19 @@
 	return [AVPlayerItem playerItemWithURL:streamURL];
 }
 
--(void)doubleClickTableRow
+-(void)playSelectedSongAndQueueFollowingTracks
 {
-	AVPlayerItem* playerItem = [self getPlayerItemForSelectedSong];
+	NSInteger selectedRow = [[self googleTable] selectedRow];
 	
-	[(AppDelegate*)[NSApp delegate] playWithPlayerItem:playerItem];
+	AVPlayerItem* playerItem = [self getPlayerItemForSong:selectedRow];
+	
+	[(AppDelegate*)[NSApp delegate] playWithPlayerItemQueue:@[playerItem]];
+	
+	for (NSInteger i = selectedRow+1; i < [[[self googleArrayController] arrangedObjects] count] && i < selectedRow + 20; i++)
+	{
+		[(AVQueuePlayer*)[[NSApp delegate] player] insertItem:[self getPlayerItemForSong:i] afterItem:nil];
+		NSLog(@"item added to queue. queue size: %ld", [[(AVQueuePlayer*)[[NSApp delegate] player] items] count]);
+	}
 }
 
 @end

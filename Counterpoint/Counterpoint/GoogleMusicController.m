@@ -208,12 +208,23 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
     NSError *error;
-    NSURLResponse *response;
+    NSHTTPURLResponse *response;
     
     NSData *resp = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	
+	if([response statusCode] != 200)
+	{
+		NSLog(@"Bad response (%ld) from getStreamURL:", [response statusCode]);
+		return @"";
+	}
+	
     NSString *test = [[NSString alloc] initWithData:resp encoding:NSUTF8StringEncoding];
     NSData *jsonData = [test dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *urlDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+    NSDictionary *urlDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+	if (!urlDict || !urlDict[@"url"])
+	{
+		NSLog(@"error!");
+	}
     
     return urlDict[@"url"];
 }

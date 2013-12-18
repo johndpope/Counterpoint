@@ -16,9 +16,12 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, strong) IBOutlet NSToolbar* toolbar;
+@property (nonatomic, strong) IBOutlet NSToolbarItem* queueToolbarItem;
 
-@property (nonatomic, strong) AVPlayer* player;
+@property (nonatomic, strong) AVQueuePlayer* player;
 @property (nonatomic, strong) AVPlayerItem* playerItem;
+
+@property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
 
 @property (nonatomic, strong) IBOutlet NSTabView* tabView;
 
@@ -30,6 +33,6 @@
 @property (nonatomic, strong) IBOutlet GoogleTableController* googleTableController;
 
 
--(void)playWithPlayerItem:(AVPlayerItem*)playerItem;
+-(void)playWithPlayerItemQueue:(NSArray*)playerItemQueue;
 
 @end

@@ -13,7 +13,16 @@
                 <outlet property="view" destination="cVd-4K-JVJ" id="fHe-yL-xgz"/>
             </connections>
         </customObject>
-        <arrayController id="zax-ZN-n7r" userLabel="Google Array Controller"/>
+        <arrayController id="zax-ZN-n7r" userLabel="Google Array Controller">
+            <connections>
+                <binding destination="ENU-SK-XI4" name="sortDescriptors" keyPath="values.googleTableSortPrefs" id="Smf-cX-BAf">
+                    <dictionary key="options">
+                        <bool key="NSValidatesImmediately" value="YES"/>
+                        <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                    </dictionary>
+                </binding>
+            </connections>
+        </arrayController>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <view id="cVd-4K-JVJ">
@@ -91,9 +100,9 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <binding destination="-2" name="doubleClickTarget" keyPath="self" id="fRJ-3b-E15">
+                                    <binding destination="-2" name="doubleClickTarget" keyPath="self" id="ZS4-Mm-Utw">
                                         <dictionary key="options">
-                                            <string key="NSSelectorName">doubleClickTableRow</string>
+                                            <string key="NSSelectorName">playSelectedSongAndQueueFollowingTracks</string>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -134,5 +143,6 @@
                 <constraint firstAttribute="trailing" secondItem="MAP-HC-GHp" secondAttribute="trailing" constant="337" id="uW3-bC-pSB"/>
             </constraints>
         </view>
+        <userDefaultsController representsSharedInstance="YES" id="ENU-SK-XI4"/>
     </objects>
 </document>
