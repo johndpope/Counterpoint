@@ -24,7 +24,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	{
 		_authenticationToken = [[NSString alloc] init];
 		_xtToken = [[NSString alloc] init];
-		_continuationToken = [[NSString alloc] init];
+		_nextPageToken = [[NSString alloc] init];
 		_songArray = [[NSMutableArray alloc] init];
 		_finalResponse = [[NSMutableString alloc] init];
 	}
@@ -38,7 +38,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	
 	[self setAuthenticationToken:@""];
 	[self setXtToken:@""];
-	[self setContinuationToken:@""];
+	[self setNextPageToken:@""];
 	[self setFinalResponse:[[NSMutableString alloc] init]];
 	[[self songArray] removeAllObjects];
 	
@@ -88,9 +88,9 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	
 	[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 	
-	if ([self continuationToken] && ![[self continuationToken] isEqualToString:@""])
+	if ([self nextPageToken] && ![[self nextPageToken] isEqualToString:@""])
 	{
-		NSDictionary* jsonDict = @{@"start-token" : [self continuationToken]};
+		NSDictionary* jsonDict = @{@"start-token" : [self nextPageToken]};
 		
 		NSError* error = nil;
 		NSData* body = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
@@ -189,7 +189,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 			NSString* continuationToken = songDict[@"nextPageToken"];
 			if (continuationToken && ![continuationToken isEqualToString:@""])
 			{
-				[self setContinuationToken:continuationToken];
+				[self setNextPageToken:continuationToken];
 				[self setFinalResponse:@""];
 				[self loadAllTracksMobile];
 			}
@@ -221,7 +221,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
     NSString *test = [[NSString alloc] initWithData:resp encoding:NSUTF8StringEncoding];
     NSData *jsonData = [test dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *urlDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-	if (!urlDict || !urlDict[@"url"])
+	if (!urlDict)
 	{
 		NSLog(@"error!");
 	}

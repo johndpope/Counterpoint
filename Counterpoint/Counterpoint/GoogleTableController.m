@@ -27,6 +27,8 @@
 	return self;
 }
 
+#pragma mark - Populating Table
+
 -(void)populateGoogleTable
 {
 	if (![self googleMusicController])
@@ -45,6 +47,8 @@
 	[[self googleArrayController] setContent:[[self googleMusicController] songArray]];
 }
 
+#pragma mark - Create Player Items for Player
+
 -(AVPlayerItem*)getPlayerItemForSong:(NSInteger)songRow
 {
 	NSDictionary* songDictionary = [[[self googleArrayController] arrangedObjects] objectAtIndex:songRow];
@@ -61,7 +65,7 @@
 	
 	AVPlayerItem* playerItem = [self getPlayerItemForSong:selectedRow];
 	
-	[(AppDelegate*)[NSApp delegate] playWithPlayerItemQueue:@[playerItem]];
+	[[NSApp delegate] playWithPlayerItemQueue:@[playerItem]];
 	
 	for (NSInteger i = selectedRow+1; i < [[[self googleArrayController] arrangedObjects] count] && i < selectedRow + 20; i++)
 	{

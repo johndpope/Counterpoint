@@ -16,7 +16,6 @@
 {
 	[NSApp setDelegate:self];
 	
-	// Insert code here to initialize your application
 	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
 	
 	[self setGoogleTableController:[[GoogleTableController alloc] init]];
@@ -30,12 +29,7 @@
 	return YES;
 }
 
-#pragma mark - Player
-
--(IBAction)showQueue:(NSToolbarItem*)queueToolbarItem
-{
-	[[self queuePopover] showRelativeToRect:[[[self queueToolbarItem] view] bounds] ofView:[[self queueToolbarItem] view] preferredEdge:NSMaxYEdge];
-}
+#pragma mark - Player Controls
 
 -(IBAction)next:(id)sender
 {
@@ -49,6 +43,11 @@
 	[[self player] pause];
 }
 
+-(IBAction)play:(id)sender
+{
+	[[self player] play];
+}
+
 -(void)playerItemDidReachEnd:(id)object
 {
 	[[self player] advanceToNextItem];
@@ -58,14 +57,12 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	[[self playerItem] removeObserver:self forKeyPath:keyPath];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:object];
-	[[self player] play];
-}
-
--(IBAction)play:(id)sender
-{
-	[[self player] play];
+	if ([keyPath isEqualToString:@"status"])
+	{
+		[[self playerItem] removeObserver:self forKeyPath:keyPath];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:object];
+		[[self player] play];
+	}
 }
 
 -(void)playWithPlayerItemQueue:(NSArray*)playerItemQueue
@@ -75,6 +72,15 @@
 	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	[[self toolbar] setSelectedItemIdentifier:@"play"];
 }
+
+#pragma mark - Queue Controls
+
+-(IBAction)showQueue:(NSToolbarItem*)queueToolbarItem
+{
+	[[self queuePopover] showRelativeToRect:[[[self queueToolbarItem] view] bounds] ofView:[[self queueToolbarItem] view] preferredEdge:NSMaxYEdge];
+}
+
+#pragma mark - Table View Controls
 
 -(IBAction)reload:(id)sender
 {

@@ -7,6 +7,8 @@
 //
 
 #import "QueuePopoverViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import "AppDelegate.h"
 
 @interface QueuePopoverViewController ()
 
@@ -14,14 +16,27 @@
 
 @implementation QueuePopoverViewController
 
--(id)init
+-(void)awakeFromNib
 {
-	self = [super init];
-	if (self)
+	[[NSApp delegate] addObserver:self forKeyPath:@"player" options:0 context:nil];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if ([keyPath isEqualToString:@"items"])
 	{
-		
+		[[self queueArrayController] setContent:object];
 	}
-	return self;
+	if ([keyPath isEqualToString:@"player"])
+	{
+		[[[NSApp delegate] player] addObserver:self forKeyPath:@"items" options:0 context:nil];
+	}
+}
+
+-(void)dealloc
+{
+	[self removeObserver:self forKeyPath:@"player"];
+	[self removeObserver:self forKeyPath:@"items"];
 }
 
 @end

@@ -155,18 +155,12 @@
 			children = (
 				0DCE24A4184CFA5D0039DDC0 /* AppDelegate.h */,
 				0DCE24A5184CFA5D0039DDC0 /* AppDelegate.m */,
-				0DE159561858BF880066A829 /* GoogleMusicController.h */,
-				0DE159571858BF880066A829 /* GoogleMusicController.m */,
-				B3707F8D185ABC610062DD5D /* GoogleTableController.h */,
-				B3707F8E185ABC610062DD5D /* GoogleTableController.m */,
-				B3707F92185AC7010062DD5D /* GoogleTableControllerView.xib */,
+				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
 				0DBF939F18623FFC005A9733 /* QueuePopoverViewController.h */,
 				0DBF93A018623FFC005A9733 /* QueuePopoverViewController.m */,
 				0DBF93A118623FFC005A9733 /* QueuePopoverViewController.xib */,
-				0DB166D1184D422800683551 /* PreferencesWindowController.h */,
-				0DB166D2184D422800683551 /* PreferencesWindowController.m */,
-				0DB166D3184D422800683551 /* PreferencesWindowController.xib */,
-				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
+				B38E5A9C186299950049602D /* Google Music */,
+				B38E5A9F186299A80049602D /* Preferences */,
 				0DCE24AA184CFA5D0039DDC0 /* Images.xcassets */,
 				0DCE2499184CFA5C0039DDC0 /* Supporting Files */,
 			);
@@ -210,6 +204,28 @@
 				0DCE2551184D20450039DDC0 /* CocoaLSTests.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B38E5A9C186299950049602D /* Google Music */ = {
+			isa = PBXGroup;
+			children = (
+				0DE159561858BF880066A829 /* GoogleMusicController.h */,
+				0DE159571858BF880066A829 /* GoogleMusicController.m */,
+				B3707F8D185ABC610062DD5D /* GoogleTableController.h */,
+				B3707F8E185ABC610062DD5D /* GoogleTableController.m */,
+				B3707F92185AC7010062DD5D /* GoogleTableControllerView.xib */,
+			);
+			name = "Google Music";
+			sourceTree = "<group>";
+		};
+		B38E5A9F186299A80049602D /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				0DB166D1184D422800683551 /* PreferencesWindowController.h */,
+				0DB166D2184D422800683551 /* PreferencesWindowController.m */,
+				0DB166D3184D422800683551 /* PreferencesWindowController.xib */,
+			);
+			name = Preferences;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
