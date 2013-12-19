@@ -35,6 +35,7 @@
 @property (nonatomic, strong) AVPlayerItem* playerItem;
 
 @property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
+@property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
 
 @property (nonatomic, strong) IBOutlet NSTabView* tabView;
 
@@ -44,6 +45,7 @@
 
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 
--(void)playWithPlayerItemQueue:(NSArray*)playerItemQueue;
+-(void)startPlayingPlayerItem:(AVPlayerItem*)playerItem withQueueBuildingCompletionHandler:(void(^)(void))completionHandler;
+-(void)addItemToQueue:(AVPlayerItem*)playerItem;
 
 @end

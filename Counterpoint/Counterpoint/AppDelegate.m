@@ -21,6 +21,8 @@
 	[self setGoogleTableController:[[GoogleTableController alloc] init]];
 	[[[self tabView] tabViewItemAtIndex:1] setView:[[self googleTableController] view]];
 	[[self googleTableController] populateGoogleTable];
+	
+	[self setQueueArrayController:[[NSArrayController alloc] init]];
 }
 
 -(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
@@ -65,19 +67,31 @@
 	}
 }
 
--(void)playWithPlayerItemQueue:(NSArray*)playerItemQueue
+-(void)startPlayingPlayerItem:(AVPlayerItem*)playerItem withQueueBuildingCompletionHandler:(void(^)(void))completionHandler
 {
-	[self setPlayer:[AVQueuePlayer queuePlayerWithItems:playerItemQueue]];
+	[[self queueArrayController] setContent:[NSMutableArray arrayWithObject:playerItem]];
+	[self setPlayer:[AVQueuePlayer queuePlayerWithItems:@[playerItem]]];
 	[self setPlayerItem:[[self player] currentItem]];
 	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	[[self toolbar] setSelectedItemIdentifier:@"play"];
+	
+	if (completionHandler)
+		completionHandler();
 }
+
 
 #pragma mark - Queue Controls
 
 -(IBAction)showQueue:(NSToolbarItem*)queueToolbarItem
 {
 	[[self queuePopover] showRelativeToRect:[[[self queueToolbarItem] view] bounds] ofView:[[self queueToolbarItem] view] preferredEdge:NSMaxYEdge];
+}
+
+-(void)addItemToQueue:(AVPlayerItem*)playerItem
+{
+	[[self queueArrayController] addObject:playerItem];
+	[[self player] insertItem:playerItem afterItem:nil];
+	NSLog(@"item added to queue. queue size: %ld", [[[self player] items] count]);
 }
 
 #pragma mark - Table View Controls

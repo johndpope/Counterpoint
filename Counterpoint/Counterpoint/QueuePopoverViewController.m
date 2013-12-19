@@ -16,27 +16,26 @@
 
 @implementation QueuePopoverViewController
 
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+	if (self)
+	{
+		NSLog(@"AppDelegate is : %@", [self appDelegate]);
+	}
+	return self;
+}
+
 -(void)awakeFromNib
 {
-	[[NSApp delegate] addObserver:self forKeyPath:@"player" options:0 context:nil];
+	NSLog(@"AppDelegate is : %@", [self appDelegate]);
+	NSLog(@"Array Controller is : %@", [[self appDelegate] queueArrayController]);
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+-(void)popoverWillShow:(NSNotification *)notification
 {
-	if ([keyPath isEqualToString:@"items"])
-	{
-		[[self queueArrayController] setContent:object];
-	}
-	if ([keyPath isEqualToString:@"player"])
-	{
-		[[[NSApp delegate] player] addObserver:self forKeyPath:@"items" options:0 context:nil];
-	}
-}
-
--(void)dealloc
-{
-	[self removeObserver:self forKeyPath:@"player"];
-	[self removeObserver:self forKeyPath:@"items"];
+	NSLog(@"AppDelegate is : %@", [self appDelegate]);
+	NSLog(@"Array Controller is : %@", [[self appDelegate] queueArrayController]);
 }
 
 @end

@@ -65,13 +65,12 @@
 	
 	AVPlayerItem* playerItem = [self getPlayerItemForSong:selectedRow];
 	
-	[[NSApp delegate] playWithPlayerItemQueue:@[playerItem]];
-	
-	for (NSInteger i = selectedRow+1; i < [[[self googleArrayController] arrangedObjects] count] && i < selectedRow + 20; i++)
-	{
-		[(AVQueuePlayer*)[[NSApp delegate] player] insertItem:[self getPlayerItemForSong:i] afterItem:nil];
-		NSLog(@"item added to queue. queue size: %ld", [[(AVQueuePlayer*)[[NSApp delegate] player] items] count]);
-	}
+	[[NSApp delegate] startPlayingPlayerItem:playerItem withQueueBuildingCompletionHandler:^{
+		for (NSInteger i = selectedRow+1; i < [[[self googleArrayController] arrangedObjects] count] && i < selectedRow + 20; i++)
+		{
+			[[NSApp delegate] addItemToQueue:[self getPlayerItemForSong:i]];
+		}
+	}];
 }
 
 @end

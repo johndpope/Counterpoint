@@ -7,11 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class AppDelegate;
 
-@interface QueuePopoverViewController : NSViewController
+@interface QueuePopoverViewController : NSViewController <NSPopoverDelegate>
 
 @property (nonatomic, retain) IBOutlet NSTableView* queueTableView;
-
-@property (nonatomic, retain) IBOutlet NSArrayController* queueArrayController;
+@property (nonatomic, weak) IBOutlet AppDelegate* appDelegate;
 
 @end
