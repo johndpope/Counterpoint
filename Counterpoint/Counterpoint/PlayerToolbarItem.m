@@ -13,11 +13,13 @@
 
 -(id)initWithItemIdentifier:(NSString *)itemIdentifier
 {
+	self = [super initWithItemIdentifier:itemIdentifier];
 	if (self)
 	{
 		_viewController = [[PlayerToolbarItemViewController alloc] init];
 		[self setView:[_viewController view]];
 		[self setMinSize:[_viewController view].bounds.size];
+		[self setMaxSize:[_viewController view].bounds.size];
     }
     return self;
 }

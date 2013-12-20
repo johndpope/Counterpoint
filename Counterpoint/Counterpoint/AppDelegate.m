@@ -82,6 +82,11 @@
 	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	[[self toolbar] setSelectedItemIdentifier:@"play"];
 	
+	for (NSInteger i = 0; i < [[[self queueArrayController] arrangedObjects] count]; i++)
+	{
+		[[self queueArrayController] removeObjectAtArrangedObjectIndex:i];
+	}
+	
 	if (completionHandler)
 		completionHandler();
 }
