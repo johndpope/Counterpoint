@@ -864,6 +864,7 @@
                             <action selector="showQueue:" target="494" id="LJL-h2-ePT"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="C945195A-7B33-49B6-B2BC-0D3B02DE2A60" explicitItemIdentifier="player" label="" paletteLabel="Player" tag="-1" id="IRN-Tx-ROe" customClass="PlayerToolbarItem"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="MDi-0u-SnJ"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>

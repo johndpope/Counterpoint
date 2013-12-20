@@ -48,4 +48,8 @@
 -(void)startPlayingPlayerItem:(AVPlayerItem*)playerItem withQueueBuildingCompletionHandler:(void(^)(void))completionHandler;
 -(void)addItem:(NSDictionary*)trackDict toQueue:(AVPlayerItem*)playerItem;
 
+-(IBAction)play:(id)sender;
+-(IBAction)pause:(id)sender;
+-(IBAction)next:(id)sender;
+
 @end
