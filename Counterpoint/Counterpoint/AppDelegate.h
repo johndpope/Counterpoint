@@ -46,6 +46,6 @@
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 
 -(void)startPlayingPlayerItem:(AVPlayerItem*)playerItem withQueueBuildingCompletionHandler:(void(^)(void))completionHandler;
--(void)addItemToQueue:(AVPlayerItem*)playerItem;
+-(void)addItem:(NSDictionary*)trackDict toQueue:(AVPlayerItem*)playerItem;
 
 @end

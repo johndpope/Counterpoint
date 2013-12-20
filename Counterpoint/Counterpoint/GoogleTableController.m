@@ -68,7 +68,7 @@
 	[[NSApp delegate] startPlayingPlayerItem:playerItem withQueueBuildingCompletionHandler:^{
 		for (NSInteger i = selectedRow+1; i < [[[self googleArrayController] arrangedObjects] count] && i < selectedRow + 20; i++)
 		{
-			[[NSApp delegate] addItemToQueue:[self getPlayerItemForSong:i]];
+			[[NSApp delegate] addItem:[[self googleArrayController] arrangedObjects][i] toQueue:[self getPlayerItemForSong:i]];
 		}
 	}];
 }

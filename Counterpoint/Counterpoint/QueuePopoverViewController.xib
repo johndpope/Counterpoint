@@ -57,7 +57,7 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <binding destination="6Ix-ko-G7w" name="value" keyPath="objectValue" id="giy-sW-Ity"/>
+                                                            <binding destination="6Ix-ko-G7w" name="value" keyPath="objectValue.title" id="XhR-om-RsL"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>

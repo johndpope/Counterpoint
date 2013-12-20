@@ -908,7 +908,6 @@
         <popover behavior="t" id="bBg-bh-CZl">
             <connections>
                 <outlet property="contentViewController" destination="gKS-u8-39a" id="3Vm-nY-wQb"/>
-                <outlet property="delegate" destination="gKS-u8-39a" id="ap9-Is-p3V"/>
             </connections>
         </popover>
     </objects>

@@ -38,6 +38,7 @@
 	[[self player] advanceToNextItem];
 	[self setPlayerItem:[[self player] currentItem]];
 	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
 }
 
 -(IBAction)pause:(id)sender
@@ -69,7 +70,6 @@
 
 -(void)startPlayingPlayerItem:(AVPlayerItem*)playerItem withQueueBuildingCompletionHandler:(void(^)(void))completionHandler
 {
-	[[self queueArrayController] setContent:[NSMutableArray arrayWithObject:playerItem]];
 	[self setPlayer:[AVQueuePlayer queuePlayerWithItems:@[playerItem]]];
 	[self setPlayerItem:[[self player] currentItem]];
 	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
@@ -87,9 +87,9 @@
 	[[self queuePopover] showRelativeToRect:[[[self queueToolbarItem] view] bounds] ofView:[[self queueToolbarItem] view] preferredEdge:NSMaxYEdge];
 }
 
--(void)addItemToQueue:(AVPlayerItem*)playerItem
+-(void)addItem:(NSDictionary*)trackDict toQueue:(AVPlayerItem*)playerItem
 {
-	[[self queueArrayController] addObject:playerItem];
+	[[self queueArrayController] addObject:trackDict];
 	[[self player] insertItem:playerItem afterItem:nil];
 	NSLog(@"item added to queue. queue size: %ld", [[[self player] items] count]);
 }
