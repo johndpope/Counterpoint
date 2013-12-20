@@ -16,26 +16,4 @@
 
 @implementation QueuePopoverViewController
 
--(id)initWithCoder:(NSCoder *)aDecoder
-{
-	self = [super initWithCoder:aDecoder];
-	if (self)
-	{
-		NSLog(@"AppDelegate is : %@", [self appDelegate]);
-	}
-	return self;
-}
-
--(void)awakeFromNib
-{
-	NSLog(@"AppDelegate is : %@", [self appDelegate]);
-	NSLog(@"Array Controller is : %@", [[self appDelegate] queueArrayController]);
-}
-
--(void)popoverWillShow:(NSNotification *)notification
-{
-	NSLog(@"AppDelegate is : %@", [self appDelegate]);
-	NSLog(@"Array Controller is : %@", [[self appDelegate] queueArrayController]);
-}
-
 @end
