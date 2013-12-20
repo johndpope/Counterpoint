@@ -19,7 +19,10 @@
 
 @property (nonatomic, weak) IBOutlet NSTextField* songsLabel;
 
+@property (assign) NSInteger selectedSong;
+
 -(void)populateGoogleTable;
 -(void)playSelectedSongAndQueueFollowingTracks;
+-(void)addNextQueuedSong;
 
 @end

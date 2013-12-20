@@ -39,6 +39,13 @@
 	[self setPlayerItem:[[self player] currentItem]];
 	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
+	
+	NSTabViewItem* selectedTabView = [[self tabView] selectedTabViewItem];
+	if ([[selectedTabView label] isEqualToString:@"Google Music"])
+	{
+		[[self googleTableController] setSelectedSong:([[self googleTableController] selectedSong] + 1)];
+		[[self googleTableController] addNextQueuedSong];
+	}
 }
 
 -(IBAction)pause:(id)sender

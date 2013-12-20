@@ -62,6 +62,7 @@
 -(void)playSelectedSongAndQueueFollowingTracks
 {
 	NSInteger selectedRow = [[self googleTable] selectedRow];
+	[self setSelectedSong:selectedRow];
 	
 	AVPlayerItem* playerItem = [self getPlayerItemForSong:selectedRow];
 	
@@ -71,6 +72,13 @@
 			[[NSApp delegate] addItem:[[self googleArrayController] arrangedObjects][i] toQueue:[self getPlayerItemForSong:i]];
 		}
 	}];
+}
+
+-(void)addNextQueuedSong
+{
+	NSInteger indexOfNextSongToQueue = [self selectedSong] + 20;
+	AVPlayerItem* playerItem = [self getPlayerItemForSong:indexOfNextSongToQueue];
+	[[NSApp delegate] addItem:[[self googleArrayController] arrangedObjects][indexOfNextSongToQueue] toQueue:playerItem];
 }
 
 @end
