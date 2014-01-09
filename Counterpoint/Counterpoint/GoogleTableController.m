@@ -34,10 +34,16 @@
 	if (![self googleMusicController])
 		[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
 	
+	NSString* username = [[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"];
+	NSString* password = [[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"];
+	
+	if (!username || !password || [username isEqualToString:@""] || [password isEqualToString:@""])
+		return;
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGoogleTracks) name:@"GoogleMusicTracksLoaded" object:nil];
 	
 	[[self songsLabel] setStringValue:@"Loading Songs..."];
-	[[self googleMusicController] loginWithUsername:[[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"] password:[[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"]];
+	[[self googleMusicController] loginWithUsername:username password:password];
 }
 
 -(void)loadGoogleTracks

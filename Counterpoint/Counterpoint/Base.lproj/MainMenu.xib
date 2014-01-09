@@ -864,16 +864,8 @@
                             <action selector="showQueue:" target="494" id="LJL-h2-ePT"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="BB1BB5C0-94EC-4DC1-BDDA-98DCC8E0701D" label="Player" paletteLabel="Player" tag="-1" id="PHr-G7-Ghl" customClass="PlayerToolbarItem">
-                        <nil key="toolTip"/>
-                        <size key="minSize" width="200" height="34"/>
-                        <size key="maxSize" width="200" height="34"/>
-                        <customView key="view" id="rPR-rU-g4d">
-                            <rect key="frame" x="0.0" y="14" width="200" height="34"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        </customView>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="MDi-0u-SnJ"/>
+                    <toolbarItem implicitItemIdentifier="04733898-56C3-45A1-A4C1-343E910CF9A1" explicitItemIdentifier="player" label="Player" paletteLabel="Player" tag="-1" autovalidates="NO" id="kbp-aE-xKf"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="dvB-Ef-5TH"/>
@@ -888,6 +880,9 @@
                     <toolbarItem reference="D8o-02-8aC"/>
                     <toolbarItem reference="Sk5-5P-AcN"/>
                 </defaultToolbarItems>
+                <connections>
+                    <outlet property="delegate" destination="494" id="jFZ-dd-5Ds"/>
+                </connections>
             </toolbar>
         </window>
         <customObject id="494" customClass="AppDelegate">

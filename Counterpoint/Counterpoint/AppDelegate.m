@@ -9,12 +9,15 @@
 #import "AppDelegate.h"
 #import "PreferencesWindowController.h"
 #import "GoogleTableController.h"
+#import "PlayerToolbarItemViewController.h"
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[NSApp setDelegate:self];
+	
+	[[self toolbar] setDelegate:self];
 	
 	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
 	
@@ -122,6 +125,26 @@
 -(IBAction)showPreferences:(id)sender
 {
 	[[self preferencesWindowController] showWindow:self];
+}
+
+#pragma mark - Toolbar
+
+-(NSToolbarItem*)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
+{
+	NSToolbarItem* toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+	
+	if ([itemIdentifier isEqualToString:@"player"])
+	{
+		PlayerToolbarItemViewController* playerVC = [[PlayerToolbarItemViewController alloc] init];
+		NSView* playerView = [playerVC view];
+		[toolbarItem setMinSize:[playerView bounds].size];
+		[toolbarItem setMaxSize:[playerView bounds].size];
+		[toolbarItem setView:playerView];
+		
+		[toolbarItem setEnabled:YES];
+	}
+	
+	return toolbarItem;
 }
 
 @end

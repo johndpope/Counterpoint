@@ -17,9 +17,9 @@
 	if (self)
 	{
 		_viewController = [[PlayerToolbarItemViewController alloc] init];
-		[self setView:[_viewController view]];
 		[self setMinSize:[_viewController view].bounds.size];
 		[self setMaxSize:[_viewController view].bounds.size];
+		[self setView:[_viewController view]];
     }
     return self;
 }
