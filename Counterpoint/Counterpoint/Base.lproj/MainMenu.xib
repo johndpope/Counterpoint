@@ -660,10 +660,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="816" height="428"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNq-QL-UFW">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNq-QL-UFW">
                         <rect key="frame" x="19" y="29" width="778" height="369"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="VtL-it-dj0">
+                        <clipView key="contentView" id="VtL-it-dj0">
                             <rect key="frame" x="1" y="17" width="776" height="351"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -688,7 +688,7 @@
                                             <sortDescriptor key="sortDescriptorPrototype" selector="caseInsensitiveCompare:" sortKey="title"/>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="Q1e-uI-mMJ" name="value" keyPath="arrangedObjects.title" id="tjl-HS-Zzg">
+                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.title" id="r5C-na-h60">
                                                     <dictionary key="options">
                                                         <bool key="NSConditionallySetsEditable" value="YES"/>
                                                     </dictionary>
@@ -709,7 +709,7 @@
                                             <sortDescriptor key="sortDescriptorPrototype" selector="caseInsensitiveCompare:" sortKey="artist"/>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="Q1e-uI-mMJ" name="value" keyPath="arrangedObjects.artist" id="ZVM-C0-eg0">
+                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.artist" id="f0r-i4-e2U">
                                                     <dictionary key="options">
                                                         <bool key="NSConditionallySetsEditable" value="YES"/>
                                                     </dictionary>
@@ -730,7 +730,7 @@
                                             <sortDescriptor key="sortDescriptorPrototype" selector="caseInsensitiveCompare:" sortKey="album"/>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="Q1e-uI-mMJ" name="value" keyPath="arrangedObjects.album" id="TJW-B1-ERo">
+                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.album" id="7nP-FX-uop">
                                                     <dictionary key="options">
                                                         <bool key="NSConditionallySetsEditable" value="YES"/>
                                                     </dictionary>
@@ -739,8 +739,8 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
-                                        <binding destination="Q1e-uI-mMJ" name="content" keyPath="arrangedObjects" id="mJD-xo-712"/>
-                                        <binding destination="yDb-TG-oae" name="doubleClickTarget" keyPath="self" id="nhU-e0-cuU">
+                                        <binding destination="dr6-a9-Joz" name="content" keyPath="arrangedObjects" id="nIs-uz-3Do"/>
+                                        <binding destination="dr6-a9-Joz" name="doubleClickTarget" keyPath="arrangedObjects" id="gG5-1E-bjr">
                                             <dictionary key="options">
                                                 <string key="NSSelectorName">playSelectedSongAndQueueFollowingTracks</string>
                                             </dictionary>
@@ -763,22 +763,40 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MaX-dg-t2I">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MaX-dg-t2I">
                         <rect key="frame" x="337" y="7" width="143" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0 Songs Available" id="Fe3-zc-B7v">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="139" id="szk-bj-rfx"/>
+                        </constraints>
+                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" continuous="YES" sendsActionOnEndEditing="YES" alignment="center" title="0 Songs Available" id="Fe3-zc-B7v">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <binding destination="dr6-a9-Joz" name="displayPatternValue1" keyPath="arrangedObjects.count" id="Akt-3a-Xrt">
+                                <dictionary key="options">
+                                    <string key="NSDisplayPattern">%{value1}@ Songs Available</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
                     </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="qNq-QL-UFW" secondAttribute="trailing" constant="19" id="KMb-tb-AV6"/>
+                    <constraint firstItem="MaX-dg-t2I" firstAttribute="top" secondItem="qNq-QL-UFW" secondAttribute="bottom" constant="8" id="bij-vA-eHq"/>
+                    <constraint firstItem="qNq-QL-UFW" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="19" id="el4-Tc-9hW"/>
+                    <constraint firstAttribute="bottom" secondItem="MaX-dg-t2I" secondAttribute="bottom" constant="7" id="hls-iL-jND"/>
+                    <constraint firstItem="qNq-QL-UFW" firstAttribute="top" secondItem="372" secondAttribute="top" constant="30" id="qgs-Li-Eut"/>
+                    <constraint firstItem="MaX-dg-t2I" firstAttribute="centerX" secondItem="qNq-QL-UFW" secondAttribute="centerX" id="s5Y-qg-s3y"/>
+                </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="D70BEB21-A0C1-412E-9369-9C2235A818E0" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="small" id="gQu-fE-5hG">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="A19AC099-8D18-41EF-B42B-4DFB441793CC" explicitItemIdentifier="reload" label="Reload" paletteLabel="Reload" tag="2" image="NSRefreshTemplate" autovalidates="NO" selectable="YES" id="Sk5-5P-AcN">
                         <connections>
-                            <action selector="reload:" target="494" id="J18-Xi-sMi"/>
+                            <action selector="loadAllTables:" target="494" id="0RB-4M-RO4"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="30A02CEC-8824-43B8-A779-B8EF7AEF6ABF" explicitItemIdentifier="queue" label="Queue" paletteLabel="Queue" tag="4" image="NSAddTemplate" autovalidates="NO" selectable="YES" id="D8o-02-8aC">
@@ -819,12 +837,18 @@
                 <outlet property="googleTableController" destination="yDb-TG-oae" id="fJV-Sz-2dK"/>
                 <outlet property="queuePopover" destination="bBg-bh-CZl" id="Y4S-iA-ViB"/>
                 <outlet property="queueToolbarItem" destination="D8o-02-8aC" id="ugC-0v-9FW"/>
+                <outlet property="songCountLabel" destination="MaX-dg-t2I" id="IN8-bJ-YLr"/>
                 <outlet property="toolbar" destination="gQu-fE-5hG" id="4AF-hN-hZ3"/>
-                <outlet property="view" destination="372" id="Yo0-4R-nYx"/>
+                <outlet property="tracksArrayController" destination="dr6-a9-Joz" id="TKd-Bz-ECZ"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
+        <arrayController id="dr6-a9-Joz" userLabel="Song Array Controller">
+            <connections>
+                <binding destination="494" name="contentArray" keyPath="self.tracksArray" id="oi7-o9-Ruz"/>
+            </connections>
+        </arrayController>
         <customObject id="yDb-TG-oae" customClass="GoogleTableController">
             <connections>
                 <outlet property="googleArrayController" destination="Q1e-uI-mMJ" id="nWK-lU-kS5"/>

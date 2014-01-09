@@ -24,5 +24,6 @@
 
 -(BOOL)loginWithUsername:(NSString*)username password:(NSString*)password;
 -(NSString*)getStreamUrl:(NSString*)songID;
+-(void)loadTracks;
 
 @end

@@ -14,6 +14,7 @@
 		0DC34F2B1864E07200096E0A /* PlayerToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC34F2A1864E07200096E0A /* PlayerToolbarItem.m */; };
 		0DC34F2F1864E09A00096E0A /* PlayerToolbarItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC34F2D1864E09A00096E0A /* PlayerToolbarItemViewController.m */; };
 		0DC34F301864E09A00096E0A /* PlayerToolbarItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DC34F2E1864E09A00096E0A /* PlayerToolbarItemViewController.xib */; };
+		0DC89650187F3C3A006D5D35 /* CPTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC8964F187F3C3A006D5D35 /* CPTrack.m */; };
 		0DCE2493184CFA5C0039DDC0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */; };
 		0DCE249D184CFA5C0039DDC0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DCE249B184CFA5C0039DDC0 /* InfoPlist.strings */; };
 		0DCE249F184CFA5C0039DDC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE249E184CFA5C0039DDC0 /* main.m */; };
@@ -66,6 +67,8 @@
 		0DC34F2C1864E09A00096E0A /* PlayerToolbarItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerToolbarItemViewController.h; sourceTree = "<group>"; };
 		0DC34F2D1864E09A00096E0A /* PlayerToolbarItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerToolbarItemViewController.m; sourceTree = "<group>"; };
 		0DC34F2E1864E09A00096E0A /* PlayerToolbarItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerToolbarItemViewController.xib; sourceTree = "<group>"; };
+		0DC8964E187F3C3A006D5D35 /* CPTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTrack.h; sourceTree = "<group>"; };
+		0DC8964F187F3C3A006D5D35 /* CPTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTrack.m; sourceTree = "<group>"; };
 		0DCE248F184CFA5C0039DDC0 /* Counterpoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counterpoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0DCE2495184CFA5C0039DDC0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -115,6 +118,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DC8964B187F3B74006D5D35 /* Toolbar Items */ = {
+			isa = PBXGroup;
+			children = (
+				0DC8964C187F3B8C006D5D35 /* Player Control */,
+				0DC8964D187F3B98006D5D35 /* Queue Control */,
+			);
+			name = "Toolbar Items";
+			sourceTree = "<group>";
+		};
+		0DC8964C187F3B8C006D5D35 /* Player Control */ = {
+			isa = PBXGroup;
+			children = (
+				0DC34F291864E07200096E0A /* PlayerToolbarItem.h */,
+				0DC34F2A1864E07200096E0A /* PlayerToolbarItem.m */,
+				0DC34F2C1864E09A00096E0A /* PlayerToolbarItemViewController.h */,
+				0DC34F2D1864E09A00096E0A /* PlayerToolbarItemViewController.m */,
+				0DC34F2E1864E09A00096E0A /* PlayerToolbarItemViewController.xib */,
+			);
+			name = "Player Control";
+			sourceTree = "<group>";
+		};
+		0DC8964D187F3B98006D5D35 /* Queue Control */ = {
+			isa = PBXGroup;
+			children = (
+				0DBF939F18623FFC005A9733 /* QueuePopoverViewController.h */,
+				0DBF93A018623FFC005A9733 /* QueuePopoverViewController.m */,
+				0DBF93A118623FFC005A9733 /* QueuePopoverViewController.xib */,
+			);
+			name = "Queue Control";
+			sourceTree = "<group>";
+		};
 		0DCE2486184CFA5C0039DDC0 = {
 			isa = PBXGroup;
 			children = (
@@ -162,14 +196,9 @@
 				0DCE24A4184CFA5D0039DDC0 /* AppDelegate.h */,
 				0DCE24A5184CFA5D0039DDC0 /* AppDelegate.m */,
 				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
-				0DC34F291864E07200096E0A /* PlayerToolbarItem.h */,
-				0DC34F2A1864E07200096E0A /* PlayerToolbarItem.m */,
-				0DC34F2C1864E09A00096E0A /* PlayerToolbarItemViewController.h */,
-				0DC34F2D1864E09A00096E0A /* PlayerToolbarItemViewController.m */,
-				0DC34F2E1864E09A00096E0A /* PlayerToolbarItemViewController.xib */,
-				0DBF939F18623FFC005A9733 /* QueuePopoverViewController.h */,
-				0DBF93A018623FFC005A9733 /* QueuePopoverViewController.m */,
-				0DBF93A118623FFC005A9733 /* QueuePopoverViewController.xib */,
+				0DC8964E187F3C3A006D5D35 /* CPTrack.h */,
+				0DC8964F187F3C3A006D5D35 /* CPTrack.m */,
+				0DC8964B187F3B74006D5D35 /* Toolbar Items */,
 				B38E5A9C186299950049602D /* Google Music */,
 				B38E5A9F186299A80049602D /* Preferences */,
 				0DCE24AA184CFA5D0039DDC0 /* Images.xcassets */,
@@ -367,6 +396,7 @@
 				0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */,
 				0DCE249F184CFA5C0039DDC0 /* main.m in Sources */,
 				0DBF93A218623FFC005A9733 /* QueuePopoverViewController.m in Sources */,
+				0DC89650187F3C3A006D5D35 /* CPTrack.m in Sources */,
 				0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */,
 				0DC34F2F1864E09A00096E0A /* PlayerToolbarItemViewController.m in Sources */,
 				0DC34F2B1864E07200096E0A /* PlayerToolbarItem.m in Sources */,

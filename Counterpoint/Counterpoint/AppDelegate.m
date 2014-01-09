@@ -12,27 +12,32 @@
 #import "PlayerToolbarItemViewController.h"
 #import "PlayerToolbarItem.h"
 #import <AVFoundation/AVAsset.h>
+#import "GoogleMusicController.h"
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[NSApp setDelegate:self];
-	
 	[[self toolbar] setDelegate:self];
-	
 	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
-	
-	[[self googleTableController] populateGoogleTable];
-	
 	[self setQueueArrayController:[[NSArrayController alloc] init]];
 	[self setCurrentlyPlayingSongTitle:[[NSString alloc] init]];
+	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
+	[self setTracksArray:[[NSMutableArray alloc] init]];
+	
+	[self loadAllTables:self];
 }
 
 -(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
 {
 	[[self window] setIsVisible:YES];
 	return YES;
+}
+
+-(void)finishedLoadingTracks
+{
+	;
 }
 
 #pragma mark - Player Controls
@@ -139,9 +144,9 @@
 
 #pragma mark - Table View Controls
 
--(IBAction)reload:(id)sender
+-(IBAction)loadAllTables:(id)sender
 {
-	[[self googleTableController] populateGoogleTable];
+	[[self googleMusicController] loadTracks];
 }
 
 #pragma mark - Preferences

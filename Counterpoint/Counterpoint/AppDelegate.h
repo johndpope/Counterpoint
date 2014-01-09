@@ -11,6 +11,7 @@
 
 @class PreferencesWindowController;
 @class GoogleTableController;
+@class GoogleMusicController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate>
 
@@ -25,11 +26,14 @@
 @property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
 @property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
 
-@property (nonatomic, strong) IBOutlet NSView* view;
+@property (nonatomic, strong) NSMutableArray* tracksArray;
+@property (nonatomic, strong) IBOutlet NSArrayController* tracksArrayController;
 
-@property (nonatomic, strong) IBOutlet NSTableView* localTable;
-@property (nonatomic, strong) IBOutlet NSTableView* spotifyTable;
+@property (nonatomic, strong) IBOutlet NSTextField* songCountLabel;
+
 @property (nonatomic, strong) IBOutlet GoogleTableController* googleTableController;
+
+@property (nonatomic, strong) GoogleMusicController* googleMusicController;
 
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 

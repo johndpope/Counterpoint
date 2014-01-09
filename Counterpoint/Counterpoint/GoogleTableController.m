@@ -22,7 +22,7 @@
 	self = [super init];
 	if (self)
 	{
-		_googleMusicController = [[GoogleMusicController alloc] init];
+//		_googleMusicController = [[GoogleMusicController alloc] init];
 	}
 	return self;
 }
@@ -31,26 +31,26 @@
 
 -(void)populateGoogleTable
 {
-	if (![self googleMusicController])
-		[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
-	
-	NSString* username = [[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"];
-	NSString* password = [[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"];
-	
-	if (!username || !password || [username isEqualToString:@""] || [password isEqualToString:@""])
-		return;
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGoogleTracks) name:@"GoogleMusicTracksLoaded" object:nil];
-	
-	[[self songsLabel] setStringValue:@"Loading Songs..."];
-	[[self googleMusicController] loginWithUsername:username password:password];
+//	if (![self googleMusicController])
+//		[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
+//	
+//	NSString* username = [[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"];
+//	NSString* password = [[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"];
+//	
+//	if (!username || !password || [username isEqualToString:@""] || [password isEqualToString:@""])
+//		return;
+//	
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGoogleTracks) name:@"GoogleMusicTracksLoaded" object:nil];
+//	
+//	[[self songsLabel] setStringValue:@"Loading Songs..."];
+//	[[self googleMusicController] loginWithUsername:username password:password];
 }
 
 -(void)loadGoogleTracks
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[[self songsLabel] setStringValue:[NSString stringWithFormat:@"%ld Songs Available", [[[self googleMusicController] songArray] count]]];
-	[[self googleArrayController] setContent:[[self googleMusicController] songArray]];
+//	[[NSNotificationCenter defaultCenter] removeObserver:self];
+//	[[self songsLabel] setStringValue:[NSString stringWithFormat:@"%ld Songs Available", [[[self googleMusicController] songArray] count]]];
+//	[[self googleArrayController] setContent:[[self googleMusicController] songArray]];
 }
 
 #pragma mark - Create Player Items for Player

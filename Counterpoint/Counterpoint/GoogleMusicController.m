@@ -7,6 +7,8 @@
 //
 
 #import "GoogleMusicController.h"
+#import "AppDelegate.h"
+#import "CPTrack.h"
 
 typedef NS_ENUM (NSInteger, ConnectionStage)
 {
@@ -30,6 +32,40 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 	}
 	return self;
 }
+
+-(void)loadTracks
+{
+	NSString* username = [[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"];
+	NSString* password = [[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"];
+	
+	if (!username || !password || [username isEqualToString:@""] || [password isEqualToString:@""])
+		return;
+		
+	[[[NSApp delegate] songCountLabel] setStringValue:@"Loading Google Songs..."];
+	[self loginWithUsername:username password:password];
+}
+
+-(void)finishedLoadingTracks
+{
+	for (NSDictionary* song in [self songArray])
+	{
+		CPTrack* trackObject = [[CPTrack alloc] init];
+		[trackObject setTitle:song[@"title"]];
+		[trackObject setAlbum:song[@"album"]];
+		[trackObject setArtist:song[@"artist"]];
+		
+//		NSString* streamURLString = [self getStreamUrl:song[@"id"]];
+//		NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
+//		AVPlayerItem* playerItem = [AVPlayerItem playerItemWithURL:streamURL];
+//		[trackObject setPlayerItem:playerItem];
+		
+		[[[NSApp delegate] tracksArray] addObject:trackObject];
+	}
+	
+	NSLog(@"finished loading. track count: %ld Label value: %@", [[[NSApp delegate] tracksArray] count], [[[NSApp delegate] songCountLabel] stringValue]);
+	[[NSApp delegate] finishedLoadingTracks];
+}
+
 
 -(BOOL)loginWithUsername:(NSString*)username password:(NSString*)password
 {
@@ -183,7 +219,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 			NSArray* songs = songDict[@"data"][@"items"];
             for (NSDictionary *song in songs)
             {
-                [[self songArray] addObject:song];
+				[[self songArray] addObject:song];
             }
 			
 			NSString* continuationToken = songDict[@"nextPageToken"];
@@ -194,7 +230,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 				[self loadAllTracksMobile];
 			}
 			else
-				[[NSNotificationCenter defaultCenter] postNotificationName:@"GoogleMusicTracksLoaded" object:nil];
+				[self finishedLoadingTracks];
         }
 	}
 }
