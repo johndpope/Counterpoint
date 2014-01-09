@@ -16,4 +16,14 @@
 
 @implementation QueuePopoverViewController
 
+-(void)awakeFromNib
+{
+	[[self queueTableView] setDoubleAction:@selector(doubleClick:)];
+}
+
+-(void)doubleClick:(id)sender
+{
+	NSInteger clickedRow = [[self queueTableView] clickedRow];
+}
+
 @end

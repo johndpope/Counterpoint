@@ -20,11 +20,12 @@
 
 @property (nonatomic, strong) AVQueuePlayer* player;
 @property (nonatomic, strong) AVPlayerItem* playerItem;
+@property (nonatomic, strong) NSString* currentlyPlayingSongTitle;
 
 @property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
 @property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
 
-@property (nonatomic, strong) IBOutlet NSTabView* tabView;
+@property (nonatomic, strong) IBOutlet NSView* view;
 
 @property (nonatomic, strong) IBOutlet NSTableView* localTable;
 @property (nonatomic, strong) IBOutlet NSTableView* spotifyTable;

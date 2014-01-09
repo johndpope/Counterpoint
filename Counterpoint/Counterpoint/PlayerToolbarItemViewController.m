@@ -17,26 +17,30 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"PlayerToolbarItemViewController" bundle:nibBundleOrNil];
     if (self) {
         // Initialization code here.
+		_appDelegate = [NSApp delegate];
     }
     return self;
 }
 
 -(IBAction)play:(id)sender
 {
-	[(AppDelegate*)[NSApp delegate] play:self];
+	if ([sender state] == NSOnState)
+		[[self appDelegate] pause:self];
+	else
+		[[self appDelegate] play:self];
 }
 
 -(IBAction)pause:(id)sender
 {
-	[(AppDelegate*)[NSApp delegate] pause:self];
+	[[self appDelegate] pause:self];
 }
 
 -(IBAction)next:(id)sender
 {
-	[(AppDelegate*)[NSApp delegate] next:self];
+	[[self appDelegate] next:self];
 }
 
 @end

@@ -71,6 +71,7 @@
 	[self setSelectedSong:selectedRow];
 	
 	AVPlayerItem* playerItem = [self getPlayerItemForSong:selectedRow];
+	[[NSApp delegate] setCurrentlyPlayingSongTitle:[[[self googleArrayController] arrangedObjects] objectAtIndex:selectedRow][@"title"]];
 	
 	[[NSApp delegate] startPlayingPlayerItem:playerItem withQueueBuildingCompletionHandler:^{
 		for (NSInteger i = selectedRow+1; i < [[[self googleArrayController] arrangedObjects] count] && i < selectedRow + 20; i++)

@@ -20,6 +20,7 @@
 		[self setMinSize:[_viewController view].bounds.size];
 		[self setMaxSize:[_viewController view].bounds.size];
 		[self setView:[_viewController view]];
+		[self setEnabled:YES];
     }
     return self;
 }

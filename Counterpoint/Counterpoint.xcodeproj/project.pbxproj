@@ -28,7 +28,6 @@
 		0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE159571858BF880066A829 /* GoogleMusicController.m */; };
 		0DE15A7A185A6C120066A829 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE15A79185A6C120066A829 /* AVFoundation.framework */; };
 		B3707F8F185ABC610062DD5D /* GoogleTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3707F8E185ABC610062DD5D /* GoogleTableController.m */; };
-		B3707F93185AC7010062DD5D /* GoogleTableControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3707F92185AC7010062DD5D /* GoogleTableControllerView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +91,6 @@
 		0DE15A79185A6C120066A829 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B3707F8D185ABC610062DD5D /* GoogleTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleTableController.h; sourceTree = "<group>"; };
 		B3707F8E185ABC610062DD5D /* GoogleTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleTableController.m; sourceTree = "<group>"; };
-		B3707F92185AC7010062DD5D /* GoogleTableControllerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoogleTableControllerView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,7 +224,6 @@
 				0DE159571858BF880066A829 /* GoogleMusicController.m */,
 				B3707F8D185ABC610062DD5D /* GoogleTableController.h */,
 				B3707F8E185ABC610062DD5D /* GoogleTableController.m */,
-				B3707F92185AC7010062DD5D /* GoogleTableControllerView.xib */,
 			);
 			name = "Google Music";
 			sourceTree = "<group>";
@@ -341,7 +338,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DBF93A318623FFC005A9733 /* QueuePopoverViewController.xib in Resources */,
-				B3707F93185AC7010062DD5D /* GoogleTableControllerView.xib in Resources */,
 				0DC34F301864E09A00096E0A /* PlayerToolbarItemViewController.xib in Resources */,
 				0DCE249D184CFA5C0039DDC0 /* InfoPlist.strings in Resources */,
 				0DB166D5184D422800683551 /* PreferencesWindowController.xib in Resources */,

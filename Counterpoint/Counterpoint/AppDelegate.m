@@ -10,6 +10,8 @@
 #import "PreferencesWindowController.h"
 #import "GoogleTableController.h"
 #import "PlayerToolbarItemViewController.h"
+#import "PlayerToolbarItem.h"
+#import <AVFoundation/AVAsset.h>
 
 @implementation AppDelegate
 
@@ -21,11 +23,10 @@
 	
 	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
 	
-	[self setGoogleTableController:[[GoogleTableController alloc] init]];
-	[[[self tabView] tabViewItemAtIndex:1] setView:[[self googleTableController] view]];
 	[[self googleTableController] populateGoogleTable];
 	
 	[self setQueueArrayController:[[NSArrayController alloc] init]];
+	[self setCurrentlyPlayingSongTitle:[[NSString alloc] init]];
 }
 
 -(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
@@ -43,12 +44,8 @@
 	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
 	
-	NSTabViewItem* selectedTabView = [[self tabView] selectedTabViewItem];
-	if ([[selectedTabView label] isEqualToString:@"Google Music"])
-	{
-		[[self googleTableController] setSelectedSong:([[self googleTableController] selectedSong] + 1)];
-		[[self googleTableController] addNextQueuedSong];
-	}
+	[[self googleTableController] setSelectedSong:([[self googleTableController] selectedSong] + 1)];
+	[[self googleTableController] addNextQueuedSong];
 }
 
 -(IBAction)pause:(id)sender
@@ -58,6 +55,33 @@
 
 -(IBAction)play:(id)sender
 {
+//	[[[[self player] currentItem] asset] loadValuesAsynchronouslyForKeys:@[@"metadata"] completionHandler:^{
+//		NSError *error = nil;
+//		switch ([[[[self player] currentItem] asset] statusOfValueForKey:@"metadata" error:&error])
+//		{
+//			case AVKeyValueStatusLoaded:
+//			{
+//				NSArray* metadata = [[[[self player] currentItem] asset] commonMetadata];
+//				for (AVMetadataItem* metadataItem in metadata)
+//				{
+//					if ([[metadataItem commonKey] isEqualToString:@"title"])
+//					{
+//						[self setCurrentlyPlayingSongTitle:[[metadataItem value] copyWithZone:nil]];
+//					}
+//				}
+//
+//				break;
+//				// dispatch a block to the main thread that updates the display of asset duration in my user interface,
+//				// or do something else interesting with it
+//			}
+//			default:
+//				
+//				break;
+//				// something went wrong; depending on what it was, we may want to dispatch a
+//				// block to the main thread to report the error
+//		}
+//	}];
+	
 	[[self player] play];
 }
 
@@ -74,7 +98,7 @@
 	{
 		[[self playerItem] removeObserver:self forKeyPath:keyPath];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:object];
-		[[self player] play];
+		[self play:self];
 	}
 }
 
@@ -83,7 +107,6 @@
 	[self setPlayer:[AVQueuePlayer queuePlayerWithItems:@[playerItem]]];
 	[self setPlayerItem:[[self player] currentItem]];
 	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
-	[[self toolbar] setSelectedItemIdentifier:@"play"];
 	
 	for (NSInteger i = 0; i < [[[self queueArrayController] arrangedObjects] count]; i++)
 	{
@@ -109,15 +132,16 @@
 	NSLog(@"item added to queue. queue size: %ld", [[[self player] items] count]);
 }
 
+-(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex
+{
+	
+}
+
 #pragma mark - Table View Controls
 
 -(IBAction)reload:(id)sender
 {
-	NSTabViewItem* selectedTabView = [[self tabView] selectedTabViewItem];
-	if ([[selectedTabView label] isEqualToString:@"Google Music"])
-	{
-		[[self googleTableController] populateGoogleTable];
-	}
+	[[self googleTableController] populateGoogleTable];
 }
 
 #pragma mark - Preferences
@@ -131,20 +155,30 @@
 
 -(NSToolbarItem*)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
 {
-	NSToolbarItem* toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-	
 	if ([itemIdentifier isEqualToString:@"player"])
 	{
-		PlayerToolbarItemViewController* playerVC = [[PlayerToolbarItemViewController alloc] init];
-		NSView* playerView = [playerVC view];
-		[toolbarItem setMinSize:[playerView bounds].size];
-		[toolbarItem setMaxSize:[playerView bounds].size];
-		[toolbarItem setView:playerView];
-		
-		[toolbarItem setEnabled:YES];
+		PlayerToolbarItem* playerToolbarItem = [[PlayerToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+		return playerToolbarItem;
 	}
 	
+	NSToolbarItem* toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+	
 	return toolbarItem;
+}
+
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
+{
+	return @[@"player",@"queue",@"reload",NSToolbarFlexibleSpaceItemIdentifier];
+}
+
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
+{
+	return @[@"player", NSToolbarFlexibleSpaceItemIdentifier, @"queue", @"reload"];
+}
+
+- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
+{
+	return @[@"player",@"queue",@"reload"];
 }
 
 @end
