@@ -23,6 +23,7 @@
 @property (nonatomic, strong) IBOutlet NSToolbarItem* queueToolbarItem;
 @property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
 @property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
+@property (nonatomic, strong) IBOutlet NSMutableArray* initalizedQueueSubArray;
 
 @property (nonatomic, strong) AVQueuePlayer* player;
 @property (nonatomic, strong) CPTrack* currentTrack;
@@ -34,8 +35,6 @@
 
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 
-
--(void)startPlayingPlayerItem:(AVPlayerItem*)playerItem withQueueBuildingCompletionHandler:(void(^)(void))completionHandler;
 -(void)addItem:(NSDictionary*)trackDict toQueue:(AVPlayerItem*)playerItem;
 -(IBAction)play:(id)sender;
 -(IBAction)pause:(id)sender;

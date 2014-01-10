@@ -12,7 +12,6 @@
 
 @interface PlayerToolbarItemViewController : NSViewController
 
-@property (assign) IBOutlet NSTextField* titleLabel;
 @property (nonatomic, weak) IBOutlet AppDelegate* appDelegate;
 
 @end

@@ -18,8 +18,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:@"PlayerToolbarItemViewController" bundle:nibBundleOrNil];
-    if (self) {
-        // Initialization code here.
+    if (self)
+	{
 		_appDelegate = [NSApp delegate];
     }
     return self;

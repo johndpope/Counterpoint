@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D4C17751880544D0086EFD5 /* CurrentTrackToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C17741880544D0086EFD5 /* CurrentTrackToolbarItem.m */; };
+		0D4C177B188054640086EFD5 /* CurrentTrackToolbarItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C1779188054640086EFD5 /* CurrentTrackToolbarItemViewController.m */; };
+		0D4C177C188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D4C177A188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib */; };
 		0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB166D2184D422800683551 /* PreferencesWindowController.m */; };
 		0DB166D5184D422800683551 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DB166D3184D422800683551 /* PreferencesWindowController.xib */; };
 		0DBF93A218623FFC005A9733 /* QueuePopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DBF93A018623FFC005A9733 /* QueuePopoverViewController.m */; };
@@ -55,6 +58,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D4C17731880544D0086EFD5 /* CurrentTrackToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentTrackToolbarItem.h; sourceTree = "<group>"; };
+		0D4C17741880544D0086EFD5 /* CurrentTrackToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentTrackToolbarItem.m; sourceTree = "<group>"; };
+		0D4C1778188054640086EFD5 /* CurrentTrackToolbarItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentTrackToolbarItemViewController.h; sourceTree = "<group>"; };
+		0D4C1779188054640086EFD5 /* CurrentTrackToolbarItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentTrackToolbarItemViewController.m; sourceTree = "<group>"; };
+		0D4C177A188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CurrentTrackToolbarItemViewController.xib; sourceTree = "<group>"; };
 		0DB166D1184D422800683551 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		0DB166D2184D422800683551 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		0DB166D3184D422800683551 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
@@ -115,9 +123,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D4C177D188057C70086EFD5 /* Current Track Control */ = {
+			isa = PBXGroup;
+			children = (
+				0D4C17731880544D0086EFD5 /* CurrentTrackToolbarItem.h */,
+				0D4C17741880544D0086EFD5 /* CurrentTrackToolbarItem.m */,
+				0D4C1778188054640086EFD5 /* CurrentTrackToolbarItemViewController.h */,
+				0D4C1779188054640086EFD5 /* CurrentTrackToolbarItemViewController.m */,
+				0D4C177A188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib */,
+			);
+			name = "Current Track Control";
+			sourceTree = "<group>";
+		};
 		0DC8964B187F3B74006D5D35 /* Toolbar Items */ = {
 			isa = PBXGroup;
 			children = (
+				0D4C177D188057C70086EFD5 /* Current Track Control */,
 				0DC8964C187F3B8C006D5D35 /* Player Control */,
 				0DC8964D187F3B98006D5D35 /* Queue Control */,
 			);
@@ -364,6 +385,7 @@
 				0DBF93A318623FFC005A9733 /* QueuePopoverViewController.xib in Resources */,
 				0DC34F301864E09A00096E0A /* PlayerToolbarItemViewController.xib in Resources */,
 				0DCE249D184CFA5C0039DDC0 /* InfoPlist.strings in Resources */,
+				0D4C177C188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib in Resources */,
 				0DB166D5184D422800683551 /* PreferencesWindowController.xib in Resources */,
 				0DCE24AB184CFA5D0039DDC0 /* Images.xcassets in Resources */,
 				0DCE24A3184CFA5D0039DDC0 /* Credits.rtf in Resources */,
@@ -387,9 +409,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DCE24A6184CFA5D0039DDC0 /* AppDelegate.m in Sources */,
+				0D4C177B188054640086EFD5 /* CurrentTrackToolbarItemViewController.m in Sources */,
 				0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */,
 				0DCE249F184CFA5C0039DDC0 /* main.m in Sources */,
 				0DBF93A218623FFC005A9733 /* QueuePopoverViewController.m in Sources */,
+				0D4C17751880544D0086EFD5 /* CurrentTrackToolbarItem.m in Sources */,
 				0DC89650187F3C3A006D5D35 /* CPTrack.m in Sources */,
 				0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */,
 				0DC34F2F1864E09A00096E0A /* PlayerToolbarItemViewController.m in Sources */,
