@@ -53,16 +53,10 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 		[trackObject setTitle:song[@"title"]];
 		[trackObject setAlbum:song[@"album"]];
 		[trackObject setArtist:song[@"artist"]];
-		
-//		NSString* streamURLString = [self getStreamUrl:song[@"id"]];
-//		NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
-//		AVPlayerItem* playerItem = [AVPlayerItem playerItemWithURL:streamURL];
-//		[trackObject setPlayerItem:playerItem];
+		[trackObject setIdString:song[@"id"]];
 		
 		[[[NSApp delegate] tracksArray] addObject:trackObject];
 	}
-	
-	NSLog(@"finished loading. track count: %ld Label value: %@", [[[NSApp delegate] tracksArray] count], [[[NSApp delegate] songCountLabel] stringValue]);
 	[[NSApp delegate] finishedLoadingTracks];
 }
 

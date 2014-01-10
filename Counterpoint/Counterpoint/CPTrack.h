@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSString* artist;
 @property (nonatomic, strong) NSString* album;
+@property (nonatomic, strong) NSString* idString;
 
 @property (nonatomic, strong) AVPlayerItem* playerItem;
 

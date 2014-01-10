@@ -8,11 +8,11 @@
 
 #import "AppDelegate.h"
 #import "PreferencesWindowController.h"
-#import "GoogleTableController.h"
 #import "PlayerToolbarItemViewController.h"
 #import "PlayerToolbarItem.h"
 #import <AVFoundation/AVAsset.h>
 #import "GoogleMusicController.h"
+#import "CPTrack.h"
 
 @implementation AppDelegate
 
@@ -20,12 +20,14 @@
 {
 	[NSApp setDelegate:self];
 	[[self toolbar] setDelegate:self];
-	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
-	[self setQueueArrayController:[[NSArrayController alloc] init]];
-	[self setCurrentlyPlayingSongTitle:[[NSString alloc] init]];
-	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
-	[self setTracksArray:[[NSMutableArray alloc] init]];
 	
+	[self setPreferencesWindowController:[[PreferencesWindowController alloc] init]];
+	
+	[self setQueueArrayController:[[NSArrayController alloc] init]];
+	[self setTracksArray:[[NSMutableArray alloc] init]];
+	[self setCurrentTrack:[[CPTrack alloc] init]];
+	
+	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
 	[self loadAllTables:self];
 }
 
@@ -35,22 +37,17 @@
 	return YES;
 }
 
--(void)finishedLoadingTracks
-{
-	;
-}
-
 #pragma mark - Player Controls
 
 -(IBAction)next:(id)sender
 {
 	[[self player] advanceToNextItem];
-	[self setPlayerItem:[[self player] currentItem]];
-	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	
+	[self setCurrentTrack:[[[self queueArrayController] content] objectAtIndex:0]];
 	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
 	
-	[[self googleTableController] setSelectedSong:([[self googleTableController] selectedSong] + 1)];
-	[[self googleTableController] addNextQueuedSong];
+	[self addNextQueuedSong];
 }
 
 -(IBAction)pause:(id)sender
@@ -59,49 +56,21 @@
 }
 
 -(IBAction)play:(id)sender
-{
-//	[[[[self player] currentItem] asset] loadValuesAsynchronouslyForKeys:@[@"metadata"] completionHandler:^{
-//		NSError *error = nil;
-//		switch ([[[[self player] currentItem] asset] statusOfValueForKey:@"metadata" error:&error])
-//		{
-//			case AVKeyValueStatusLoaded:
-//			{
-//				NSArray* metadata = [[[[self player] currentItem] asset] commonMetadata];
-//				for (AVMetadataItem* metadataItem in metadata)
-//				{
-//					if ([[metadataItem commonKey] isEqualToString:@"title"])
-//					{
-//						[self setCurrentlyPlayingSongTitle:[[metadataItem value] copyWithZone:nil]];
-//					}
-//				}
-//
-//				break;
-//				// dispatch a block to the main thread that updates the display of asset duration in my user interface,
-//				// or do something else interesting with it
-//			}
-//			default:
-//				
-//				break;
-//				// something went wrong; depending on what it was, we may want to dispatch a
-//				// block to the main thread to report the error
-//		}
-//	}];
-	
+{	
 	[[self player] play];
 }
 
 -(void)playerItemDidReachEnd:(id)object
 {
 	[[self player] advanceToNextItem];
-	[self setPlayerItem:[[self player] currentItem]];
-	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if ([keyPath isEqualToString:@"status"])
 	{
-		[[self playerItem] removeObserver:self forKeyPath:keyPath];
+		[[[self player] currentItem] removeObserver:self forKeyPath:keyPath];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:object];
 		[self play:self];
 	}
@@ -110,8 +79,7 @@
 -(void)startPlayingPlayerItem:(AVPlayerItem*)playerItem withQueueBuildingCompletionHandler:(void(^)(void))completionHandler
 {
 	[self setPlayer:[AVQueuePlayer queuePlayerWithItems:@[playerItem]]];
-	[self setPlayerItem:[[self player] currentItem]];
-	[[self playerItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	
 	for (NSInteger i = 0; i < [[[self queueArrayController] arrangedObjects] count]; i++)
 	{
@@ -142,11 +110,48 @@
 	
 }
 
+-(void)addNextQueuedSong
+{
+//	NSInteger indexOfNextSongToQueue = [self selectedSong] + 20;
+//	AVPlayerItem* playerItem = [self getPlayerItemForSong:indexOfNextSongToQueue];
+//	[[NSApp delegate] addItem:[[self tracksArrayController] arrangedObjects][indexOfNextSongToQueue] toQueue:playerItem];
+}
+
 #pragma mark - Table View Controls
 
 -(IBAction)loadAllTables:(id)sender
 {
 	[[self googleMusicController] loadTracks];
+}
+
+-(void)finishedLoadingTracks
+{
+	[[self tracksArrayController] setContent:[self tracksArray]];
+}
+
+-(AVPlayerItem*)getPlayerItemForSong:(NSInteger)songRow
+{
+	CPTrack* track = [[[self tracksArrayController] arrangedObjects] objectAtIndex:songRow];
+	NSString* songId = [track idString];
+	NSString* streamURLString = [[self googleMusicController] getStreamUrl:songId];
+	NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
+	
+	return [AVPlayerItem playerItemWithURL:streamURL];
+}
+
+-(void)playSelectedSongAndQueueFollowingTracks
+{
+	NSInteger selectedRow = [[self table] selectedRow];
+	
+	AVPlayerItem* playerItem = [self getPlayerItemForSong:selectedRow];
+	[self setCurrentTrack:[[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedRow]];
+	
+	[self startPlayingPlayerItem:playerItem withQueueBuildingCompletionHandler:^{
+		for (NSInteger i = selectedRow+1; i < [[[self tracksArrayController] arrangedObjects] count] && i < selectedRow + 20; i++)
+		{
+			[[NSApp delegate] addItem:[[self tracksArrayController] arrangedObjects][i] toQueue:[self getPlayerItemForSong:i]];
+		}
+	}];
 }
 
 #pragma mark - Preferences

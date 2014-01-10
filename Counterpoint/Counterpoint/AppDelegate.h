@@ -10,36 +10,33 @@
 #import <AVFoundation/AVFoundation.h>
 
 @class PreferencesWindowController;
-@class GoogleTableController;
 @class GoogleMusicController;
+@class CPTrack;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, strong) IBOutlet NSToolbar* toolbar;
+@property (nonatomic, strong) IBOutlet NSTableView* table;
+@property (nonatomic, strong) IBOutlet NSTextField* songCountLabel;
+
 @property (nonatomic, strong) IBOutlet NSToolbarItem* queueToolbarItem;
-
-@property (nonatomic, strong) AVQueuePlayer* player;
-@property (nonatomic, strong) AVPlayerItem* playerItem;
-@property (nonatomic, strong) NSString* currentlyPlayingSongTitle;
-
 @property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
 @property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
+
+@property (nonatomic, strong) AVQueuePlayer* player;
+@property (nonatomic, strong) CPTrack* currentTrack;
+
+@property (nonatomic, strong) GoogleMusicController* googleMusicController;
 
 @property (nonatomic, strong) NSMutableArray* tracksArray;
 @property (nonatomic, strong) IBOutlet NSArrayController* tracksArrayController;
 
-@property (nonatomic, strong) IBOutlet NSTextField* songCountLabel;
-
-@property (nonatomic, strong) IBOutlet GoogleTableController* googleTableController;
-
-@property (nonatomic, strong) GoogleMusicController* googleMusicController;
-
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
+
 
 -(void)startPlayingPlayerItem:(AVPlayerItem*)playerItem withQueueBuildingCompletionHandler:(void(^)(void))completionHandler;
 -(void)addItem:(NSDictionary*)trackDict toQueue:(AVPlayerItem*)playerItem;
-
 -(IBAction)play:(id)sender;
 -(IBAction)pause:(id)sender;
 -(IBAction)next:(id)sender;

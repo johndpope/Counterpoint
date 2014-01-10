@@ -28,7 +28,6 @@
 		0DCE24BD184CFA5D0039DDC0 /* CounterpointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE24BC184CFA5D0039DDC0 /* CounterpointTests.m */; };
 		0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE159571858BF880066A829 /* GoogleMusicController.m */; };
 		0DE15A7A185A6C120066A829 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE15A79185A6C120066A829 /* AVFoundation.framework */; };
-		B3707F8F185ABC610062DD5D /* GoogleTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3707F8E185ABC610062DD5D /* GoogleTableController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,8 +91,6 @@
 		0DE159561858BF880066A829 /* GoogleMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleMusicController.h; sourceTree = "<group>"; };
 		0DE159571858BF880066A829 /* GoogleMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleMusicController.m; sourceTree = "<group>"; };
 		0DE15A79185A6C120066A829 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		B3707F8D185ABC610062DD5D /* GoogleTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleTableController.h; sourceTree = "<group>"; };
-		B3707F8E185ABC610062DD5D /* GoogleTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleTableController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,8 +195,8 @@
 				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
 				0DC8964E187F3C3A006D5D35 /* CPTrack.h */,
 				0DC8964F187F3C3A006D5D35 /* CPTrack.m */,
-				0DC8964B187F3B74006D5D35 /* Toolbar Items */,
 				B38E5A9C186299950049602D /* Google Music */,
+				0DC8964B187F3B74006D5D35 /* Toolbar Items */,
 				B38E5A9F186299A80049602D /* Preferences */,
 				0DCE24AA184CFA5D0039DDC0 /* Images.xcassets */,
 				0DCE2499184CFA5C0039DDC0 /* Supporting Files */,
@@ -251,8 +248,6 @@
 			children = (
 				0DE159561858BF880066A829 /* GoogleMusicController.h */,
 				0DE159571858BF880066A829 /* GoogleMusicController.m */,
-				B3707F8D185ABC610062DD5D /* GoogleTableController.h */,
-				B3707F8E185ABC610062DD5D /* GoogleTableController.m */,
 			);
 			name = "Google Music";
 			sourceTree = "<group>";
@@ -391,7 +386,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3707F8F185ABC610062DD5D /* GoogleTableController.m in Sources */,
 				0DCE24A6184CFA5D0039DDC0 /* AppDelegate.m in Sources */,
 				0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */,
 				0DCE249F184CFA5C0039DDC0 /* main.m in Sources */,
