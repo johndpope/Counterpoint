@@ -674,7 +674,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn editable="NO" width="269" minWidth="40" maxWidth="1000" id="mRT-yu-3P5">
+                                        <tableColumn identifier="title" editable="NO" width="269" minWidth="40" maxWidth="1000" id="mRT-yu-3P5">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Song Title">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -695,7 +695,7 @@
                                                 </binding>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn editable="NO" width="155" minWidth="40" maxWidth="1000" id="4mI-iP-8mI">
+                                        <tableColumn identifier="artist" editable="NO" width="155" minWidth="40" maxWidth="1000" id="4mI-iP-8mI">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Artist">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -716,7 +716,7 @@
                                                 </binding>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn editable="NO" width="155" minWidth="10" maxWidth="3.4028234663852886e+38" id="6GW-tb-Ywi">
+                                        <tableColumn identifier="album" editable="NO" width="155" minWidth="10" maxWidth="3.4028234663852886e+38" id="6GW-tb-Ywi">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Album">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -844,24 +844,7 @@
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
-        <arrayController id="dr6-a9-Joz" userLabel="Song Array Controller"/>
-        <customObject id="yDb-TG-oae" customClass="GoogleTableController">
-            <connections>
-                <outlet property="googleArrayController" destination="Q1e-uI-mMJ" id="nWK-lU-kS5"/>
-                <outlet property="googleTable" destination="YBT-qM-rqK" id="rxf-XV-PGw"/>
-                <outlet property="songsLabel" destination="MaX-dg-t2I" id="ZfW-0i-8qq"/>
-                <outlet property="view" destination="372" id="lqb-BV-uvG"/>
-            </connections>
-        </customObject>
-        <arrayController id="Q1e-uI-mMJ" userLabel="Google Array Controller">
-            <connections>
-                <binding destination="yAQ-Ue-eFw" name="sortDescriptors" keyPath="values.googleTableSortPrefs" id="HCO-22-EIw">
-                    <dictionary key="options">
-                        <string key="NSValueTransformerName">NSUnarchiveFromData</string>
-                    </dictionary>
-                </binding>
-            </connections>
-        </arrayController>
+        <arrayController automaticallyRearrangesObjects="YES" id="dr6-a9-Joz" userLabel="Song Array Controller"/>
         <viewController title="Queue Popover View Controller" nibName="QueuePopoverViewController" id="gKS-u8-39a" userLabel="Popover View Controller" customClass="QueuePopoverViewController">
             <connections>
                 <outlet property="appDelegate" destination="494" id="Vc5-zk-qsN"/>

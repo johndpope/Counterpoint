@@ -44,7 +44,7 @@
 	[[self player] advanceToNextItem];
 	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	
-	[self setCurrentTrack:[[[self queueArrayController] content] objectAtIndex:0]];
+	[self setCurrentTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
 	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
 	
 	[self addNextQueuedSong];
@@ -98,9 +98,9 @@
 	[[self queuePopover] showRelativeToRect:[[[self queueToolbarItem] view] bounds] ofView:[[self queueToolbarItem] view] preferredEdge:NSMaxYEdge];
 }
 
--(void)addItem:(NSDictionary*)trackDict toQueue:(AVPlayerItem*)playerItem
+-(void)addItem:(CPTrack*)track toQueue:(AVPlayerItem*)playerItem
 {
-	[[self queueArrayController] addObject:trackDict];
+	[[self queueArrayController] addObject:track];
 	[[self player] insertItem:playerItem afterItem:nil];
 	NSLog(@"item added to queue. queue size: %ld", [[[self player] items] count]);
 }
@@ -142,9 +142,13 @@
 -(void)playSelectedSongAndQueueFollowingTracks
 {
 	NSInteger selectedRow = [[self table] selectedRow];
+	CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedRow];
+	
+	if ([[self currentTrack] isEqual:selectedTrack])
+		return;
 	
 	AVPlayerItem* playerItem = [self getPlayerItemForSong:selectedRow];
-	[self setCurrentTrack:[[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedRow]];
+	[self setCurrentTrack:selectedTrack];
 	
 	[self startPlayingPlayerItem:playerItem withQueueBuildingCompletionHandler:^{
 		for (NSInteger i = selectedRow+1; i < [[[self tracksArrayController] arrangedObjects] count] && i < selectedRow + 20; i++)
