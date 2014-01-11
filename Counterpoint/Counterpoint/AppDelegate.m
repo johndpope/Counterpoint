@@ -39,12 +39,12 @@
 	return YES;
 }
 
--(void)setInitalizedQueueSubArray:(NSMutableArray *)initalizedQueueSubArray
+-(void)setInitializedQueueSubArray:(NSMutableArray *)initalizedQueueSubArray
 {
 	
 }
 
--(NSMutableArray*)initalizedQueueSubArray
+-(NSMutableArray*)initializedQueueSubArray
 {
 	//only the first 21 objects in the array will have AVPlayerItems initialized
 	//we only want to display these few items in the queue to keep the queue popover controller size down
@@ -60,7 +60,13 @@
 	[[self player] advanceToNextItem];
 	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	
-	[self addNextQueuedSong];
+	//remove the first object in the array, initialize the new track just added to initializedQueueSubArray
+	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
+	[self setCurrentTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
+	[self getAlbumArtworkForTrack:[self currentTrack]];
+	
+	CPTrack* trackToInitialize = [[self initializedQueueSubArray] lastObject];
+	[self getPlayerItemForTrack:trackToInitialize];
 }
 
 -(IBAction)pause:(id)sender
@@ -111,6 +117,12 @@
 	[track setPlayerItem:playerItem];
 }
 
+-(void)getAlbumArtworkForTrack:(CPTrack*)track
+{
+	NSImage* albumArtImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[track albumArtworkImageURLString]]];
+	[track setAlbumArtworkImage:albumArtImage];
+}
+
 -(void)playSelectedSongAndQueueFollowingTracks
 {
 	NSInteger selectedRow = [[self table] selectedRow];
@@ -118,6 +130,8 @@
 	
 	if ([[self currentTrack] isEqual:selectedTrack])
 		return;
+	
+	[self getAlbumArtworkForTrack:selectedTrack];
 	
 	[self setCurrentTrack:selectedTrack];
 		
@@ -131,9 +145,10 @@
 	NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
 	[[self queueArrayController] setContent:queueArray];
 	
-	for (CPTrack* track in [self initalizedQueueSubArray])
+	for (CPTrack* track in [self initializedQueueSubArray])
 	{
 		[self getPlayerItemForTrack:track];
+		[[self player] insertItem:[track playerItem] afterItem:nil];
 	}
 }
 
@@ -154,13 +169,6 @@
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex
 {
 	
-}
-
--(void)addNextQueuedSong
-{
-	//	NSInteger indexOfNextSongToQueue = [self selectedSong] + 20;
-	//	AVPlayerItem* playerItem = [self getPlayerItemForSong:indexOfNextSongToQueue];
-	//	[[NSApp delegate] addItem:[[self tracksArrayController] arrangedObjects][indexOfNextSongToQueue] toQueue:playerItem];
 }
 
 #pragma mark - Preferences
@@ -193,12 +201,12 @@
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
-	return @[@"currenttrack", @"player", @"queue", @"reload", NSToolbarFlexibleSpaceItemIdentifier, NSToolbarSpaceItemIdentifier];
+	return @[@"currenttrack", @"player", @"queue", @"reload", NSToolbarFlexibleSpaceItemIdentifier];
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
 {
-	return @[@"player", NSToolbarSpaceItemIdentifier, NSToolbarSpaceItemIdentifier, NSToolbarSpaceItemIdentifier, @"currenttrack", NSToolbarFlexibleSpaceItemIdentifier, @"queue", @"reload"];
+	return @[@"player", NSToolbarFlexibleSpaceItemIdentifier, @"currenttrack", NSToolbarFlexibleSpaceItemIdentifier, @"queue", @"reload"];
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar

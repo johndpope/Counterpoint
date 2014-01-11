@@ -23,7 +23,7 @@
 @property (nonatomic, strong) IBOutlet NSToolbarItem* queueToolbarItem;
 @property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
 @property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
-@property (nonatomic, strong) IBOutlet NSMutableArray* initalizedQueueSubArray;
+@property (nonatomic, strong) IBOutlet NSMutableArray* initializedQueueSubArray;
 
 @property (nonatomic, strong) AVQueuePlayer* player;
 @property (nonatomic, strong) CPTrack* currentTrack;

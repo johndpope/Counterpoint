@@ -55,11 +55,18 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 		[trackObject setArtist:song[@"artist"]];
 		[trackObject setIdString:song[@"id"]];
 		
+		
+		NSArray* imageURLsArray = song[@"albumArtRef"];
+		if (imageURLsArray && [imageURLsArray count] >= 1)
+		{
+			NSString* imageURLString = imageURLsArray[0][@"url"];
+			[trackObject setAlbumArtworkImageURLString:imageURLString];
+		}
+		
 		[[[NSApp delegate] tracksArray] addObject:trackObject];
 	}
 	[[NSApp delegate] finishedLoadingTracks];
 }
-
 
 -(BOOL)loginWithUsername:(NSString*)username password:(NSString*)password
 {
@@ -128,7 +135,11 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 		if (!body)
 		{
 			if (error)
+			{
 				NSLog(@"%@",[error description]);
+				[self finishedLoadingTracks];
+				return NO;
+			}
 		}
 		else
 			[request setHTTPBody:body];
