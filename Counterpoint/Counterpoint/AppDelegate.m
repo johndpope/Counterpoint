@@ -159,13 +159,6 @@
 	[[self queuePopover] showRelativeToRect:[[[self queueToolbarItem] view] bounds] ofView:[[self queueToolbarItem] view] preferredEdge:NSMaxYEdge];
 }
 
--(void)addItem:(CPTrack*)track toQueue:(AVPlayerItem*)playerItem
-{
-	[[self queueArrayController] addObject:track];
-	[[self player] insertItem:playerItem afterItem:nil];
-	NSLog(@"item added to queue. queue size: %ld", [[[self player] items] count]);
-}
-
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex
 {
 	

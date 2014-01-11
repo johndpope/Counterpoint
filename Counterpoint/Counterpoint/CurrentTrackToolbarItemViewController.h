@@ -13,5 +13,6 @@
 @interface CurrentTrackToolbarItemViewController : NSViewController
 
 @property (nonatomic, weak) IBOutlet AppDelegate* appDelegate;
+@property (nonatomic, assign) IBOutlet NSSlider* durationSlider;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "CurrentTrackToolbarItemViewController.h"
+#import "AppDelegate.h"
 
 @interface CurrentTrackToolbarItemViewController ()
 
