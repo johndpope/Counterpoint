@@ -739,7 +739,6 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
-                                        <binding destination="dr6-a9-Joz" name="content" keyPath="arrangedObjects" id="nIs-uz-3Do"/>
                                         <binding destination="494" name="doubleClickTarget" keyPath="self" id="Hb2-UW-8F7">
                                             <dictionary key="options">
                                                 <string key="NSSelectorName">playSelectedSongAndQueueFollowingTracks</string>
