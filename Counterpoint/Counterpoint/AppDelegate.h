@@ -12,6 +12,7 @@
 @class PreferencesWindowController;
 @class GoogleMusicController;
 @class CPTrack;
+@class QueuePopoverViewController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate>
 
@@ -22,6 +23,7 @@
 
 @property (nonatomic, strong) IBOutlet NSToolbarItem* queueToolbarItem;
 @property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
+@property (assign) IBOutlet QueuePopoverViewController* queuePopoverViewController;
 @property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
 @property (nonatomic, strong) IBOutlet NSMutableArray* initializedQueueSubArray;
 
@@ -35,7 +37,6 @@
 
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 
--(void)addItem:(NSDictionary*)trackDict toQueue:(AVPlayerItem*)playerItem;
 -(IBAction)play:(id)sender;
 -(IBAction)pause:(id)sender;
 -(IBAction)next:(id)sender;

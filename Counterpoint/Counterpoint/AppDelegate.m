@@ -15,6 +15,7 @@
 #import <AVFoundation/AVAsset.h>
 #import "GoogleMusicController.h"
 #import "CPTrack.h"
+#import "QueuePopoverViewController.h"
 
 @implementation AppDelegate
 
@@ -67,6 +68,7 @@
 	
 	CPTrack* trackToInitialize = [[self initializedQueueSubArray] lastObject];
 	[self getPlayerItemForTrack:trackToInitialize];
+	[[[self queuePopoverViewController] initializedQueueArrayController] setContent:[self initializedQueueSubArray]];
 }
 
 -(IBAction)pause:(id)sender
