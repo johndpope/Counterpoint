@@ -152,6 +152,8 @@
 		[self getPlayerItemForTrack:track];
 		[[self player] insertItem:[track playerItem] afterItem:nil];
 	}
+	
+	[[[self queuePopoverViewController] initializedQueueArrayController] setContent:[self initializedQueueSubArray]];
 }
 
 #pragma mark - Queue Controls
