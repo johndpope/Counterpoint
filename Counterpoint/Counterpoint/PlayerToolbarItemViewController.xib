@@ -25,6 +25,11 @@
                     </buttonCell>
                     <connections>
                         <action selector="play:" target="-2" id="duM-I2-cYK"/>
+                        <binding destination="-2" name="value" keyPath="self.appDelegate.player.rate" id="Hmz-vl-5vZ">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LHD-Ps-u4g">
