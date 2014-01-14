@@ -97,6 +97,7 @@
 	
 		[[[self currentTrackToolbarItem] viewController] updateDuration];
 		[[[[self currentTrackToolbarItem] viewController] durationSlider] setMinValue:0.0];
+		[[[[[self currentTrackToolbarItem] viewController] durationSlider] animator] setFloatValue:0.0];
 		
 		//this return value needs to be retained so it can be used when sending player the removeTimeObserver: message
 		[self setPlayerTimeObserverReturnValue:[[self player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 1000) queue:dispatch_get_current_queue() usingBlock:^(CMTime time)

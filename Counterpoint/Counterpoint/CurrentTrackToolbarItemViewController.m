@@ -58,7 +58,7 @@
 }
 
 -(IBAction)seekToTime:(NSSlider*)sender
-{	
+{
 	CMTime newTime = CMTimeMakeWithSeconds([sender doubleValue], NSEC_PER_SEC);
 	[[[self appDelegate] player] seekToTime:newTime];
 }
