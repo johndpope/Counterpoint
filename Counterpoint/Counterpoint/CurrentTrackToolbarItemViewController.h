@@ -14,5 +14,10 @@
 
 @property (nonatomic, weak) IBOutlet AppDelegate* appDelegate;
 @property (nonatomic, assign) IBOutlet NSSlider* durationSlider;
+@property (nonatomic, assign) IBOutlet NSTextField* durationLabel;
+@property (nonatomic, assign) IBOutlet NSTextField* currentTimeLabel;
+
+-(void)updateDuration;
+-(void)updateCurrentTime;
 
 @end

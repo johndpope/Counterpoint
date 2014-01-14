@@ -844,7 +844,15 @@
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
-        <arrayController automaticallyRearrangesObjects="YES" id="dr6-a9-Joz" userLabel="Song Array Controller"/>
+        <arrayController automaticallyRearrangesObjects="YES" id="dr6-a9-Joz" userLabel="Tracks Array Controller">
+            <connections>
+                <binding destination="yAQ-Ue-eFw" name="sortDescriptors" keyPath="values.sortDescriptors" id="uoR-tF-4Gk">
+                    <dictionary key="options">
+                        <string key="NSValueTransformerName">NSUnarchiveFromData</string>
+                    </dictionary>
+                </binding>
+            </connections>
+        </arrayController>
         <viewController title="Queue Popover View Controller" nibName="QueuePopoverViewController" id="gKS-u8-39a" userLabel="Popover View Controller" customClass="QueuePopoverViewController">
             <connections>
                 <outlet property="appDelegate" destination="494" id="Vc5-zk-qsN"/>

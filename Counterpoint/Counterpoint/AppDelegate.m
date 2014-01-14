@@ -58,6 +58,8 @@
 
 -(IBAction)next:(id)sender
 {
+	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
+	
 	[[self player] advanceToNextItem];
 	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	
@@ -92,6 +94,15 @@
 	{
 		[[[self player] currentItem] removeObserver:self forKeyPath:keyPath];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:object];
+	
+		[[[self currentTrackToolbarItem] viewController] updateDuration];
+		[[[[self currentTrackToolbarItem] viewController] durationSlider] setMinValue:0.0];
+		
+		//this return value needs to be retained so it can be used when sending player the removeTimeObserver: message
+		[self setPlayerTimeObserverReturnValue:[[self player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 1000) queue:dispatch_get_current_queue() usingBlock:^(CMTime time)
+		{
+			[[[self currentTrackToolbarItem] viewController] updateCurrentTime];
+		}]];
 		
 		[self play:self];
 	}
@@ -182,13 +193,16 @@
 	if ([itemIdentifier isEqualToString:@"player"])
 	{
 		PlayerToolbarItem* playerToolbarItem = [[PlayerToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-		return playerToolbarItem;
+		[self setPlayerToolbarItem:playerToolbarItem];
+		return [self playerToolbarItem];
 	}
 	
 	if ([itemIdentifier isEqualToString:@"currenttrack"])
 	{
-		CurrentTrackToolbarItem* playerToolbarItem = [[CurrentTrackToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-		return playerToolbarItem;
+		CurrentTrackToolbarItem* currentTrackToolbarItem = [[CurrentTrackToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+		[self setCurrentTrackToolbarItem:currentTrackToolbarItem];
+		
+		return [self currentTrackToolbarItem];
 	}
 	
 	NSToolbarItem* toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];

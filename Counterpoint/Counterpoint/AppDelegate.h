@@ -13,11 +13,17 @@
 @class GoogleMusicController;
 @class CPTrack;
 @class QueuePopoverViewController;
+@class CurrentTrackToolbarItem;
+@class PlayerToolbarItem;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, strong) IBOutlet NSToolbar* toolbar;
+
+@property (nonatomic, strong) CurrentTrackToolbarItem* currentTrackToolbarItem;
+@property (nonatomic, strong) PlayerToolbarItem* playerToolbarItem;
+
 @property (nonatomic, strong) IBOutlet NSTableView* table;
 @property (nonatomic, strong) IBOutlet NSTextField* songCountLabel;
 
@@ -29,6 +35,7 @@
 
 @property (nonatomic, strong) AVQueuePlayer* player;
 @property (nonatomic, strong) CPTrack* currentTrack;
+@property (nonatomic, strong) id playerTimeObserverReturnValue;
 
 @property (nonatomic, strong) GoogleMusicController* googleMusicController;
 
