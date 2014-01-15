@@ -33,14 +33,14 @@
 		[[self appDelegate] play:self];
 }
 
--(IBAction)pause:(id)sender
-{
-	[[self appDelegate] pause:self];
-}
-
 -(IBAction)next:(id)sender
 {
 	[[self appDelegate] next:self];
+}
+
+-(IBAction)adjustVolume:(NSSlider*)sender
+{
+	[[[self appDelegate] player] setVolume:[sender floatValue]];
 }
 
 @end
