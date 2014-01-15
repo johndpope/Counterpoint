@@ -61,7 +61,12 @@
 	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
 	
 	[[self player] advanceToNextItem];
-	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	
+	//if the song we're skipping too hasn't quite buffered yet, add the observer to play, otherwise just update the duration stuff now
+	if ([[[self player] currentItem] status] == AVPlayerItemStatusReadyToPlay)
+		[self setupTrackDurationSlider];
+	else
+		[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	
 	//remove the first object in the array, initialize the new track just added to initializedQueueSubArray
 	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
@@ -88,23 +93,25 @@
 	[self next:self];
 }
 
+-(void)setupTrackDurationSlider
+{
+	[[[self currentTrackToolbarItem] viewController] updateDuration];
+	[[[[self currentTrackToolbarItem] viewController] durationSlider] setMinValue:0.0];
+	[[[[[self currentTrackToolbarItem] viewController] durationSlider] animator] setFloatValue:0.0];
+	
+	//this return value needs to be retained so it can be used when sending player the removeTimeObserver: message
+	[self setPlayerTimeObserverReturnValue:[[self player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 1000) queue:dispatch_get_current_queue() usingBlock:^(CMTime time)
+											{
+												[[[self currentTrackToolbarItem] viewController] updateCurrentTime];
+											}]];
+}
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([keyPath isEqualToString:@"status"])
+	if ([keyPath isEqualToString:@"status"] && [[[self player] currentItem] status] == AVPlayerStatusReadyToPlay) //we'll only hit this when playing the first item in the queue or if we skip to the next track before the player has buffered the song completely
 	{
 		[[[self player] currentItem] removeObserver:self forKeyPath:keyPath];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:object];
-	
-		[[[self currentTrackToolbarItem] viewController] updateDuration];
-		[[[[self currentTrackToolbarItem] viewController] durationSlider] setMinValue:0.0];
-		[[[[[self currentTrackToolbarItem] viewController] durationSlider] animator] setFloatValue:0.0];
-		
-		//this return value needs to be retained so it can be used when sending player the removeTimeObserver: message
-		[self setPlayerTimeObserverReturnValue:[[self player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 1000) queue:dispatch_get_current_queue() usingBlock:^(CMTime time)
-		{
-			[[[self currentTrackToolbarItem] viewController] updateCurrentTime];
-		}]];
-		
+		[self setupTrackDurationSlider];
 		[self play:self];
 	}
 }
@@ -151,6 +158,7 @@
 		
 	[self getPlayerItemForTrack:selectedTrack];
 	[self setPlayer:[AVQueuePlayer queuePlayerWithItems:@[[selectedTrack playerItem]]]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 		
 	//keeping a copy of the tracksArrayController arrangedObjects at this moment in case the user then filters the tableview after starting to play an item
