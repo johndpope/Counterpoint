@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSString* idString;
 @property (nonatomic, strong) NSString* albumArtworkImageURLString;
 @property (nonatomic, strong) NSImage* albumArtworkImage;
-
 @property (nonatomic, strong) AVPlayerItem* playerItem;
+@property (assign) BOOL currentlyPlaying;
 
 @end

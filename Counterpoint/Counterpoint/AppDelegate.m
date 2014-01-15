@@ -54,6 +54,23 @@
 	return [NSMutableArray arrayWithArray:[[[self queueArrayController] arrangedObjects] subarrayWithRange:NSMakeRange(1, 20)]];
 }
 
+//sets the track to the object from tracksArrayController with currently playing flag set to 1
+-(void)setCurrentTrack:(CPTrack *)currentTrack
+{
+	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:currentTrack];
+	[track setCurrentlyPlaying:YES];
+	_currentTrack = track;
+}
+
+-(CPTrack*)getTracksArrayControllerTrackForQueueArrayControllerTrack:(CPTrack*)queueArrayControllerTrack
+{
+	NSUInteger index = [[[self tracksArrayController] content] indexOfObject:queueArrayControllerTrack];
+	if (index != NSNotFound)
+		return [[[self tracksArrayController] content] objectAtIndex:index];
+	else
+		return nil;
+}
+
 #pragma mark - Player Controls
 
 -(IBAction)next:(id)sender
@@ -67,6 +84,9 @@
 		[self setupTrackDurationSlider];
 	else
 		[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	
+	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
+	[track setCurrentlyPlaying:NO];
 	
 	//remove the first object in the array, initialize the new track just added to initializedQueueSubArray
 	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
@@ -108,11 +128,21 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([keyPath isEqualToString:@"status"] && [[[self player] currentItem] status] == AVPlayerStatusReadyToPlay) //we'll only hit this when playing the first item in the queue or if we skip to the next track before the player has buffered the song completely
+	if ([keyPath isEqualToString:@"status"]) //we'll only hit this when playing the first item in the queue or if we skip to the next track before the player has buffered the song completely
 	{
-		[[[self player] currentItem] removeObserver:self forKeyPath:keyPath];
-		[self setupTrackDurationSlider];
-		[self play:self];
+		if ([[[self player] currentItem] status] == AVPlayerStatusReadyToPlay)
+		{
+			[[[self player] currentItem] removeObserver:self forKeyPath:keyPath];
+			[self setupTrackDurationSlider];
+			[self play:self];
+		}
+		else if ([[[self player] currentItem] status] == AVPlayerItemStatusFailed)
+		{
+			NSAlert* alert = [NSAlert alertWithMessageText:@"Error buffering stream" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:nil];
+			NSInteger result = [alert runModal];
+			if (result == NSAlertDefaultReturn)
+				[self next:self];
+		}
 	}
 }
 
