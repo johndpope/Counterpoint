@@ -23,7 +23,7 @@
 
 -(void)doubleClick:(id)sender
 {
-//	NSInteger clickedRow = [[self queueTableView] clickedRow];
+	[[self appDelegate] clickedToQueueItemAtIndex:[[self queueTableView] clickedRow]];
 }
 
 @end

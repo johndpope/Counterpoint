@@ -48,4 +48,6 @@
 -(IBAction)pause:(id)sender;
 -(IBAction)next:(id)sender;
 
+-(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex;
+
 @end

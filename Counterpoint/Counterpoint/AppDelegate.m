@@ -130,18 +130,34 @@
 {
 	if ([keyPath isEqualToString:@"status"]) //we'll only hit this when playing the first item in the queue or if we skip to the next track before the player has buffered the song completely
 	{
-		if ([[[self player] currentItem] status] == AVPlayerStatusReadyToPlay)
+		if (object == [[self player] currentItem])
 		{
-			[[[self player] currentItem] removeObserver:self forKeyPath:keyPath];
-			[self setupTrackDurationSlider];
-			[self play:self];
+			if ([[[self player] currentItem] status] == AVPlayerStatusReadyToPlay)
+			{
+				[[[self player] currentItem] removeObserver:self forKeyPath:keyPath];
+				[self setupTrackDurationSlider];
+				[self play:self];
+			}
+			else if ([[[self player] currentItem] status] == AVPlayerItemStatusFailed)
+			{
+				NSAlert* alert = [NSAlert alertWithMessageText:@"Error buffering stream" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:nil];
+				NSInteger result = [alert runModal];
+				if (result == NSAlertDefaultReturn)
+					[self next:self];
+			}
+			else if ([[[self player] currentItem] status] == AVPlayerStatusUnknown)
+				NSLog(@"What does this mean?");
 		}
-		else if ([[[self player] currentItem] status] == AVPlayerItemStatusFailed)
+		else if (object == [self player])
 		{
-			NSAlert* alert = [NSAlert alertWithMessageText:@"Error buffering stream" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:nil];
-			NSInteger result = [alert runModal];
-			if (result == NSAlertDefaultReturn)
-				[self next:self];
+			if ([[self player] status] == AVPlayerStatusFailed)
+			{
+				
+			}
+			else if ([[self player] status] == AVPlayerStatusUnknown)
+			{
+				NSLog(@"Is this happening?");
+			}
 		}
 	}
 }
@@ -179,17 +195,25 @@
 	NSInteger selectedRow = [[self table] selectedRow];
 	CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedRow];
 	
-	if ([[self currentTrack] isEqual:selectedTrack])
-		return;
-	
-	[self getAlbumArtworkForTrack:selectedTrack];
-	
-	[self setCurrentTrack:selectedTrack];
+	if ([self player])
+	{
+		if ([[self currentTrack] isEqual:selectedTrack])
+			return;
 		
+		[[self currentTrack] setCurrentlyPlaying:NO];
+		[[self player] removeAllItems];
+	}
+	else
+		[self setPlayer:[[AVQueuePlayer alloc] init]];
+		
+	[self getAlbumArtworkForTrack:selectedTrack];
+	[self setCurrentTrack:selectedTrack];
 	[self getPlayerItemForTrack:selectedTrack];
-	[self setPlayer:[AVQueuePlayer queuePlayerWithItems:@[[selectedTrack playerItem]]]];
+	[[self player] insertItem:[selectedTrack playerItem] afterItem:nil];
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	[[self player] addObserver:self forKeyPath:@"status" options:0 context:nil];
 		
 	//keeping a copy of the tracksArrayController arrangedObjects at this moment in case the user then filters the tableview after starting to play an item
 	//the "queue" popover display will continue to play the tracks in the original order no matter what filtering or arranging the user does after the initial selection
