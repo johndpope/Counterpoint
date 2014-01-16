@@ -54,6 +54,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 		[trackObject setAlbum:song[@"album"]];
 		[trackObject setArtist:song[@"artist"]];
 		[trackObject setIdString:song[@"id"]];
+		[trackObject setTrackNumber:[NSNumber numberWithInteger:[song[@"trackNumber"] integerValue]]];
 		
 		
 		NSArray* imageURLsArray = song[@"albumArtRef"];

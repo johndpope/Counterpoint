@@ -152,7 +152,7 @@
 		{
 			if ([[self player] status] == AVPlayerStatusFailed)
 			{
-				
+				NSLog(@"Is this happening either?");
 			}
 			else if ([[self player] status] == AVPlayerStatusUnknown)
 			{

@@ -20,5 +20,6 @@
 @property (nonatomic, strong) NSImage* albumArtworkImage;
 @property (nonatomic, strong) AVPlayerItem* playerItem;
 @property (assign) BOOL currentlyPlaying;
+@property (nonatomic, strong) NSNumber* trackNumber;
 
 @end
