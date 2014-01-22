@@ -51,7 +51,11 @@
 	//we only want to display these few items in the queue to keep the queue popover controller size down
 	//the first object (index 0) is the item currently being played and does not need to be displayed
 	
-	return [NSMutableArray arrayWithArray:[[[self queueArrayController] arrangedObjects] subarrayWithRange:NSMakeRange(1, 20)]];
+	NSRange range = NSMakeRange(1, 20);
+	if ([[[self queueArrayController] arrangedObjects] count] < 20)
+		range = NSMakeRange(1, [[[self queueArrayController] arrangedObjects] count]-1);
+	
+	return [NSMutableArray arrayWithArray:[[[self queueArrayController] arrangedObjects] subarrayWithRange:range]];
 }
 
 //sets the track to the object from tracksArrayController with currently playing flag set to 1
@@ -110,7 +114,25 @@
 
 -(void)playerItemDidReachEnd:(id)object
 {
-	[self next:self];
+	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
+	
+	//if the song we're skipping too hasn't quite buffered yet, add the observer to play, otherwise just update the duration stuff now
+	if ([[[self player] currentItem] status] == AVPlayerItemStatusReadyToPlay)
+	[self setupTrackDurationSlider];
+	else
+	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	
+	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
+	[track setCurrentlyPlaying:NO];
+	
+	//remove the first object in the array, initialize the new track just added to initializedQueueSubArray
+	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
+	[self setCurrentTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
+	[self getAlbumArtworkForTrack:[self currentTrack]];
+	
+	CPTrack* trackToInitialize = [[self initializedQueueSubArray] lastObject];
+	[self getPlayerItemForTrack:trackToInitialize];
+	[[[self queuePopoverViewController] initializedQueueArrayController] setContent:[self initializedQueueSubArray]];
 }
 
 -(void)setupTrackDurationSlider
