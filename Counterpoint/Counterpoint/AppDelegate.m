@@ -19,6 +19,8 @@
 
 @implementation AppDelegate
 
+#pragma mark - Application
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[NSApp setDelegate:self];
@@ -40,41 +42,6 @@
 	return YES;
 }
 
--(void)setInitializedQueueSubArray:(NSMutableArray *)initalizedQueueSubArray
-{
-	
-}
-
--(NSMutableArray*)initializedQueueSubArray
-{
-	//only the first 21 objects in the array will have AVPlayerItems initialized
-	//we only want to display these few items in the queue to keep the queue popover controller size down
-	//the first object (index 0) is the item currently being played and does not need to be displayed
-	
-	NSRange range = NSMakeRange(1, 20);
-	if ([[[self queueArrayController] arrangedObjects] count] < 20)
-		range = NSMakeRange(1, [[[self queueArrayController] arrangedObjects] count]-1);
-	
-	return [NSMutableArray arrayWithArray:[[[self queueArrayController] arrangedObjects] subarrayWithRange:range]];
-}
-
-//sets the track to the object from tracksArrayController with currently playing flag set to 1
--(void)setCurrentTrack:(CPTrack *)currentTrack
-{
-	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:currentTrack];
-	[track setCurrentlyPlaying:YES];
-	_currentTrack = track;
-}
-
--(CPTrack*)getTracksArrayControllerTrackForQueueArrayControllerTrack:(CPTrack*)queueArrayControllerTrack
-{
-	NSUInteger index = [[[self tracksArrayController] content] indexOfObject:queueArrayControllerTrack];
-	if (index != NSNotFound)
-		return [[[self tracksArrayController] content] objectAtIndex:index];
-	else
-		return nil;
-}
-
 #pragma mark - Player Controls
 
 -(IBAction)next:(id)sender
@@ -85,21 +52,46 @@
 	
 	//if the song we're skipping too hasn't quite buffered yet, add the observer to play, otherwise just update the duration stuff now
 	if ([[[self player] currentItem] status] == AVPlayerItemStatusReadyToPlay)
-		[self setupTrackDurationSlider];
+		[[[self currentTrackToolbarItem] viewController] setupTrackDurationSlider];
 	else
 		[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	
-	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
+	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[[self queueArrayController] content] objectAtIndex:0]];
 	[track setCurrentlyPlaying:NO];
 	
-	//remove the first object in the array, initialize the new track just added to initializedQueueSubArray
+	//remove the first object in the array, initialize the new track
+	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
+	[self setCurrentTrack:[[[self queueArrayController] content] objectAtIndex:0]];
+	[self getAlbumArtworkForTrack:[self currentTrack]];
+	
+	CPTrack* trackToInitialize = [[[self queueArrayController] selectedObjects] lastObject];
+	NSLog(@"%@", trackToInitialize);
+	[self getPlayerItemForTrack:trackToInitialize];
+}
+
+-(void)playerItemDidReachEnd:(id)object
+{
+	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
+	
+	//if the song we're skipping too hasn't quite buffered yet, add the observer to play, otherwise just update the duration stuff now
+	if ([[[self player] currentItem] status] == AVPlayerItemStatusReadyToPlay)
+	[[[self currentTrackToolbarItem] viewController] setupTrackDurationSlider];
+	else
+	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	
+	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[[self queueArrayController] content] objectAtIndex:0]];
+	[track setCurrentlyPlaying:NO];
+	
+	//remove the first object in the array, initialize the new track
 	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
 	[self setCurrentTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
 	[self getAlbumArtworkForTrack:[self currentTrack]];
 	
-	CPTrack* trackToInitialize = [[self initializedQueueSubArray] lastObject];
+//FIXME: update the selection indexes! tack on the one at the end?
+	
+
+	CPTrack* trackToInitialize = [[[self queueArrayController] selectedObjects] lastObject];
 	[self getPlayerItemForTrack:trackToInitialize];
-	[[[self queuePopoverViewController] initializedQueueArrayController] setContent:[self initializedQueueSubArray]];
 }
 
 -(IBAction)pause:(id)sender
@@ -110,78 +102,6 @@
 -(IBAction)play:(id)sender
 {	
 	[[self player] play];
-}
-
--(void)playerItemDidReachEnd:(id)object
-{
-	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
-	
-	//if the song we're skipping too hasn't quite buffered yet, add the observer to play, otherwise just update the duration stuff now
-	if ([[[self player] currentItem] status] == AVPlayerItemStatusReadyToPlay)
-	[self setupTrackDurationSlider];
-	else
-	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
-	
-	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
-	[track setCurrentlyPlaying:NO];
-	
-	//remove the first object in the array, initialize the new track just added to initializedQueueSubArray
-	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
-	[self setCurrentTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
-	[self getAlbumArtworkForTrack:[self currentTrack]];
-	
-	CPTrack* trackToInitialize = [[self initializedQueueSubArray] lastObject];
-	[self getPlayerItemForTrack:trackToInitialize];
-	[[[self queuePopoverViewController] initializedQueueArrayController] setContent:[self initializedQueueSubArray]];
-}
-
--(void)setupTrackDurationSlider
-{
-	[[[self currentTrackToolbarItem] viewController] updateDuration];
-	[[[[self currentTrackToolbarItem] viewController] durationSlider] setMinValue:0.0];
-	[[[[[self currentTrackToolbarItem] viewController] durationSlider] animator] setFloatValue:0.0];
-	
-	//this return value needs to be retained so it can be used when sending player the removeTimeObserver: message
-	[self setPlayerTimeObserverReturnValue:[[self player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 1000) queue:dispatch_get_current_queue() usingBlock:^(CMTime time)
-											{
-												[[[self currentTrackToolbarItem] viewController] updateCurrentTime];
-											}]];
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	if ([keyPath isEqualToString:@"status"]) //we'll only hit this when playing the first item in the queue or if we skip to the next track before the player has buffered the song completely
-	{
-		if (object == [[self player] currentItem])
-		{
-			if ([[[self player] currentItem] status] == AVPlayerStatusReadyToPlay)
-			{
-				[[[self player] currentItem] removeObserver:self forKeyPath:keyPath];
-				[self setupTrackDurationSlider];
-				[self play:self];
-			}
-			else if ([[[self player] currentItem] status] == AVPlayerItemStatusFailed)
-			{
-				NSAlert* alert = [NSAlert alertWithMessageText:@"Error buffering stream" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:nil];
-				NSInteger result = [alert runModal];
-				if (result == NSAlertDefaultReturn)
-					[self next:self];
-			}
-			else if ([[[self player] currentItem] status] == AVPlayerStatusUnknown)
-				NSLog(@"What does this mean?");
-		}
-		else if (object == [self player])
-		{
-			if ([[self player] status] == AVPlayerStatusFailed)
-			{
-				NSLog(@"Is this happening either?");
-			}
-			else if ([[self player] status] == AVPlayerStatusUnknown)
-			{
-				NSLog(@"Is this happening?");
-			}
-		}
-	}
 }
 
 #pragma mark - Table View Controls
@@ -210,6 +130,23 @@
 {
 	NSImage* albumArtImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[track albumArtworkImageURLString]]];
 	[track setAlbumArtworkImage:albumArtImage];
+}
+
+//sets the track to the object from tracksArrayController with currently playing flag set to 1
+-(void)setCurrentTrack:(CPTrack *)currentTrack
+{
+	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:currentTrack];
+	[track setCurrentlyPlaying:YES];
+	_currentTrack = track;
+}
+
+-(CPTrack*)getTracksArrayControllerTrackForQueueArrayControllerTrack:(CPTrack*)queueArrayControllerTrack
+{
+	NSUInteger index = [[[self tracksArrayController] content] indexOfObject:queueArrayControllerTrack];
+	if (index != NSNotFound)
+	return [[[self tracksArrayController] content] objectAtIndex:index];
+	else
+	return nil;
 }
 
 -(void)playSelectedSongAndQueueFollowingTracks
@@ -243,21 +180,25 @@
 	NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
 	[[self queueArrayController] setContent:queueArray];
 	
-	for (CPTrack* track in [self initializedQueueSubArray])
+	//set selectedIndexes of the queueArrayController
+	//the selectedObjects will be used to populate the queue popover
+	NSIndexSet* indexSet = nil;
+	if ([[[self queueArrayController] content] count] > 21)
+		indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(1, 20)];
+	else if ([[[self queueArrayController] content] count] > 0)
+		indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(1, [[[self queueArrayController] arrangedObjects] count] -1)];
+	else
+		indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0,0)];
+	[[self queueArrayController] setSelectionIndexes:indexSet];
+	
+	for (CPTrack* track in [[self queueArrayController] selectedObjects])
 	{
 		[self getPlayerItemForTrack:track];
 		[[self player] insertItem:[track playerItem] afterItem:nil];
 	}
-	
-	[[[self queuePopoverViewController] initializedQueueArrayController] setContent:[self initializedQueueSubArray]];
 }
 
 #pragma mark - Queue Controls
-
--(IBAction)showQueue:(NSToolbarItem*)queueToolbarItem
-{
-	[[self queuePopover] showRelativeToRect:[[[self queueToolbarItem] view] bounds] ofView:[[self queueToolbarItem] view] preferredEdge:NSMaxYEdge];
-}
 
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex
 {
@@ -297,17 +238,55 @@
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
-	return @[@"currenttrack", @"player", @"queue", @"reload", NSToolbarFlexibleSpaceItemIdentifier];
+	return @[@"currenttrack", @"player", @"reload", NSToolbarFlexibleSpaceItemIdentifier];
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
 {
-	return @[@"player", NSToolbarFlexibleSpaceItemIdentifier, @"currenttrack", NSToolbarFlexibleSpaceItemIdentifier, @"queue", @"reload"];
+	return @[@"player", NSToolbarFlexibleSpaceItemIdentifier, @"currenttrack", NSToolbarFlexibleSpaceItemIdentifier, @"reload"];
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
-	return @[ @"currenttrack",@"player",@"queue",@"reload"];
+	return @[ @"currenttrack",@"player",@"reload"];
+}
+
+#pragma mark - Key Value Observing
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if ([keyPath isEqualToString:@"status"]) //we'll only hit this when playing the first item in the queue or if we skip to the next track before the player has buffered the song completely
+	{
+		if (object == [[self player] currentItem])
+		{
+			if ([[[self player] currentItem] status] == AVPlayerStatusReadyToPlay)
+			{
+				[[[self player] currentItem] removeObserver:self forKeyPath:keyPath];
+				[[[self currentTrackToolbarItem] viewController] setupTrackDurationSlider];
+				[self play:self];
+			}
+			else if ([[[self player] currentItem] status] == AVPlayerItemStatusFailed)
+			{
+				NSAlert* alert = [NSAlert alertWithMessageText:@"Error buffering stream" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:nil];
+				NSInteger result = [alert runModal];
+				if (result == NSAlertDefaultReturn)
+				[self next:self];
+			}
+			else if ([[[self player] currentItem] status] == AVPlayerStatusUnknown)
+			NSLog(@"What does this mean?");
+		}
+		else if (object == [self player])
+		{
+			if ([[self player] status] == AVPlayerStatusFailed)
+			{
+				NSLog(@"Is this happening either?");
+			}
+			else if ([[self player] status] == AVPlayerStatusUnknown)
+			{
+				NSLog(@"Is this happening?");
+			}
+		}
+	}
 }
 
 @end

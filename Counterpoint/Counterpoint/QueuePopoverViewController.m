@@ -7,7 +7,6 @@
 //
 
 #import "QueuePopoverViewController.h"
-#import <AVFoundation/AVFoundation.h>
 #import "AppDelegate.h"
 
 @interface QueuePopoverViewController ()

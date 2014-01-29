@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class AppDelegate;
+@class QueuePopoverViewController;
 
 @interface CurrentTrackToolbarItemViewController : NSViewController
 
@@ -16,8 +17,12 @@
 @property (nonatomic, assign) IBOutlet NSSlider* durationSlider;
 @property (nonatomic, assign) IBOutlet NSTextField* durationLabel;
 @property (nonatomic, assign) IBOutlet NSTextField* currentTimeLabel;
+@property (nonatomic, strong) id playerTimeObserverReturnValue;
 
--(void)updateDuration;
--(void)updateCurrentTime;
+@property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
+@property (assign) IBOutlet QueuePopoverViewController* queuePopoverViewController;
+@property (assign) IBOutlet NSButton* queueButton;
+
+-(void)setupTrackDurationSlider;
 
 @end

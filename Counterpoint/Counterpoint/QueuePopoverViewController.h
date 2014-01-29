@@ -11,7 +11,7 @@
 
 @interface QueuePopoverViewController : NSViewController <NSPopoverDelegate>
 
-@property (nonatomic, retain) IBOutlet NSTableView* queueTableView;
+@property (nonatomic, strong) IBOutlet NSTableView* queueTableView;
 @property (nonatomic, weak) IBOutlet AppDelegate* appDelegate;
 @property (assign) IBOutlet NSArrayController* initializedQueueArrayController;
 

@@ -27,11 +27,7 @@
 @property (nonatomic, strong) IBOutlet NSTableView* table;
 @property (nonatomic, strong) IBOutlet NSTextField* songCountLabel;
 
-@property (nonatomic, strong) IBOutlet NSToolbarItem* queueToolbarItem;
-@property (nonatomic, strong) IBOutlet NSPopover* queuePopover;
-@property (assign) IBOutlet QueuePopoverViewController* queuePopoverViewController;
 @property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
-@property (nonatomic, strong) IBOutlet NSMutableArray* initializedQueueSubArray;
 
 @property (nonatomic, strong) AVQueuePlayer* player;
 @property (nonatomic, strong) CPTrack* currentTrack;

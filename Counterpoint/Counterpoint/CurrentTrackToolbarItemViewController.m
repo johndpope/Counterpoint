@@ -9,6 +9,7 @@
 #import "CurrentTrackToolbarItemViewController.h"
 #import "AppDelegate.h"
 #import <CoreMedia/CoreMedia.h>
+#import "QueuePopoverViewController.h"
 
 @interface CurrentTrackToolbarItemViewController ()
 
@@ -24,6 +25,11 @@
 		_appDelegate = [NSApp delegate];
     }
     return self;
+}
+
+-(void)awakeFromNib
+{
+	[[self queuePopoverViewController] setAppDelegate:[NSApp delegate]];
 }
 
 -(NSString*)getTimeValueStringFromCMTime:(CMTime)time
@@ -61,6 +67,24 @@
 {
 	CMTime newTime = CMTimeMakeWithSeconds([sender doubleValue], NSEC_PER_SEC);
 	[[[self appDelegate] player] seekToTime:newTime];
+}
+
+-(void)setupTrackDurationSlider
+{
+	[self updateDuration];
+	[[self durationSlider] setMinValue:0.0];
+	[[[self durationSlider] animator] setFloatValue:0.0];
+	
+	//this return value needs to be retained so it can be used when sending player the removeTimeObserver: message
+	[self setPlayerTimeObserverReturnValue:[[[self appDelegate] player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 1000) queue:dispatch_get_current_queue() usingBlock:^(CMTime time)
+											{
+												[self updateCurrentTime];
+											}]];
+}
+
+-(IBAction)showQueue:(NSToolbarItem*)queueToolbarItem
+{
+	[[self queuePopover] showRelativeToRect:[[self queueButton] bounds] ofView:[self queueButton] preferredEdge:NSMaxYEdge];
 }
 
 @end

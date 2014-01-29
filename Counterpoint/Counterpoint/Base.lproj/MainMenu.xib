@@ -830,22 +830,6 @@
                             <action selector="loadAllTables:" target="494" id="0RB-4M-RO4"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="30A02CEC-8824-43B8-A779-B8EF7AEF6ABF" explicitItemIdentifier="queue" label="Queue" paletteLabel="Queue" tag="4" image="NSAddTemplate" autovalidates="NO" selectable="YES" id="D8o-02-8aC">
-                        <nil key="toolTip"/>
-                        <size key="minSize" width="32" height="31"/>
-                        <size key="maxSize" width="32" height="32"/>
-                        <button key="view" autoresizesSubviews="NO" tag="4" id="d1Q-RS-dh5">
-                            <rect key="frame" x="5" y="14" width="32" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSAddTemplate" imageScaling="proportionallyDown" inset="2" id="U2I-8v-zJv">
-                                <behavior key="behavior" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="showQueue:" target="494" id="LJL-h2-ePT"/>
-                        </connections>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="MDi-0u-SnJ"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
@@ -855,7 +839,6 @@
                     <toolbarItem reference="MDi-0u-SnJ"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
-                    <toolbarItem reference="D8o-02-8aC"/>
                     <toolbarItem reference="Sk5-5P-AcN"/>
                 </defaultToolbarItems>
                 <connections>
@@ -865,9 +848,6 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
-                <outlet property="queuePopover" destination="bBg-bh-CZl" id="Y4S-iA-ViB"/>
-                <outlet property="queuePopoverViewController" destination="gKS-u8-39a" id="vP3-Qj-may"/>
-                <outlet property="queueToolbarItem" destination="D8o-02-8aC" id="ugC-0v-9FW"/>
                 <outlet property="songCountLabel" destination="MaX-dg-t2I" id="IN8-bJ-YLr"/>
                 <outlet property="table" destination="YBT-qM-rqK" id="gjj-em-kny"/>
                 <outlet property="toolbar" destination="gQu-fE-5hG" id="4AF-hN-hZ3"/>
@@ -885,20 +865,9 @@
                 </binding>
             </connections>
         </arrayController>
-        <viewController title="Queue Popover View Controller" nibName="QueuePopoverViewController" id="gKS-u8-39a" userLabel="Popover View Controller" customClass="QueuePopoverViewController">
-            <connections>
-                <outlet property="appDelegate" destination="494" id="Vc5-zk-qsN"/>
-            </connections>
-        </viewController>
-        <popover behavior="t" id="bBg-bh-CZl">
-            <connections>
-                <outlet property="contentViewController" destination="gKS-u8-39a" id="3Vm-nY-wQb"/>
-            </connections>
-        </popover>
         <userDefaultsController representsSharedInstance="YES" id="yAQ-Ue-eFw"/>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="8" height="8"/>
         <image name="NSRefreshTemplate" width="10" height="12"/>
         <image name="NSStatusAvailable" width="16" height="16"/>
     </resources>
