@@ -34,12 +34,19 @@
 	
 	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
 	[self loadAllTables:self];
+	
+	[[self queueArrayController] addObserver:self forKeyPath:@"content" options:0 context:nil];
 }
 
 -(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
 {
 	[[self window] setIsVisible:YES];
 	return YES;
+}
+
+-(void)dealloc
+{
+	[[self queueArrayController] removeObserver:self forKeyPath:@"content"];
 }
 
 #pragma mark - Player Controls
@@ -60,7 +67,8 @@
 	[track setCurrentlyPlaying:NO];
 	
 	//remove the first object in the array, initialize the new track
-	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
+	[[self queueArrayController] removeObject:[self currentTrack]];
+	[self setQueueArrayControllerSelectedIndexes];
 	[self setCurrentTrack:[[[self queueArrayController] content] objectAtIndex:0]];
 	[self getAlbumArtworkForTrack:[self currentTrack]];
 	
@@ -83,7 +91,8 @@
 	[track setCurrentlyPlaying:NO];
 	
 	//remove the first object in the array, initialize the new track
-	[[self queueArrayController] removeObjectAtArrangedObjectIndex:0];
+	[[self queueArrayController] removeObject:[self currentTrack]];
+	[self setQueueArrayControllerSelectedIndexes];
 	[self setCurrentTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
 	[self getAlbumArtworkForTrack:[self currentTrack]];
 	
@@ -180,17 +189,6 @@
 	NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
 	[[self queueArrayController] setContent:queueArray];
 	
-	//set selectedIndexes of the queueArrayController
-	//the selectedObjects will be used to populate the queue popover
-	NSIndexSet* indexSet = nil;
-	if ([[[self queueArrayController] content] count] > 21)
-		indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(1, 20)];
-	else if ([[[self queueArrayController] content] count] > 0)
-		indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(1, [[[self queueArrayController] arrangedObjects] count] -1)];
-	else
-		indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0,0)];
-	[[self queueArrayController] setSelectionIndexes:indexSet];
-	
 	for (CPTrack* track in [[self queueArrayController] selectedObjects])
 	{
 		[self getPlayerItemForTrack:track];
@@ -199,6 +197,20 @@
 }
 
 #pragma mark - Queue Controls
+
+//set selectedIndexes of the queueArrayController
+//the selectedObjects will be used to populate the queue popover
+-(void)setQueueArrayControllerSelectedIndexes
+{
+	NSIndexSet* indexSet = nil;
+	if ([[[self queueArrayController] content] count] > 21)
+		indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(1, 20)];
+	else if ([[[self queueArrayController] content] count] > 0)
+		indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(1, [[[self queueArrayController] arrangedObjects] count] -1)];
+	else
+		indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0,0)];
+	[[self queueArrayController] setSelectionIndexes:indexSet];
+}
 
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex
 {
@@ -286,6 +298,10 @@
 				NSLog(@"Is this happening?");
 			}
 		}
+	}
+	else if ([keyPath isEqualToString:@"content"])
+	{
+		[self setQueueArrayControllerSelectedIndexes];
 	}
 }
 
