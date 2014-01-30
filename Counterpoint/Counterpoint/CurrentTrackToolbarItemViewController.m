@@ -87,4 +87,9 @@
 	[[self queuePopover] showRelativeToRect:[[self queueButton] bounds] ofView:[self queueButton] preferredEdge:NSMaxYEdge];
 }
 
+-(IBAction)shuffle:(id)sender
+{
+	[[NSApp delegate] shuffle:sender];
+}
+
 @end

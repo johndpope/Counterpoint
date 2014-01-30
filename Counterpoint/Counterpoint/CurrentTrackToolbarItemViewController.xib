@@ -13,6 +13,7 @@
                 <outlet property="queueButton" destination="oR6-KL-vjV" id="KAG-kC-2Ul"/>
                 <outlet property="queuePopover" destination="cU5-tD-Nzl" id="E6s-pD-911"/>
                 <outlet property="queuePopoverViewController" destination="W3Q-S4-mGZ" id="mYW-c3-uSD"/>
+                <outlet property="shuffleButton" destination="HoW-V1-LRa" id="naL-GD-But"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>
@@ -108,9 +109,12 @@
                     <rect key="frame" x="477" y="4" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSRefreshFreestandingTemplate" imagePosition="only" alignment="center" alternateImage="NSRefreshFreestandingTemplate" imageScaling="proportionallyDown" inset="2" id="ZGW-zR-4Qy">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="shuffle:" target="-2" id="jaz-NP-7pL"/>
+                    </connections>
                 </button>
             </subviews>
         </customView>

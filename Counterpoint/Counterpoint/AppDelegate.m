@@ -51,12 +51,8 @@
 
 #pragma mark - Player Controls
 
--(IBAction)next:(id)sender
+-(void)advanceToNextTrack
 {
-	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
-	
-	[[self player] advanceToNextItem];
-	
 	//if the song we're skipping too hasn't quite buffered yet, add the observer to play, otherwise just update the duration stuff now
 	if ([[[self player] currentItem] status] == AVPlayerItemStatusReadyToPlay)
 		[[[self currentTrackToolbarItem] viewController] setupTrackDurationSlider];
@@ -73,42 +69,31 @@
 	[self getAlbumArtworkForTrack:[self currentTrack]];
 	
 	CPTrack* trackToInitialize = [[[self queueArrayController] selectedObjects] lastObject];
-	NSLog(@"%@", trackToInitialize);
 	[self getPlayerItemForTrack:trackToInitialize];
+}
+
+-(void)next:(id)sender
+{
+	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
+	
+	[[self player] advanceToNextItem];
+	
+	[self advanceToNextTrack];
 }
 
 -(void)playerItemDidReachEnd:(id)object
 {
 	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
 	
-	//if the song we're skipping too hasn't quite buffered yet, add the observer to play, otherwise just update the duration stuff now
-	if ([[[self player] currentItem] status] == AVPlayerItemStatusReadyToPlay)
-	[[[self currentTrackToolbarItem] viewController] setupTrackDurationSlider];
-	else
-	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
-	
-	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[[self queueArrayController] content] objectAtIndex:0]];
-	[track setCurrentlyPlaying:NO];
-	
-	//remove the first object in the array, initialize the new track
-	[[self queueArrayController] removeObject:[self currentTrack]];
-	[self setQueueArrayControllerSelectedIndexes];
-	[self setCurrentTrack:[[[self queueArrayController] arrangedObjects] objectAtIndex:0]];
-	[self getAlbumArtworkForTrack:[self currentTrack]];
-	
-//FIXME: update the selection indexes! tack on the one at the end?
-	
-
-	CPTrack* trackToInitialize = [[[self queueArrayController] selectedObjects] lastObject];
-	[self getPlayerItemForTrack:trackToInitialize];
+	[self advanceToNextTrack];
 }
 
--(IBAction)pause:(id)sender
+-(void)pause:(id)sender
 {
 	[[self player] pause];
 }
 
--(IBAction)play:(id)sender
+-(void)play:(id)sender
 {	
 	[[self player] play];
 }
@@ -153,9 +138,9 @@
 {
 	NSUInteger index = [[[self tracksArrayController] content] indexOfObject:queueArrayControllerTrack];
 	if (index != NSNotFound)
-	return [[[self tracksArrayController] content] objectAtIndex:index];
+		return [[[self tracksArrayController] content] objectAtIndex:index];
 	else
-	return nil;
+		return nil;
 }
 
 -(void)playSelectedSongAndQueueFollowingTracks
@@ -215,6 +200,47 @@
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex
 {
 	
+}
+
+-(void)shuffle:(id)sender
+{
+	NSArray* newQueue = [NSArray array];
+	if ([sender state] == NSOnState)
+	{
+		NSMutableArray* queuedItems = [NSMutableArray arrayWithArray:[[self queueArrayController] content]];
+		NSUInteger count = [queuedItems count];
+		//start at second track to leave the currently playing track alone
+		for (NSUInteger i = 1; i < count; ++i) {
+			// Select a random element between i and end of array to swap with.
+			NSInteger nElements = count - i;
+			NSInteger n = arc4random_uniform(nElements) + i;
+			[queuedItems exchangeObjectAtIndex:i withObjectAtIndex:n];
+		}
+		newQueue = queuedItems;
+	}
+	else
+	{
+		NSUInteger index = [[[self tracksArrayController] content] indexOfObject:[self currentTrack]];
+		NSRange range = NSMakeRange(index, [[[self tracksArrayController] arrangedObjects] count] - index);
+		NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
+		newQueue = queueArray;
+	}
+	
+	[[self queueArrayController] setContent:newQueue];
+	
+	NSArray* items = [[self player] items];
+    for (AVPlayerItem* item in [items copy]) {
+        if (item == [[self player] currentItem]) {
+            continue; // don't remove the currently played item
+        }
+        [[self player] removeItem:item];
+    }
+	 
+	for (CPTrack* track in [[self queueArrayController] selectedObjects])
+	{
+		[self getPlayerItemForTrack:track];
+		[[self player] insertItem:[track playerItem] afterItem:nil];
+	}
 }
 
 #pragma mark - Preferences

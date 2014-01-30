@@ -40,9 +40,10 @@
 
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 
--(IBAction)play:(id)sender;
--(IBAction)pause:(id)sender;
--(IBAction)next:(id)sender;
+-(void)play:(id)sender;
+-(void)pause:(id)sender;
+-(void)next:(id)sender;
+-(void)shuffle:(id)sender;
 
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex;
 

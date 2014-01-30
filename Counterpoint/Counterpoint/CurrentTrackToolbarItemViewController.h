@@ -23,6 +23,8 @@
 @property (assign) IBOutlet QueuePopoverViewController* queuePopoverViewController;
 @property (assign) IBOutlet NSButton* queueButton;
 
+@property (assign) IBOutlet NSButton* shuffleButton;
+
 -(void)setupTrackDurationSlider;
 
 @end
