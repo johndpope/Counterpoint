@@ -220,7 +220,7 @@
 	}
 	else
 	{
-		NSUInteger index = [[[self tracksArrayController] content] indexOfObject:[self currentTrack]];
+		NSUInteger index = [[[self tracksArrayController] arrangedObjects] indexOfObject:[self currentTrack]];
 		NSRange range = NSMakeRange(index, [[[self tracksArrayController] arrangedObjects] count] - index);
 		NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
 		newQueue = queueArray;
