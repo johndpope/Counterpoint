@@ -71,15 +71,35 @@
 
 -(void)setupTrackDurationSlider
 {
-	[self updateDuration];
-	[[self durationSlider] setMinValue:0.0];
-	[[[self durationSlider] animator] setFloatValue:0.0];
-	
-	//this return value needs to be retained so it can be used when sending player the removeTimeObserver: message
-	[self setPlayerTimeObserverReturnValue:[[[self appDelegate] player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 1000) queue:dispatch_get_current_queue() usingBlock:^(CMTime time)
-											{
-												[self updateCurrentTime];
-											}]];
+	AVKeyValueStatus duration = [[[[[self appDelegate] player] currentItem] asset] statusOfValueForKey:@"duration" error:nil];
+	if (duration == AVKeyValueStatusLoaded)
+	{
+		[self updateDuration];
+		[[self durationSlider] setMinValue:0.0];
+		[[[self durationSlider] animator] setFloatValue:0.0];
+		
+		//this return value needs to be retained so it can be used when sending player the removeTimeObserver: message
+		[self setPlayerTimeObserverReturnValue:[[[self appDelegate] player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 1000) queue:dispatch_get_main_queue() usingBlock:^(CMTime time)
+												{
+													[self updateCurrentTime];
+												}]];
+	}
+	else
+	{
+		[[[[[self appDelegate] player] currentItem] asset] loadValuesAsynchronouslyForKeys:@[@"duration"] completionHandler:^{
+			dispatch_async(dispatch_get_main_queue(), ^{
+				switch ([[[[[self appDelegate] player] currentItem] asset] statusOfValueForKey:@"duration" error:nil])
+				{
+					case AVKeyValueStatusLoaded:
+					{
+						[self setupTrackDurationSlider];
+					}
+					default:
+						break;
+				}
+			});
+		}];
+	}
 }
 
 -(IBAction)showQueue:(NSToolbarItem*)queueToolbarItem

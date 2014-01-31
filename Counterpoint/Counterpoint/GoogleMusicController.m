@@ -35,6 +35,8 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 
 -(void)loadTracks
 {
+	[[self songArray] removeAllObjects];
+	
 	NSString* username = [[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"];
 	NSString* password = [[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"];
 	
@@ -47,6 +49,8 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 
 -(void)finishedLoadingTracks
 {
+	[[[NSApp delegate] tracksArray] removeAllObjects];
+	
 	for (NSDictionary* song in [self songArray])
 	{
 		CPTrack* trackObject = [[CPTrack alloc] init];

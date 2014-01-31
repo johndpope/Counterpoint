@@ -138,6 +138,8 @@
 		0D4C177D188057C70086EFD5 /* Current Track Control */ = {
 			isa = PBXGroup;
 			children = (
+				0D4C1AD01886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.h */,
+				0D4C1AD11886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m */,
 				0D4C17731880544D0086EFD5 /* CurrentTrackToolbarItem.h */,
 				0D4C17741880544D0086EFD5 /* CurrentTrackToolbarItem.m */,
 				0D4C1778188054640086EFD5 /* CurrentTrackToolbarItemViewController.h */,
@@ -230,8 +232,6 @@
 				0DCE24A4184CFA5D0039DDC0 /* AppDelegate.h */,
 				0DCE24A5184CFA5D0039DDC0 /* AppDelegate.m */,
 				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
-				0D4C1AD01886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.h */,
-				0D4C1AD11886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m */,
 				0DC8964E187F3C3A006D5D35 /* CPTrack.h */,
 				0DC8964F187F3C3A006D5D35 /* CPTrack.m */,
 				B38E5A9C186299950049602D /* Google Music */,
