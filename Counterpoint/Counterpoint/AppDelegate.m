@@ -107,6 +107,12 @@
 
 -(void)finishedLoadingTracks
 {
+	NSSortDescriptor* trackSort = [[NSSortDescriptor alloc] initWithKey:@"trackNumber" ascending:YES];
+	NSSortDescriptor* albumSort = [[NSSortDescriptor alloc] initWithKey:@"album" ascending:YES];
+	NSSortDescriptor* artistSort = [[NSSortDescriptor alloc] initWithKey:@"artist" ascending:YES];
+	
+	[[self tracksArray] sortUsingDescriptors:@[artistSort, albumSort, trackSort]];
+	
 	[[self tracksArrayController] setContent:[self tracksArray]];
 }
 
