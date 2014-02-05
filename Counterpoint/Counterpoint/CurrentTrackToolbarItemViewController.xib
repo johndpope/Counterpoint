@@ -40,6 +40,11 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
+                        <binding destination="-2" name="hidden" keyPath="self.appDelegate.currentTrack" id="6Vd-OT-n2D">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSIsNil</string>
+                            </dictionary>
+                        </binding>
                         <binding destination="-2" name="value" keyPath="self.appDelegate.currentTrack.title" id="iav-Lg-kjm"/>
                     </connections>
                 </textField>
@@ -52,6 +57,11 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
+                        <binding destination="-2" name="hidden" keyPath="self.appDelegate.currentTrack" id="FK0-nG-WZW">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSIsNil</string>
+                            </dictionary>
+                        </binding>
                         <binding destination="-2" name="displayPatternValue2" keyPath="self.appDelegate.currentTrack.album" previousBinding="Slf-j1-2PO" id="IXd-o3-a3A">
                             <dictionary key="options">
                                 <string key="NSDisplayPattern">%{value1}@ - %{value2}@</string>

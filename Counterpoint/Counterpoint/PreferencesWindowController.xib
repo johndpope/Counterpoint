@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
@@ -44,7 +44,7 @@
                                         <binding destination="A56-Nu-BGq" name="value" keyPath="values.googleUsername" id="TC8-42-Dg0"/>
                                     </connections>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QxS-8b-mid">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QxS-8b-mid">
                                     <rect key="frame" x="15" y="87" width="64" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Username" id="yBm-pF-xZ1">
@@ -53,7 +53,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UdL-tE-Swp">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UdL-tE-Swp">
                                     <rect key="frame" x="15" y="44" width="64" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password" id="T0h-OD-zsj">
@@ -81,14 +81,14 @@
                         </view>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Bop-uW-A5M" secondAttribute="trailing" constant="16" id="2on-MJ-miL"/>
-                            <constraint firstAttribute="trailing" secondItem="UdL-tE-Swp" secondAttribute="trailing" constant="320" id="Irk-UL-VoM"/>
-                            <constraint firstItem="UdL-tE-Swp" firstAttribute="leading" secondItem="N4Z-3P-mhn" secondAttribute="leading" constant="16" id="Jlj-9s-ZAa"/>
+                            <constraint firstAttribute="trailing" secondItem="UdL-tE-Swp" secondAttribute="trailing" constant="319" id="Irk-UL-VoM"/>
+                            <constraint firstItem="UdL-tE-Swp" firstAttribute="leading" secondItem="N4Z-3P-mhn" secondAttribute="leading" constant="15" id="Jlj-9s-ZAa"/>
                             <constraint firstItem="QxS-8b-mid" firstAttribute="top" secondItem="N4Z-3P-mhn" secondAttribute="top" constant="25" id="KMQ-e9-IjC"/>
                             <constraint firstItem="UdL-tE-Swp" firstAttribute="top" secondItem="PNc-8c-M5P" secondAttribute="bottom" constant="5" id="TjA-qo-FsD"/>
                             <constraint firstItem="PNc-8c-M5P" firstAttribute="top" secondItem="QxS-8b-mid" secondAttribute="bottom" constant="2" id="UPv-i5-Z2Z"/>
-                            <constraint firstItem="QxS-8b-mid" firstAttribute="leading" secondItem="N4Z-3P-mhn" secondAttribute="leading" constant="16" id="YIX-7r-a43"/>
+                            <constraint firstItem="QxS-8b-mid" firstAttribute="leading" secondItem="N4Z-3P-mhn" secondAttribute="leading" constant="15" id="YIX-7r-a43"/>
                             <constraint firstItem="PNc-8c-M5P" firstAttribute="leading" secondItem="N4Z-3P-mhn" secondAttribute="leading" constant="16" id="a0i-TH-zxz"/>
-                            <constraint firstAttribute="trailing" secondItem="QxS-8b-mid" secondAttribute="trailing" constant="320" id="eEy-yp-T6w"/>
+                            <constraint firstAttribute="trailing" secondItem="QxS-8b-mid" secondAttribute="trailing" constant="319" id="eEy-yp-T6w"/>
                             <constraint firstAttribute="trailing" secondItem="PNc-8c-M5P" secondAttribute="trailing" constant="16" id="p0d-gy-IfD"/>
                             <constraint firstItem="UdL-tE-Swp" firstAttribute="top" secondItem="PNc-8c-M5P" secondAttribute="bottom" constant="5" id="tjt-Xa-Bc2"/>
                             <constraint firstItem="PNc-8c-M5P" firstAttribute="top" secondItem="QxS-8b-mid" secondAttribute="bottom" constant="2" id="vO1-DI-78M"/>
@@ -118,7 +118,7 @@
                                         <binding destination="A56-Nu-BGq" name="value" keyPath="values.spotifyUsername" id="136-TJ-y9X"/>
                                     </connections>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s1t-nf-1Ga">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s1t-nf-1Ga">
                                     <rect key="frame" x="15" y="87" width="64" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Username" id="4Kp-rl-75D">
@@ -127,7 +127,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KC3-D6-Nsi">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KC3-D6-Nsi">
                                     <rect key="frame" x="15" y="44" width="64" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password" id="zc9-Va-Qqj">
@@ -155,14 +155,14 @@
                         </view>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="BNQ-cQ-bIK" secondAttribute="bottom" constant="11" id="5cZ-je-xyw"/>
-                            <constraint firstAttribute="trailing" secondItem="KC3-D6-Nsi" secondAttribute="trailing" constant="320" id="6Xl-zK-ECM"/>
+                            <constraint firstAttribute="trailing" secondItem="KC3-D6-Nsi" secondAttribute="trailing" constant="319" id="6Xl-zK-ECM"/>
                             <constraint firstItem="5QT-84-53q" firstAttribute="top" secondItem="s1t-nf-1Ga" secondAttribute="bottom" constant="2" id="97g-4M-Off"/>
                             <constraint firstItem="KC3-D6-Nsi" firstAttribute="top" secondItem="5QT-84-53q" secondAttribute="bottom" constant="5" id="Ev8-IH-XXC"/>
                             <constraint firstItem="BNQ-cQ-bIK" firstAttribute="top" secondItem="KC3-D6-Nsi" secondAttribute="bottom" constant="8" id="XIf-c3-FCV"/>
                             <constraint firstItem="KC3-D6-Nsi" firstAttribute="top" secondItem="5QT-84-53q" secondAttribute="bottom" constant="5" id="Xif-Gr-co3"/>
-                            <constraint firstAttribute="trailing" secondItem="s1t-nf-1Ga" secondAttribute="trailing" constant="320" id="c4X-qc-dL3"/>
-                            <constraint firstItem="s1t-nf-1Ga" firstAttribute="leading" secondItem="A70-Sy-JtX" secondAttribute="leading" constant="16" id="hAH-AY-vn1"/>
-                            <constraint firstItem="KC3-D6-Nsi" firstAttribute="leading" secondItem="A70-Sy-JtX" secondAttribute="leading" constant="16" id="hiD-rb-exD"/>
+                            <constraint firstAttribute="trailing" secondItem="s1t-nf-1Ga" secondAttribute="trailing" constant="319" id="c4X-qc-dL3"/>
+                            <constraint firstItem="s1t-nf-1Ga" firstAttribute="leading" secondItem="A70-Sy-JtX" secondAttribute="leading" constant="15" id="hAH-AY-vn1"/>
+                            <constraint firstItem="KC3-D6-Nsi" firstAttribute="leading" secondItem="A70-Sy-JtX" secondAttribute="leading" constant="15" id="hiD-rb-exD"/>
                             <constraint firstAttribute="trailing" secondItem="BNQ-cQ-bIK" secondAttribute="trailing" constant="16" id="lHo-T7-LP0"/>
                             <constraint firstItem="s1t-nf-1Ga" firstAttribute="top" secondItem="A70-Sy-JtX" secondAttribute="top" constant="25" id="o22-zk-aeL"/>
                             <constraint firstItem="BNQ-cQ-bIK" firstAttribute="leading" secondItem="A70-Sy-JtX" secondAttribute="leading" constant="16" id="oOG-CU-kQd"/>

@@ -13,11 +13,7 @@
 
 + (id)defaultAnimationForKey:(NSString *)key
 {
-    if ([key isEqualToString:@"floatValue"]) {
-        return [CABasicAnimation animation];
-    } else {
-        return [super defaultAnimationForKey:key];
-    }
+    return [super defaultAnimationForKey:key];
 }
 
 @end

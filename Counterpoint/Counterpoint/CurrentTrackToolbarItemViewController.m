@@ -60,7 +60,7 @@
 	
 	[[self currentTimeLabel] setStringValue:[self getTimeValueStringFromCMTime:currentTime]];
 	
-	[[[self durationSlider] animator] setFloatValue:CMTimeGetSeconds(currentTime)];
+	[[self durationSlider] setFloatValue:CMTimeGetSeconds(currentTime)];
 }
 
 -(IBAction)seekToTime:(NSSlider*)sender
@@ -76,7 +76,7 @@
 	{
 		[self updateDuration];
 		[[self durationSlider] setMinValue:0.0];
-		[[[self durationSlider] animator] setFloatValue:0.0];
+		[[self durationSlider] setFloatValue:0.0];
 		
 		//this return value needs to be retained so it can be used when sending player the removeTimeObserver: message
 		[self setPlayerTimeObserverReturnValue:[[[self appDelegate] player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 1000) queue:dispatch_get_main_queue() usingBlock:^(CMTime time)

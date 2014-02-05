@@ -19,13 +19,14 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (nonatomic, strong) IBOutlet NSToolbar* toolbar;
+@property (assign) IBOutlet NSToolbar* toolbar;
 
-@property (nonatomic, strong) CurrentTrackToolbarItem* currentTrackToolbarItem;
-@property (nonatomic, strong) PlayerToolbarItem* playerToolbarItem;
+@property (assign) CurrentTrackToolbarItem* currentTrackToolbarItem;
+@property (assign) PlayerToolbarItem* playerToolbarItem;
 
-@property (nonatomic, strong) IBOutlet NSTableView* table;
-@property (nonatomic, strong) IBOutlet NSTextField* songCountLabel;
+@property (assign) IBOutlet NSTableView* table;
+@property (assign) IBOutlet NSTextField* songCountLabel;
+@property (assign) IBOutlet NSSearchField* searchField;
 
 @property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
 
@@ -36,7 +37,7 @@
 @property (nonatomic, strong) GoogleMusicController* googleMusicController;
 
 @property (nonatomic, strong) NSMutableArray* tracksArray;
-@property (nonatomic, strong) IBOutlet NSArrayController* tracksArrayController;
+@property (assign) IBOutlet NSArrayController* tracksArrayController;
 
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 

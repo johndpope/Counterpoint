@@ -203,9 +203,13 @@
 	[[self queueArrayController] setSelectionIndexes:indexSet];
 }
 
+//FIXME:needs a better way to do this
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex
 {
-	
+	for (NSInteger i = 0; i <= queueIndex; i++)
+	{
+		[self next:self];
+	}
 }
 
 -(void)shuffle:(id)sender
@@ -216,10 +220,11 @@
 		NSMutableArray* queuedItems = [NSMutableArray arrayWithArray:[[self queueArrayController] content]];
 		NSUInteger count = [queuedItems count];
 		//start at second track to leave the currently playing track alone
-		for (NSUInteger i = 1; i < count; ++i) {
+		for (NSUInteger i = 1; i < count; ++i)
+		{
 			// Select a random element between i and end of array to swap with.
 			NSInteger nElements = count - i;
-			NSInteger n = arc4random_uniform(nElements) + i;
+			NSInteger n = arc4random_uniform((int)nElements) + i;
 			[queuedItems exchangeObjectAtIndex:i withObjectAtIndex:n];
 		}
 		newQueue = queuedItems;
@@ -282,17 +287,17 @@
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
-	return @[@"currenttrack", @"player", @"reload", NSToolbarFlexibleSpaceItemIdentifier];
+	return @[@"currenttrack", @"player", NSToolbarFlexibleSpaceItemIdentifier];
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
 {
-	return @[@"player", NSToolbarFlexibleSpaceItemIdentifier, @"currenttrack", NSToolbarFlexibleSpaceItemIdentifier, @"reload"];
+	return @[@"player", NSToolbarFlexibleSpaceItemIdentifier, @"currenttrack", NSToolbarFlexibleSpaceItemIdentifier];
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
-	return @[ @"currenttrack",@"player",@"reload"];
+	return @[ @"currenttrack",@"player"];
 }
 
 #pragma mark - Key Value Observing
@@ -314,10 +319,10 @@
 				NSAlert* alert = [NSAlert alertWithMessageText:@"Error buffering stream" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:nil];
 				NSInteger result = [alert runModal];
 				if (result == NSAlertDefaultReturn)
-				[self next:self];
+					[self next:self];
 			}
 			else if ([[[self player] currentItem] status] == AVPlayerStatusUnknown)
-			NSLog(@"What does this mean?");
+				NSLog(@"What does this mean?");
 		}
 		else if (object == [self player])
 		{

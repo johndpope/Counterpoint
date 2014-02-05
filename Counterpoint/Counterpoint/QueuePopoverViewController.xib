@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QueuePopoverViewController">
@@ -18,10 +18,10 @@
             <rect key="frame" x="0.0" y="0.0" width="265" height="377"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMk-GY-plW" userLabel="Bordered Scroll View - Table View">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMk-GY-plW" userLabel="Bordered Scroll View - Table View">
                     <rect key="frame" x="0.0" y="0.0" width="265" height="377"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <clipView key="contentView" ambiguous="YES" misplaced="YES" id="Ecd-Kh-9qc">
+                    <clipView key="contentView" id="Ecd-Kh-9qc">
                         <rect key="frame" x="0.0" y="0.0" width="265" height="377"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -76,16 +76,22 @@
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" id="esr-dA-TsO">
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="esr-dA-TsO">
                         <rect key="frame" x="0.0" y="361" width="265" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="V8f-ZM-Wtf">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="V8f-ZM-Wtf">
                         <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
             </subviews>
+            <constraints>
+                <constraint firstItem="GMk-GY-plW" firstAttribute="top" secondItem="1" secondAttribute="top" id="GmR-bu-620"/>
+                <constraint firstItem="GMk-GY-plW" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="L3c-UG-dEB"/>
+                <constraint firstAttribute="trailing" secondItem="GMk-GY-plW" secondAttribute="trailing" id="c7A-xz-Xk1"/>
+                <constraint firstAttribute="bottom" secondItem="GMk-GY-plW" secondAttribute="bottom" id="uug-B8-nUi"/>
+            </constraints>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="ZIq-KN-f4r"/>
         <arrayController automaticallyRearrangesObjects="YES" id="n9R-Je-fqi">

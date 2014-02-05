@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -654,21 +654,21 @@
         <window title="Counterpoint" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="816" height="428"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="contentRect" x="335" y="390" width="951" height="428"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="816" height="428"/>
+                <rect key="frame" x="0.0" y="0.0" width="951" height="428"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNq-QL-UFW">
-                        <rect key="frame" x="20" y="29" width="777" height="379"/>
+                        <rect key="frame" x="20" y="29" width="912" height="360"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="VtL-it-dj0">
-                            <rect key="frame" x="1" y="17" width="775" height="361"/>
+                            <rect key="frame" x="1" y="17" width="910" height="342"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" headerView="zOI-A6-BiL" id="YBT-qM-rqK">
-                                    <rect key="frame" x="0.0" y="0.0" width="775" height="361"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="910" height="342"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -781,21 +781,21 @@
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="PK9-3n-YnI">
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PK9-3n-YnI">
                             <rect key="frame" x="1" y="362" width="776" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="uWt-BY-bXF">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="uWt-BY-bXF">
                             <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="zOI-A6-BiL">
-                            <rect key="frame" x="0.0" y="0.0" width="775" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="910" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MaX-dg-t2I">
-                        <rect key="frame" x="337" y="7" width="143" height="14"/>
+                        <rect key="frame" x="405" y="7" width="143" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="139" id="szk-bj-rfx"/>
@@ -813,23 +813,57 @@
                             </binding>
                         </connections>
                     </textField>
+                    <button verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="Deh-Z0-RJd">
+                        <rect key="frame" x="921" y="5" width="10" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" alternateImage="NSRefreshTemplate" controlSize="small" imageScaling="proportionallyDown" inset="2" id="0Kc-r1-dbF">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="loadAllTables:" target="494" id="4jx-D2-1Ce"/>
+                        </connections>
+                    </button>
+                    <searchField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uwg-or-DyR">
+                        <rect key="frame" x="632" y="397" width="300" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="300" id="C3Q-45-GG5"/>
+                        </constraints>
+                        <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="2pM-RY-RzL">
+                            <font key="font" metaFont="smallSystem"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </searchFieldCell>
+                        <connections>
+                            <binding destination="dr6-a9-Joz" name="predicate" keyPath="filterPredicate" id="Erm-jY-6SU">
+                                <dictionary key="options">
+                                    <string key="NSDisplayName">predicate</string>
+                                    <string key="NSPredicateFormat">title contains[cd] $value || artist contains[cd] $value || album contains[cd] $value</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </searchField>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Deh-Z0-RJd" secondAttribute="bottom" constant="5" id="7hI-nf-Qjs"/>
+                    <constraint firstItem="Deh-Z0-RJd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MaX-dg-t2I" secondAttribute="trailing" constant="296" id="8Tl-lm-JOR"/>
+                    <constraint firstItem="Deh-Z0-RJd" firstAttribute="top" secondItem="qNq-QL-UFW" secondAttribute="bottom" constant="6" id="9Dr-AD-SWE"/>
+                    <constraint firstItem="qNq-QL-UFW" firstAttribute="top" secondItem="uwg-or-DyR" secondAttribute="bottom" constant="8" id="IyN-rv-jHI"/>
                     <constraint firstAttribute="trailing" secondItem="qNq-QL-UFW" secondAttribute="trailing" constant="19" id="KMb-tb-AV6"/>
+                    <constraint firstItem="uwg-or-DyR" firstAttribute="top" secondItem="372" secondAttribute="top" constant="12" id="RhG-88-hvz"/>
+                    <constraint firstItem="uwg-or-DyR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="372" secondAttribute="leading" constant="496" id="Vt6-On-vli"/>
+                    <constraint firstAttribute="trailing" secondItem="Deh-Z0-RJd" secondAttribute="trailing" constant="20" id="VvF-CP-HAj"/>
                     <constraint firstItem="MaX-dg-t2I" firstAttribute="top" secondItem="qNq-QL-UFW" secondAttribute="bottom" constant="8" id="bij-vA-eHq"/>
                     <constraint firstItem="qNq-QL-UFW" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="el4-Tc-9hW"/>
                     <constraint firstAttribute="bottom" secondItem="MaX-dg-t2I" secondAttribute="bottom" constant="7" id="hls-iL-jND"/>
-                    <constraint firstItem="qNq-QL-UFW" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="qgs-Li-Eut"/>
+                    <constraint firstAttribute="trailing" secondItem="uwg-or-DyR" secondAttribute="trailing" constant="19" id="ibv-uX-1hf"/>
+                    <constraint firstItem="qNq-QL-UFW" firstAttribute="top" secondItem="372" secondAttribute="top" constant="39" id="qgs-Li-Eut"/>
                     <constraint firstItem="MaX-dg-t2I" firstAttribute="centerX" secondItem="qNq-QL-UFW" secondAttribute="centerX" id="s5Y-qg-s3y"/>
                 </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="D70BEB21-A0C1-412E-9369-9C2235A818E0" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="small" id="gQu-fE-5hG">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="A19AC099-8D18-41EF-B42B-4DFB441793CC" explicitItemIdentifier="reload" label="Reload" paletteLabel="Reload" tag="2" image="NSRefreshTemplate" autovalidates="NO" selectable="YES" id="Sk5-5P-AcN">
-                        <connections>
-                            <action selector="loadAllTables:" target="494" id="0RB-4M-RO4"/>
-                        </connections>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="MDi-0u-SnJ"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
@@ -839,7 +873,6 @@
                     <toolbarItem reference="MDi-0u-SnJ"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
                     <toolbarItem reference="MDi-0u-SnJ"/>
-                    <toolbarItem reference="Sk5-5P-AcN"/>
                 </defaultToolbarItems>
                 <connections>
                     <outlet property="delegate" destination="494" id="jFZ-dd-5Ds"/>
@@ -848,6 +881,7 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
+                <outlet property="searchField" destination="uwg-or-DyR" id="52m-fN-NG7"/>
                 <outlet property="songCountLabel" destination="MaX-dg-t2I" id="IN8-bJ-YLr"/>
                 <outlet property="table" destination="YBT-qM-rqK" id="gjj-em-kny"/>
                 <outlet property="toolbar" destination="gQu-fE-5hG" id="4AF-hN-hZ3"/>
