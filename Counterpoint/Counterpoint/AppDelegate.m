@@ -32,6 +32,11 @@
 	[self setTracksArray:[[NSMutableArray alloc] init]];
 	[self setCurrentTrack:[[CPTrack alloc] init]];
 	
+	NSMenu* menu = [[NSMenu alloc] init];
+	[menu addItemWithTitle:@"Add to Queue" action:nil keyEquivalent:@""];
+	[menu addItemWithTitle:@"Play Next" action:nil keyEquivalent:@""];
+	[[self table] setMenu:menu];
+	
 	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
 	[self loadAllTables:self];
 	
@@ -149,10 +154,9 @@
 		return nil;
 }
 
--(void)playSelectedSongAndQueueFollowingTracks
+-(void)playSong:(id)sender
 {
-	NSInteger selectedRow = [[self table] selectedRow];
-	CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedRow];
+	CPTrack* selectedTrack = [sender objectAtIndex:0];
 	
 	if ([self player])
 	{
@@ -164,7 +168,7 @@
 	}
 	else
 		[self setPlayer:[[AVQueuePlayer alloc] init]];
-		
+	
 	[self getAlbumArtworkForTrack:selectedTrack];
 	[self setCurrentTrack:selectedTrack];
 	[self getPlayerItemForTrack:selectedTrack];
@@ -173,9 +177,10 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	[[self player] addObserver:self forKeyPath:@"status" options:0 context:nil];
-		
+	
 	//keeping a copy of the tracksArrayController arrangedObjects at this moment in case the user then filters the tableview after starting to play an item
 	//the "queue" popover display will continue to play the tracks in the original order no matter what filtering or arranging the user does after the initial selection
+	NSInteger selectedRow = [[[self tracksArrayController] arrangedObjects] indexOfObject:selectedTrack];
 	NSRange range = NSMakeRange(selectedRow, [[[self tracksArrayController] arrangedObjects] count] - selectedRow);
 	NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
 	[[self queueArrayController] setContent:queueArray];
@@ -186,6 +191,49 @@
 		[[self player] insertItem:[track playerItem] afterItem:nil];
 	}
 }
+
+-(void)queueSong:(id)sender
+{
+	
+}
+
+//-(void)playSelectedSongAndQueueFollowingTracks
+//{
+//	NSInteger selectedRow = [[self table] selectedRow];
+//	CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedRow];
+//	
+//	if ([self player])
+//	{
+//		if ([[self currentTrack] isEqual:selectedTrack])
+//			return;
+//		
+//		[[self currentTrack] setCurrentlyPlaying:NO];
+//		[[self player] removeAllItems];
+//	}
+//	else
+//		[self setPlayer:[[AVQueuePlayer alloc] init]];
+//		
+//	[self getAlbumArtworkForTrack:selectedTrack];
+//	[self setCurrentTrack:selectedTrack];
+//	[self getPlayerItemForTrack:selectedTrack];
+//	[[self player] insertItem:[selectedTrack playerItem] afterItem:nil];
+//	
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+//	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
+//	[[self player] addObserver:self forKeyPath:@"status" options:0 context:nil];
+//		
+//	//keeping a copy of the tracksArrayController arrangedObjects at this moment in case the user then filters the tableview after starting to play an item
+//	//the "queue" popover display will continue to play the tracks in the original order no matter what filtering or arranging the user does after the initial selection
+//	NSRange range = NSMakeRange(selectedRow, [[[self tracksArrayController] arrangedObjects] count] - selectedRow);
+//	NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
+//	[[self queueArrayController] setContent:queueArray];
+//	
+//	for (CPTrack* track in [[self queueArrayController] selectedObjects])
+//	{
+//		[self getPlayerItemForTrack:track];
+//		[[self player] insertItem:[track playerItem] afterItem:nil];
+//	}
+//}
 
 #pragma mark - Queue Controls
 
