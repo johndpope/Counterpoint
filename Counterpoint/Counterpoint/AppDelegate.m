@@ -33,8 +33,8 @@
 	[self setCurrentTrack:[[CPTrack alloc] init]];
 	
 	NSMenu* menu = [[NSMenu alloc] init];
-	[menu addItemWithTitle:@"Add to Queue" action:nil keyEquivalent:@""];
-	[menu addItemWithTitle:@"Play Next" action:nil keyEquivalent:@""];
+	[menu addItemWithTitle:@"Add to Queue" action:@selector(queueSong:) keyEquivalent:@""];
+	[menu addItemWithTitle:@"Play Next" action:@selector(queueSong:) keyEquivalent:@""];
 	[[self table] setMenu:menu];
 	
 	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
@@ -123,12 +123,15 @@
 
 -(void)getPlayerItemForTrack:(CPTrack*)track
 {
-	NSString* songId = [track idString];
-	NSString* streamURLString = [[self googleMusicController] getStreamUrl:songId];
-	NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
-	
-	AVPlayerItem* playerItem = [AVPlayerItem playerItemWithURL:streamURL];
-	[track setPlayerItem:playerItem];
+	if (![track playerItem])
+	{
+		NSString* songId = [track idString];
+		NSString* streamURLString = [[self googleMusicController] getStreamUrl:songId];
+		NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
+		
+		AVPlayerItem* playerItem = [AVPlayerItem playerItemWithURL:streamURL];
+		[track setPlayerItem:playerItem];
+	}
 }
 
 -(void)getAlbumArtworkForTrack:(CPTrack*)track
@@ -154,13 +157,11 @@
 		return nil;
 }
 
--(void)playSong:(id)sender
+-(void)playSong:(CPTrack*)track
 {
-	CPTrack* selectedTrack = [sender objectAtIndex:0];
-	
 	if ([self player])
 	{
-		if ([[self currentTrack] isEqual:selectedTrack])
+		if ([[self currentTrack] isEqual:track])
 			return;
 		
 		[[self currentTrack] setCurrentlyPlaying:NO];
@@ -169,10 +170,10 @@
 	else
 		[self setPlayer:[[AVQueuePlayer alloc] init]];
 	
-	[self getAlbumArtworkForTrack:selectedTrack];
-	[self setCurrentTrack:selectedTrack];
-	[self getPlayerItemForTrack:selectedTrack];
-	[[self player] insertItem:[selectedTrack playerItem] afterItem:nil];
+	[self getAlbumArtworkForTrack:track];
+	[self setCurrentTrack:track];
+	[self getPlayerItemForTrack:track];
+	[[self player] insertItem:[track playerItem] afterItem:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
@@ -180,7 +181,7 @@
 	
 	//keeping a copy of the tracksArrayController arrangedObjects at this moment in case the user then filters the tableview after starting to play an item
 	//the "queue" popover display will continue to play the tracks in the original order no matter what filtering or arranging the user does after the initial selection
-	NSInteger selectedRow = [[[self tracksArrayController] arrangedObjects] indexOfObject:selectedTrack];
+	NSInteger selectedRow = [[[self tracksArrayController] arrangedObjects] indexOfObject:track];
 	NSRange range = NSMakeRange(selectedRow, [[[self tracksArrayController] arrangedObjects] count] - selectedRow);
 	NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
 	[[self queueArrayController] setContent:queueArray];
@@ -192,48 +193,41 @@
 	}
 }
 
--(void)queueSong:(id)sender
+-(void)playSongFromTable:(id)sender
 {
+	CPTrack* selectedTrack = [sender objectAtIndex:0];
 	
+	[self playSong:selectedTrack];
 }
 
-//-(void)playSelectedSongAndQueueFollowingTracks
-//{
-//	NSInteger selectedRow = [[self table] selectedRow];
-//	CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedRow];
-//	
-//	if ([self player])
-//	{
-//		if ([[self currentTrack] isEqual:selectedTrack])
-//			return;
-//		
-//		[[self currentTrack] setCurrentlyPlaying:NO];
-//		[[self player] removeAllItems];
-//	}
-//	else
-//		[self setPlayer:[[AVQueuePlayer alloc] init]];
-//		
-//	[self getAlbumArtworkForTrack:selectedTrack];
-//	[self setCurrentTrack:selectedTrack];
-//	[self getPlayerItemForTrack:selectedTrack];
-//	[[self player] insertItem:[selectedTrack playerItem] afterItem:nil];
-//	
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-//	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
-//	[[self player] addObserver:self forKeyPath:@"status" options:0 context:nil];
-//		
-//	//keeping a copy of the tracksArrayController arrangedObjects at this moment in case the user then filters the tableview after starting to play an item
-//	//the "queue" popover display will continue to play the tracks in the original order no matter what filtering or arranging the user does after the initial selection
-//	NSRange range = NSMakeRange(selectedRow, [[[self tracksArrayController] arrangedObjects] count] - selectedRow);
-//	NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
-//	[[self queueArrayController] setContent:queueArray];
-//	
-//	for (CPTrack* track in [[self queueArrayController] selectedObjects])
-//	{
-//		[self getPlayerItemForTrack:track];
-//		[[self player] insertItem:[track playerItem] afterItem:nil];
-//	}
-//}
+-(void)queueSong:(CPTrack*)track addToFrontOfQueue:(BOOL)addToFrontOfQueue
+{
+	[self getPlayerItemForTrack:track];
+	
+	if (addToFrontOfQueue)
+	{
+		[[self queueArrayController] insertObject:track atArrangedObjectIndex:1];
+		[[self player] insertItem:[track playerItem] afterItem:[[self player] currentItem]];
+	}
+	else
+	{
+		[[self queueArrayController] insertObject:track atArrangedObjectIndex:20];
+		[[self player] insertItem:[track playerItem] afterItem:nil];
+	}
+	
+	[self setQueueArrayControllerSelectedIndexes];
+}
+
+-(void)queueSong:(id)sender
+{
+	NSInteger selectedSongIndex = [[self table] selectedRow];
+	CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedSongIndex];
+	
+	if ([[(NSMenuItem*)sender title] isEqualToString:@"Play Next"])
+		[self queueSong:selectedTrack addToFrontOfQueue:YES];
+	else
+		[self queueSong:selectedTrack addToFrontOfQueue:NO];
+}
 
 #pragma mark - Queue Controls
 
@@ -251,13 +245,10 @@
 	[[self queueArrayController] setSelectionIndexes:indexSet];
 }
 
-//FIXME:needs a better way to do this
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex
 {
-	for (NSInteger i = 0; i <= queueIndex; i++)
-	{
-		[self next:self];
-	}
+	CPTrack* selectedTrack = [[[self queueArrayController] selectedObjects] objectAtIndex:queueIndex];
+	[self playSong:selectedTrack];
 }
 
 -(void)shuffle:(id)sender
@@ -364,7 +355,7 @@
 			}
 			else if ([[[self player] currentItem] status] == AVPlayerItemStatusFailed)
 			{
-				NSAlert* alert = [NSAlert alertWithMessageText:@"Error buffering stream" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:nil];
+				NSAlert* alert = [NSAlert alertWithMessageText:@"Error buffering stream" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
 				NSInteger result = [alert runModal];
 				if (result == NSAlertDefaultReturn)
 					[self next:self];

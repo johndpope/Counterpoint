@@ -96,7 +96,7 @@
         <userDefaultsController representsSharedInstance="YES" id="ZIq-KN-f4r"/>
         <arrayController automaticallyRearrangesObjects="YES" id="n9R-Je-fqi">
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.appDelegate.tracksArrayController.selectedObjects" id="bSw-FL-cdU">
+                <binding destination="-2" name="contentArray" keyPath="self.appDelegate.queueArrayController.selectedObjects" id="B1I-jR-hUG">
                     <dictionary key="options">
                         <bool key="NSValidatesImmediately" value="YES"/>
                     </dictionary>

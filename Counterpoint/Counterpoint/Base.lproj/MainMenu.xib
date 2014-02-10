@@ -771,14 +771,14 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
-                                        <binding destination="dr6-a9-Joz" name="doubleClickArgument" keyPath="selectedObjects" id="Cmg-O1-U2w">
+                                        <binding destination="dr6-a9-Joz" name="doubleClickArgument" keyPath="selectedObjects" id="pbN-5A-cJz">
                                             <dictionary key="options">
-                                                <string key="NSSelectorName">playSong:</string>
+                                                <string key="NSSelectorName">playSongFromTable:</string>
                                             </dictionary>
                                         </binding>
-                                        <binding destination="494" name="doubleClickTarget" keyPath="self" previousBinding="Cmg-O1-U2w" id="4RS-zp-0rb">
+                                        <binding destination="494" name="doubleClickTarget" keyPath="self" previousBinding="pbN-5A-cJz" id="qWk-vZ-fxm">
                                             <dictionary key="options">
-                                                <string key="NSSelectorName">playSong:</string>
+                                                <string key="NSSelectorName">playSongFromTable:</string>
                                             </dictionary>
                                         </binding>
                                     </connections>
