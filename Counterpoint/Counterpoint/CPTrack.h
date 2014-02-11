@@ -21,5 +21,12 @@
 @property (nonatomic, strong) AVPlayerItem* playerItem;
 @property (assign) BOOL currentlyPlaying;
 @property (nonatomic, strong) NSNumber* trackNumber;
+@property (nonatomic, strong) NSNumber* totalTracks;
+@property (nonatomic, strong) NSNumber* discNumber;
+@property (nonatomic, strong) NSNumber* rating;
+@property (nonatomic, strong) NSString* genre;
+@property (nonatomic, strong) NSNumber* bpm;
+@property (nonatomic, strong) NSNumber* durationMilliSeconds;
+@property (nonatomic, strong) NSNumber* playCount;
 
 @end

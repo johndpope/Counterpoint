@@ -668,7 +668,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" headerView="zOI-A6-BiL" id="YBT-qM-rqK">
-                                    <rect key="frame" x="0.0" y="0.0" width="910" height="342"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1080" height="342"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -753,6 +753,22 @@
                                                 </binding>
                                             </connections>
                                         </tableColumn>
+                                        <tableColumn width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="iLL-6r-IjW">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Duration">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="oUf-4L-6WV">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <connections>
+                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.durationMilliSeconds" id="kt7-3h-pTz"/>
+                                            </connections>
+                                        </tableColumn>
                                         <tableColumn width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="Tco-2i-qgM">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Track #">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -766,7 +782,100 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.trackNumber" id="mJd-Ac-vIH"/>
+                                                <binding destination="dr6-a9-Joz" name="displayPatternValue1" keyPath="arrangedObjects.trackNumber" id="VYS-aC-0cV">
+                                                    <dictionary key="options">
+                                                        <string key="NSDisplayPattern">%{value1}@ of %{value2}@</string>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="dr6-a9-Joz" name="displayPatternValue2" keyPath="arrangedObjects.totalTracks" previousBinding="VYS-aC-0cV" id="mKr-oW-RNt">
+                                                    <dictionary key="options">
+                                                        <string key="NSDisplayPattern">%{value1}@ of %{value2}@</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="RBq-Lo-EQL">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Disc #">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="JbZ-Ib-Aef">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <connections>
+                                                <binding destination="dr6-a9-Joz" name="displayPatternValue1" keyPath="arrangedObjects.discNumber" id="vg2-oP-lGw">
+                                                    <dictionary key="options">
+                                                        <string key="NSDisplayPattern">Disc %{value1}@</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="qo9-4M-rod">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Genre">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="Ypd-Sb-Zs6">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <connections>
+                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.genre" id="vpO-G5-3NE"/>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="3RF-jW-lxW">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="BPM">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="5Ot-tx-bee">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <connections>
+                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.bpm" id="JCm-Vy-eYb"/>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="O9M-DI-bZg">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Rating">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="Tne-L7-ncJ">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <connections>
+                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.rating" id="pYv-8s-Af3"/>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="qJc-aV-2VI">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Play Count">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="VfK-f9-77G">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <connections>
+                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.playCount" id="ifg-oA-R5L"/>
                                             </connections>
                                         </tableColumn>
                                     </tableColumns>
@@ -786,8 +895,8 @@
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="PK9-3n-YnI">
-                            <rect key="frame" x="1" y="362" width="776" height="16"/>
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" id="PK9-3n-YnI">
+                            <rect key="frame" x="1" y="343" width="910" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="uWt-BY-bXF">
@@ -795,7 +904,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="zOI-A6-BiL">
-                            <rect key="frame" x="0.0" y="0.0" width="910" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1080" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>

@@ -47,7 +47,7 @@
 
 -(void)updateDuration
 {
-	CMTime duration = [[[[self appDelegate] player] currentItem] duration];
+	CMTime duration = [[[[[self appDelegate] player] currentItem] asset] duration];
 	
 	[[self durationLabel] setStringValue:[self getTimeValueStringFromCMTime:duration]];
 	

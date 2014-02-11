@@ -51,6 +51,8 @@
 
 -(void)dealloc
 {
+	[_player removeTimeObserver:_playerTimeObserverReturnValue];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[[self queueArrayController] removeObserver:self forKeyPath:@"content"];
 }
 
@@ -58,12 +60,6 @@
 
 -(void)advanceToNextTrack
 {
-	//if the song we're skipping too hasn't quite buffered yet, add the observer to play, otherwise just update the duration stuff now
-	if ([[[self player] currentItem] status] == AVPlayerItemStatusReadyToPlay)
-		[[[self currentTrackToolbarItem] viewController] setupTrackDurationSlider];
-	else
-		[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
-	
 	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[[self queueArrayController] content] objectAtIndex:0]];
 	[track setCurrentlyPlaying:NO];
 	
@@ -87,9 +83,12 @@
 
 -(void)playerItemDidReachEnd:(id)object
 {
-	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
-	
-	[self advanceToNextTrack];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		
+		[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
+		
+		[self advanceToNextTrack];
+	});
 }
 
 -(void)pause:(id)sender
@@ -167,16 +166,20 @@
 		[[self player] removeAllItems];
 	}
 	else
+	{
 		[self setPlayer:[[AVQueuePlayer alloc] init]];
+		[[self player] setActionAtItemEnd:AVPlayerActionAtItemEndAdvance];
+	}
 	
 	[self getAlbumArtworkForTrack:track];
 	[self setCurrentTrack:track];
 	[self getPlayerItemForTrack:track];
 	[[self player] insertItem:[track playerItem] afterItem:nil];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:[[self player] currentItem]];
 	[[[self player] currentItem] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	[[self player] addObserver:self forKeyPath:@"status" options:0 context:nil];
+	[[self player] addObserver:self forKeyPath:@"currentItem" options:0 context:nil];
 	
 	//keeping a copy of the tracksArrayController arrangedObjects at this moment in case the user then filters the tableview after starting to play an item
 	//the "queue" popover display will continue to play the tracks in the original order no matter what filtering or arranging the user does after the initial selection
@@ -283,11 +286,7 @@
         [[self player] removeItem:item];
     }
 	 
-	for (CPTrack* track in [[self queueArrayController] selectedObjects])
-	{
-		[self getPlayerItemForTrack:track];
-		[[self player] insertItem:[track playerItem] afterItem:nil];
-	}
+	[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
 }
 
 #pragma mark - Preferences
@@ -375,6 +374,10 @@
 	else if ([keyPath isEqualToString:@"content"])
 	{
 		[self setQueueArrayControllerSelectedIndexes];
+	}
+	else if ([keyPath isEqualToString:@"currentItem"])
+	{
+		[[[self currentTrackToolbarItem] viewController] setupTrackDurationSlider];
 	}
 }
 

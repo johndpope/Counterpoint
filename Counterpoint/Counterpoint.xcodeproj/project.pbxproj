@@ -21,6 +21,7 @@
 		0DC34F2B1864E07200096E0A /* PlayerToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC34F2A1864E07200096E0A /* PlayerToolbarItem.m */; };
 		0DC34F2F1864E09A00096E0A /* PlayerToolbarItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC34F2D1864E09A00096E0A /* PlayerToolbarItemViewController.m */; };
 		0DC34F301864E09A00096E0A /* PlayerToolbarItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DC34F2E1864E09A00096E0A /* PlayerToolbarItemViewController.xib */; };
+		0DC5C68418AAA97400F9870B /* DurationValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5C68318AAA97400F9870B /* DurationValueTransformer.m */; };
 		0DC89650187F3C3A006D5D35 /* CPTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC8964F187F3C3A006D5D35 /* CPTrack.m */; };
 		0DCE2493184CFA5C0039DDC0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */; };
 		0DCE249D184CFA5C0039DDC0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DCE249B184CFA5C0039DDC0 /* InfoPlist.strings */; };
@@ -84,6 +85,8 @@
 		0DC34F2C1864E09A00096E0A /* PlayerToolbarItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerToolbarItemViewController.h; sourceTree = "<group>"; };
 		0DC34F2D1864E09A00096E0A /* PlayerToolbarItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerToolbarItemViewController.m; sourceTree = "<group>"; };
 		0DC34F2E1864E09A00096E0A /* PlayerToolbarItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerToolbarItemViewController.xib; sourceTree = "<group>"; };
+		0DC5C68218AAA97400F9870B /* DurationValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DurationValueTransformer.h; sourceTree = "<group>"; };
+		0DC5C68318AAA97400F9870B /* DurationValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DurationValueTransformer.m; sourceTree = "<group>"; };
 		0DC8964E187F3C3A006D5D35 /* CPTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTrack.h; sourceTree = "<group>"; };
 		0DC8964F187F3C3A006D5D35 /* CPTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTrack.m; sourceTree = "<group>"; };
 		0DCE248F184CFA5C0039DDC0 /* Counterpoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counterpoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +148,8 @@
 				0D4C1778188054640086EFD5 /* CurrentTrackToolbarItemViewController.h */,
 				0D4C1779188054640086EFD5 /* CurrentTrackToolbarItemViewController.m */,
 				0D4C177A188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib */,
+				0DC5C68218AAA97400F9870B /* DurationValueTransformer.h */,
+				0DC5C68318AAA97400F9870B /* DurationValueTransformer.m */,
 				0D4C19AE188586AB0086EFD5 /* NSAnimatedSlider.h */,
 				0D4C19AF188586AB0086EFD5 /* NSAnimatedSlider.m */,
 			);
@@ -428,6 +433,7 @@
 			files = (
 				0DCE24A6184CFA5D0039DDC0 /* AppDelegate.m in Sources */,
 				0D4C1AD21886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m in Sources */,
+				0DC5C68418AAA97400F9870B /* DurationValueTransformer.m in Sources */,
 				0D4C177B188054640086EFD5 /* CurrentTrackToolbarItemViewController.m in Sources */,
 				0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */,
 				0DCE249F184CFA5C0039DDC0 /* main.m in Sources */,
