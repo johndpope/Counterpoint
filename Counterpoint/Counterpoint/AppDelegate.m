@@ -73,8 +73,7 @@
 	[self setCurrentTrack:[[[self queueArrayController] content] objectAtIndex:0]];
 	[self getAlbumArtworkForTrack:[self currentTrack]];
 	
-	CPTrack* trackToInitialize = [[[self queueArrayController] selectedObjects] lastObject];
-	[self getPlayerItemForTrack:trackToInitialize];
+	[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
 }
 
 -(void)next:(id)sender
@@ -186,11 +185,7 @@
 	NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
 	[[self queueArrayController] setContent:queueArray];
 	
-	for (CPTrack* track in [[self queueArrayController] selectedObjects])
-	{
-		[self getPlayerItemForTrack:track];
-		[[self player] insertItem:[track playerItem] afterItem:nil];
-	}
+	[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
 }
 
 -(void)playSongFromTable:(id)sender
@@ -200,19 +195,21 @@
 	[self playSong:selectedTrack];
 }
 
--(void)queueSong:(CPTrack*)track addToFrontOfQueue:(BOOL)addToFrontOfQueue
+-(void)queueSong:(CPTrack*)track addToFrontOfQueue:(BOOL)addToFrontOfQueue addToSelectedObjects:(BOOL)addToSelectedObjects
 {
 	[self getPlayerItemForTrack:track];
 	
 	if (addToFrontOfQueue)
 	{
-		[[self queueArrayController] insertObject:track atArrangedObjectIndex:1];
-		[[self player] insertItem:[track playerItem] afterItem:[[self player] currentItem]];
+		if (addToSelectedObjects)
+			[[self queueArrayController] insertObject:track atArrangedObjectIndex:1];
+		if (![[[self player] items] containsObject:[track playerItem]])
+			[[self player] insertItem:[track playerItem] afterItem:[[self player] currentItem]];
 	}
 	else
 	{
-		[[self queueArrayController] insertObject:track atArrangedObjectIndex:20];
-		[[self player] insertItem:[track playerItem] afterItem:nil];
+		if (addToSelectedObjects)
+			[[self queueArrayController] insertObject:track atArrangedObjectIndex:20];
 	}
 	
 	[self setQueueArrayControllerSelectedIndexes];
@@ -224,9 +221,9 @@
 	CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedSongIndex];
 	
 	if ([[(NSMenuItem*)sender title] isEqualToString:@"Play Next"])
-		[self queueSong:selectedTrack addToFrontOfQueue:YES];
+		[self queueSong:selectedTrack addToFrontOfQueue:YES addToSelectedObjects:YES];
 	else
-		[self queueSong:selectedTrack addToFrontOfQueue:NO];
+		[self queueSong:selectedTrack addToFrontOfQueue:NO addToSelectedObjects:YES];
 }
 
 #pragma mark - Queue Controls
