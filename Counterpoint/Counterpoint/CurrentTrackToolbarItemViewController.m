@@ -60,12 +60,12 @@
 	
 	[[self currentTimeLabel] setStringValue:[self getTimeValueStringFromCMTime:currentTime]];
 	
-	[[self durationSlider] setFloatValue:CMTimeGetSeconds(currentTime)];
+	[[[self durationSlider] animator] setFloatValue:CMTimeGetSeconds(currentTime)];
 }
 
 -(IBAction)seekToTime:(NSSlider*)sender
 {
-	CMTime newTime = CMTimeMakeWithSeconds([sender doubleValue], NSEC_PER_SEC);
+	CMTime newTime = CMTimeMakeWithSeconds([sender doubleValue], 1);
 	[[[self appDelegate] player] seekToTime:newTime];
 }
 
