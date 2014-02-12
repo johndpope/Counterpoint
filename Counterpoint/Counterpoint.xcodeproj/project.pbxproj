@@ -148,8 +148,6 @@
 				0D4C1778188054640086EFD5 /* CurrentTrackToolbarItemViewController.h */,
 				0D4C1779188054640086EFD5 /* CurrentTrackToolbarItemViewController.m */,
 				0D4C177A188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib */,
-				0DC5C68218AAA97400F9870B /* DurationValueTransformer.h */,
-				0DC5C68318AAA97400F9870B /* DurationValueTransformer.m */,
 				0D4C19AE188586AB0086EFD5 /* NSAnimatedSlider.h */,
 				0D4C19AF188586AB0086EFD5 /* NSAnimatedSlider.m */,
 			);
@@ -239,6 +237,8 @@
 				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
 				0DC8964E187F3C3A006D5D35 /* CPTrack.h */,
 				0DC8964F187F3C3A006D5D35 /* CPTrack.m */,
+				0DC5C68218AAA97400F9870B /* DurationValueTransformer.h */,
+				0DC5C68318AAA97400F9870B /* DurationValueTransformer.m */,
 				B38E5A9C186299950049602D /* Google Music */,
 				0DC8964B187F3B74006D5D35 /* Toolbar Items */,
 				B38E5A9F186299A80049602D /* Preferences */,

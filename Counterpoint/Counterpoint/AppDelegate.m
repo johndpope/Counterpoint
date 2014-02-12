@@ -279,12 +279,7 @@
 	[[self queueArrayController] setContent:newQueue];
 	
 	NSArray* items = [[self player] items];
-    for (AVPlayerItem* item in [items copy]) {
-        if (item == [[self player] currentItem]) {
-            continue; // don't remove the currently played item
-        }
-        [[self player] removeItem:item];
-    }
+    [[self player] removeItem:[items lastObject]];
 	 
 	[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
 }

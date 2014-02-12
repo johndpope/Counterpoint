@@ -7,7 +7,6 @@
 //
 
 #import "DurationValueTransformer.h"
-//#import "CurrentTrackToolbarItemViewController.m"
 
 @implementation DurationValueTransformer
 
@@ -23,11 +22,20 @@
 
 -(id)transformedValue:(id)value
 {
-	//value is BOOL of whether or not the item is the one currently playing
-	if ([value boolValue])
-		return [NSImage imageNamed:@"CurrentlyPlaying"];
-	else
-		return nil;
+	float trackDurationSeconds = [value floatValue]/1000;
+	
+	NSDate* durationDate = [NSDate dateWithTimeIntervalSince1970:trackDurationSeconds];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+	[dateFormatter setDateFormat:@"mm:ss"];
+	NSString* timeString = [dateFormatter stringFromDate:durationDate];
+	
+	if ([[timeString substringToIndex:1] isEqualToString:@"0"])
+	{
+		timeString = [timeString substringFromIndex:1];
+	}
+	
+	return timeString;
 }
 
 @end

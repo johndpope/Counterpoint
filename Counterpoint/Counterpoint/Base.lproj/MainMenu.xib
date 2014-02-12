@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -655,7 +655,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="951" height="428"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="951" height="428"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -766,7 +766,11 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.durationMilliSeconds" id="kt7-3h-pTz"/>
+                                                <binding destination="dr6-a9-Joz" name="value" keyPath="arrangedObjects.durationMilliSeconds" id="qAX-Qg-BCf">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">DurationValueTransformer</string>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </tableColumn>
                                         <tableColumn width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="Tco-2i-qgM">
@@ -780,14 +784,15 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="trackNumber"/>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="dr6-a9-Joz" name="displayPatternValue1" keyPath="arrangedObjects.trackNumber" id="VYS-aC-0cV">
+                                                <binding destination="dr6-a9-Joz" name="displayPatternValue2" keyPath="arrangedObjects.totalTracks" previousBinding="VYS-aC-0cV" id="mKr-oW-RNt">
                                                     <dictionary key="options">
                                                         <string key="NSDisplayPattern">%{value1}@ of %{value2}@</string>
                                                     </dictionary>
                                                 </binding>
-                                                <binding destination="dr6-a9-Joz" name="displayPatternValue2" keyPath="arrangedObjects.totalTracks" previousBinding="VYS-aC-0cV" id="mKr-oW-RNt">
+                                                <binding destination="dr6-a9-Joz" name="displayPatternValue1" keyPath="arrangedObjects.trackNumber" id="VYS-aC-0cV">
                                                     <dictionary key="options">
                                                         <string key="NSDisplayPattern">%{value1}@ of %{value2}@</string>
                                                     </dictionary>
@@ -895,11 +900,11 @@
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
-                        <scroller key="horizontalScroller" verticalHuggingPriority="750" id="PK9-3n-YnI">
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="PK9-3n-YnI">
                             <rect key="frame" x="1" y="343" width="910" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="uWt-BY-bXF">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="uWt-BY-bXF">
                             <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
