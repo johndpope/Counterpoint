@@ -15,6 +15,7 @@
 @class QueuePopoverViewController;
 @class CurrentTrackToolbarItem;
 @class PlayerToolbarItem;
+@class LastFMController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate>
 
@@ -35,6 +36,7 @@
 @property (nonatomic, strong) id playerTimeObserverReturnValue;
 
 @property (nonatomic, strong) GoogleMusicController* googleMusicController;
+@property (nonatomic, strong) LastFMController* lastFmController;
 
 @property (nonatomic, strong) NSMutableArray* tracksArray;
 @property (assign) IBOutlet NSArrayController* tracksArrayController;

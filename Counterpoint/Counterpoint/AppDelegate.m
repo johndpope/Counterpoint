@@ -16,6 +16,7 @@
 #import "GoogleMusicController.h"
 #import "CPTrack.h"
 #import "QueuePopoverViewController.h"
+#import	"LastFMController.h"
 
 @implementation AppDelegate
 
@@ -36,6 +37,8 @@
 	[menu addItemWithTitle:@"Add to Queue" action:@selector(queueSong:) keyEquivalent:@""];
 	[menu addItemWithTitle:@"Play Next" action:@selector(queueSong:) keyEquivalent:@""];
 	[[self table] setMenu:menu];
+	
+	[self setLastFmController:[[LastFMController alloc] init]];
 	
 	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
 	[self loadAllTables:self];
@@ -86,6 +89,8 @@
 	dispatch_async(dispatch_get_main_queue(), ^{
 		
 		[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
+		
+		[[self lastFmController] scrobbleCPTrack:[self currentTrack]];
 		
 		[self advanceToNextTrack];
 	});

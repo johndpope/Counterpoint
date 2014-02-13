@@ -36,6 +36,8 @@
 		0DCE24BD184CFA5D0039DDC0 /* CounterpointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE24BC184CFA5D0039DDC0 /* CounterpointTests.m */; };
 		0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE159571858BF880066A829 /* GoogleMusicController.m */; };
 		0DE15A7A185A6C120066A829 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE15A79185A6C120066A829 /* AVFoundation.framework */; };
+		B37B120118AC6B5D004591F9 /* LastFMController.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B120018AC6B5D004591F9 /* LastFMController.m */; };
+		B37B120418AC776C004591F9 /* NSString+NSString_MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B120318AC776C004591F9 /* NSString+NSString_MD5.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +114,10 @@
 		0DE159561858BF880066A829 /* GoogleMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleMusicController.h; sourceTree = "<group>"; };
 		0DE159571858BF880066A829 /* GoogleMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleMusicController.m; sourceTree = "<group>"; };
 		0DE15A79185A6C120066A829 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B37B11FF18AC6B5D004591F9 /* LastFMController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastFMController.h; sourceTree = "<group>"; };
+		B37B120018AC6B5D004591F9 /* LastFMController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastFMController.m; sourceTree = "<group>"; };
+		B37B120218AC776C004591F9 /* NSString+NSString_MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSString_MD5.h"; sourceTree = "<group>"; };
+		B37B120318AC776C004591F9 /* NSString+NSString_MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSString_MD5.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +245,7 @@
 				0DC8964F187F3C3A006D5D35 /* CPTrack.m */,
 				0DC5C68218AAA97400F9870B /* DurationValueTransformer.h */,
 				0DC5C68318AAA97400F9870B /* DurationValueTransformer.m */,
+				B37B11FC18AC6B2B004591F9 /* Last.fm */,
 				B38E5A9C186299950049602D /* Google Music */,
 				0DC8964B187F3B74006D5D35 /* Toolbar Items */,
 				B38E5A9F186299A80049602D /* Preferences */,
@@ -285,6 +292,17 @@
 				0DCE2551184D20450039DDC0 /* CocoaLSTests.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B37B11FC18AC6B2B004591F9 /* Last.fm */ = {
+			isa = PBXGroup;
+			children = (
+				B37B11FF18AC6B5D004591F9 /* LastFMController.h */,
+				B37B120018AC6B5D004591F9 /* LastFMController.m */,
+				B37B120218AC776C004591F9 /* NSString+NSString_MD5.h */,
+				B37B120318AC776C004591F9 /* NSString+NSString_MD5.m */,
+			);
+			name = Last.fm;
 			sourceTree = "<group>";
 		};
 		B38E5A9C186299950049602D /* Google Music */ = {
@@ -431,6 +449,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B37B120118AC6B5D004591F9 /* LastFMController.m in Sources */,
 				0DCE24A6184CFA5D0039DDC0 /* AppDelegate.m in Sources */,
 				0D4C1AD21886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m in Sources */,
 				0DC5C68418AAA97400F9870B /* DurationValueTransformer.m in Sources */,
@@ -444,6 +463,7 @@
 				0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */,
 				0DC34F2F1864E09A00096E0A /* PlayerToolbarItemViewController.m in Sources */,
 				0DC34F2B1864E07200096E0A /* PlayerToolbarItem.m in Sources */,
+				B37B120418AC776C004591F9 /* NSString+NSString_MD5.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

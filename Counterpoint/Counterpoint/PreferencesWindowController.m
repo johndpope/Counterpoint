@@ -7,6 +7,7 @@
 //
 
 #import "PreferencesWindowController.h"
+#import "LastFMController.h"
 
 @interface PreferencesWindowController ()
 
@@ -44,6 +45,12 @@
 			[[NSUserDefaults standardUserDefaults] setObject:[[[self openPanel] directoryURL] absoluteString] forKey:@"localMusicFolderPath"];
 		}
 	}];
+}
+
+-(IBAction)loginLastfm:(id)sender
+{
+	LastFMController* lastFmController = [[LastFMController alloc] init];
+	[lastFmController requestMobileSession];
 }
 
 @end
