@@ -76,9 +76,7 @@
 }
 
 -(void)next:(id)sender
-{
-	[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
-	
+{	
 	[[self player] advanceToNextItem];
 	
 	[self advanceToNextTrack];
@@ -87,9 +85,7 @@
 -(void)playerItemDidReachEnd:(id)object
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
-		
-		[[self player] removeTimeObserver:[self playerTimeObserverReturnValue]];
-		
+				
 		[[self lastFmController] scrobbleCPTrack:[self currentTrack]];
 		
 		[self advanceToNextTrack];
