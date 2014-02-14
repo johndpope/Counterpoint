@@ -47,6 +47,8 @@
 	}];
 }
 
+//FIXME: add handling for when un/pw fields change to re-login (or login for the first time)
+
 -(IBAction)loginLastfm:(id)sender
 {
 	LastFMController* lastFmController = [[LastFMController alloc] init];

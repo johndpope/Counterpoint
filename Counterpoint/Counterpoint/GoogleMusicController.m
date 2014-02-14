@@ -10,11 +10,11 @@
 #import "AppDelegate.h"
 #import "CPTrack.h"
 
-typedef NS_ENUM (NSInteger, ConnectionStage)
+typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 {
-	LoginInitialRequestWithCredentials,
-	LoginContinuedRequestWithAuthenticationToken,
-	LoadAllTracks
+	GoogleMusicConnectionStageLoginWithCredentials,
+	GoogleMusicConnectionStageLoginWithAuthenticationToken,
+	GoogleMusicConnectionStageLoadAllTracks
 };
 
 @implementation GoogleMusicController
@@ -31,20 +31,6 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 		_finalResponse = [[NSMutableString alloc] init];
 	}
 	return self;
-}
-
--(void)loadTracks
-{
-	[[self songArray] removeAllObjects];
-	
-	NSString* username = [[NSUserDefaults standardUserDefaults] objectForKey:@"googleUsername"];
-	NSString* password = [[NSUserDefaults standardUserDefaults] objectForKey:@"googlePassword"];
-	
-	if (!username || !password || [username isEqualToString:@""] || [password isEqualToString:@""])
-		return;
-		
-	[[[NSApp delegate] songCountLabel] setStringValue:@"Loading Google Songs..."];
-	[self loginWithUsername:username password:password];
 }
 
 /*
@@ -88,6 +74,55 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
  trackNumber = 2;
  year = 2011;
  */
+
+-(void)loadTracks
+{
+	if(![[NSUserDefaults standardUserDefaults] objectForKey:@"googleMusicAuthenticationToken"])
+		return;
+	
+	[[self songArray] removeAllObjects];
+	[[[NSApp delegate] songCountLabel] setStringValue:@"Loading Google Songs..."];
+	
+	[self loadAllTracksMobile];
+}
+
+-(BOOL)loadAllTracksMobile
+{
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.googleapis.com/sj/v1.1/trackfeed"]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"googleMusicAuthenticationToken"]] forHTTPHeaderField:@"Authorization"];
+	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+	
+	if ([self nextPageToken] && ![[self nextPageToken] isEqualToString:@""])
+	{
+		NSDictionary* jsonDict = @{@"start-token" : [self nextPageToken]};
+		
+		NSError* error = nil;
+		NSData* body = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
+		
+		if (!body)
+		{
+			if (error)
+			{
+				NSLog(@"%@",[error description]);
+				[self finishedLoadingTracks];
+				return NO;
+			}
+		}
+		else
+			[request setHTTPBody:body];
+	}
+	
+	[self setRequestStage:GoogleMusicConnectionStageLoadAllTracks];
+	
+    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+	if (!connection)
+		return NO;
+	
+	return YES;
+}
 
 -(void)finishedLoadingTracks
 {
@@ -143,7 +178,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
 	
-	[self setRequestStage:LoginInitialRequestWithCredentials];
+	[self setRequestStage:GoogleMusicConnectionStageLoginWithCredentials];
 	
 	NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	if (!connection)
@@ -157,50 +192,12 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://play.google.com/music/listen?u=0"]]];
     [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[self authenticationToken]] forHTTPHeaderField:@"Authorization"];
+    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"googleMusicAuthenticationToken"]] forHTTPHeaderField:@"Authorization"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 	
-	[self setRequestStage:LoginContinuedRequestWithAuthenticationToken];
+	[self setRequestStage:GoogleMusicConnectionStageLoginWithAuthenticationToken];
 	
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-	if (!connection)
-		return NO;
-	
-	return YES;
-}
-
--(BOOL)loadAllTracksMobile
-{
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.googleapis.com/sj/v1.1/trackfeed"]]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[self authenticationToken]] forHTTPHeaderField:@"Authorization"];
-	
-	[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-	
-	if ([self nextPageToken] && ![[self nextPageToken] isEqualToString:@""])
-	{
-		NSDictionary* jsonDict = @{@"start-token" : [self nextPageToken]};
-		
-		NSError* error = nil;
-		NSData* body = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&error];
-		
-		if (!body)
-		{
-			if (error)
-			{
-				NSLog(@"%@",[error description]);
-				[self finishedLoadingTracks];
-				return NO;
-			}
-		}
-		else
-			[request setHTTPBody:body];
-	}
-	
-	[self setRequestStage:LoadAllTracks];
-	
-    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
 	if (!connection)
 		return NO;
 	
@@ -225,15 +222,15 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
 {
-	if ([self requestStage] == LoginInitialRequestWithCredentials)
+	if ([self requestStage] == GoogleMusicConnectionStageLoginWithCredentials)
 	{
 		NSString *response = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
         NSArray *respArray = [response componentsSeparatedByString:@"\n"];
         response = [respArray objectAtIndex:2];
         response = [response stringByReplacingOccurrencesOfString:@"Auth=" withString:@""];
-		[self setAuthenticationToken:response];
+		[[NSUserDefaults standardUserDefaults] setObject:response forKey:@"googleMusicAuthenticationToken"];
 	}
-	else if ([self requestStage] == LoginContinuedRequestWithAuthenticationToken)
+	else if ([self requestStage] == GoogleMusicConnectionStageLoginWithAuthenticationToken)
 	{
         NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
         for (NSHTTPCookie *cookie in [cookieJar cookies])
@@ -244,7 +241,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
             }
         }
 	}
-	else if ([self requestStage] == LoadAllTracks)
+	else if ([self requestStage] == GoogleMusicConnectionStageLoadAllTracks)
 	{
 		NSString *response = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
 		if (response)
@@ -254,15 +251,15 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-	if ([self requestStage] == LoginInitialRequestWithCredentials)
+	if ([self requestStage] == GoogleMusicConnectionStageLoginWithCredentials)
 	{
 		[self continueLoginRequest];
 	}
-	else if ([self requestStage] == LoginContinuedRequestWithAuthenticationToken)
+	else if ([self requestStage] == GoogleMusicConnectionStageLoginWithAuthenticationToken)
 	{
 		[self loadAllTracksMobile];
 	}
-	else if ([self requestStage] == LoadAllTracks)
+	else if ([self requestStage] == GoogleMusicConnectionStageLoadAllTracks)
 	{
 		NSError *localerror;
         NSData *jsonData = [[self finalResponse] dataUsingEncoding:NSUTF8StringEncoding];
@@ -298,7 +295,7 @@ typedef NS_ENUM (NSInteger, ConnectionStage)
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://play.google.com/music/play?u=0&songid=%@&pt=e",songID]]];
     [request setHTTPMethod:@"GET"];
-    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[self authenticationToken]] forHTTPHeaderField:@"Authorization"];
+    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"googleMusicAuthenticationToken"]] forHTTPHeaderField:@"Authorization"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
     NSError *error;
