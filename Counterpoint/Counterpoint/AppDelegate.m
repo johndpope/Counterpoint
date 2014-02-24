@@ -79,15 +79,20 @@
 	//remove the first object in the array, initialize the new track
 	[[self queueArrayController] removeObject:[self currentTrack]];
 	[self setQueueArrayControllerSelectedIndexes];
-	[self setCurrentTrack:[[[self queueArrayController] content] objectAtIndex:0]];
-	[self getAlbumArtworkForTrack:[self currentTrack]];
 	
-	if ([[[self queueArrayController] selectedObjects] count] > 0)
-		[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
+	if ([[[self queueArrayController] content] count] > 0)
+	{
+		[self setCurrentTrack:[[[self queueArrayController] content] objectAtIndex:0]];
+		[self getAlbumArtworkForTrack:[self currentTrack]];
+		
+		if ([[[self queueArrayController] selectedObjects] count] > 0)
+			[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
+	}	
 }
 
 -(void)next:(id)sender
-{	
+{
+	[[[self player] currentItem] seekToTime:kCMTimeZero];
 	[[self player] advanceToNextItem];
 	
 	[self advanceToNextTrack];
@@ -97,6 +102,8 @@
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
 				
+		[[notification object] seekToTime:kCMTimeZero];
+		
 		[[self lastFmController] scrobbleCPTrack:[self currentTrack]];
 		
 		[self advanceToNextTrack];
