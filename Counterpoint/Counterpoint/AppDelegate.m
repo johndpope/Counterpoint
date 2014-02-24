@@ -189,7 +189,8 @@
 	NSMutableArray* queueArray = [NSMutableArray arrayWithArray:[[[self tracksArrayController] arrangedObjects] subarrayWithRange:range]];
 	[[self queueArrayController] setContent:queueArray];
 	
-	[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
+	if ([[[self queueArrayController] selectedObjects] count] > 0)
+		[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
 }
 
 -(void)playSongFromTable:(id)sender

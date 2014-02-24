@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController">
             <connections>
                 <outlet property="browseLocalMusicFolderPathButton" destination="AYq-9X-2Nt" id="Yqu-5v-Jmh"/>
+                <outlet property="googlePassword" destination="Bop-uW-A5M" id="Nr8-8q-gW4"/>
                 <outlet property="googleUsername" destination="PNc-8c-M5P" id="zdv-fh-vTT"/>
+                <outlet property="lastFMPassword" destination="NQX-Rk-D8Y" id="5ck-MP-QdC"/>
+                <outlet property="lastFMUsername" destination="8MA-SR-UTS" id="iaA-yi-sfl"/>
                 <outlet property="localMusicFolderPath" destination="c66-XY-dnu" id="2Da-7o-vNf"/>
+                <outlet property="spotifyPassword" destination="BNQ-cQ-bIK" id="sMm-0f-1rR"/>
                 <outlet property="spotifyUsername" destination="5QT-84-53q" id="qZ2-qj-ix6"/>
                 <outlet property="window" destination="FKn-wg-jv3" id="lPl-Cy-0u1"/>
             </connections>
@@ -20,7 +24,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="283" y="305" width="427" height="512"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="cap-OV-OFk">
                 <rect key="frame" x="0.0" y="0.0" width="427" height="512"/>
                 <autoresizingMask key="autoresizingMask"/>
