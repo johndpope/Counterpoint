@@ -14,6 +14,7 @@
 		0D4C19B0188586AB0086EFD5 /* NSAnimatedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C19AF188586AB0086EFD5 /* NSAnimatedSlider.m */; };
 		0D4C19B2188587630086EFD5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D4C19B1188587630086EFD5 /* QuartzCore.framework */; };
 		0D4C1AD21886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C1AD11886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m */; };
+		0D9C0A1B18E0A74C009181AC /* CPPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9C0A1A18E0A74C009181AC /* CPPlaylist.m */; };
 		0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB166D2184D422800683551 /* PreferencesWindowController.m */; };
 		0DB166D5184D422800683551 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DB166D3184D422800683551 /* PreferencesWindowController.xib */; };
 		0DBF93A218623FFC005A9733 /* QueuePopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DBF93A018623FFC005A9733 /* QueuePopoverViewController.m */; };
@@ -76,6 +77,8 @@
 		0D4C19B1188587630086EFD5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0D4C1AD01886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentlyPlayingValueTransformer.h; sourceTree = "<group>"; };
 		0D4C1AD11886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentlyPlayingValueTransformer.m; sourceTree = "<group>"; };
+		0D9C0A1918E0A74C009181AC /* CPPlaylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlaylist.h; sourceTree = "<group>"; };
+		0D9C0A1A18E0A74C009181AC /* CPPlaylist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlaylist.m; sourceTree = "<group>"; };
 		0DB166D1184D422800683551 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		0DB166D2184D422800683551 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		0DB166D3184D422800683551 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
@@ -243,6 +246,8 @@
 				0DCE24A7184CFA5D0039DDC0 /* MainMenu.xib */,
 				0DC8964E187F3C3A006D5D35 /* CPTrack.h */,
 				0DC8964F187F3C3A006D5D35 /* CPTrack.m */,
+				0D9C0A1918E0A74C009181AC /* CPPlaylist.h */,
+				0D9C0A1A18E0A74C009181AC /* CPPlaylist.m */,
 				0DC5C68218AAA97400F9870B /* DurationValueTransformer.h */,
 				0DC5C68318AAA97400F9870B /* DurationValueTransformer.m */,
 				B37B11FC18AC6B2B004591F9 /* Last.fm */,
@@ -461,6 +466,7 @@
 				0D4C19B0188586AB0086EFD5 /* NSAnimatedSlider.m in Sources */,
 				0DC89650187F3C3A006D5D35 /* CPTrack.m in Sources */,
 				0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */,
+				0D9C0A1B18E0A74C009181AC /* CPPlaylist.m in Sources */,
 				0DC34F2F1864E09A00096E0A /* PlayerToolbarItemViewController.m in Sources */,
 				0DC34F2B1864E07200096E0A /* PlayerToolbarItem.m in Sources */,
 				B37B120418AC776C004591F9 /* NSString+NSString_MD5.m in Sources */,

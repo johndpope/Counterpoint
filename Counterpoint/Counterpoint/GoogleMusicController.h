@@ -16,11 +16,16 @@
 @property (nonatomic, retain) NSString* authenticationToken;
 @property (nonatomic, retain) NSString* xtToken;
 @property (nonatomic, retain) NSString* nextPageToken;
-@property (nonatomic, retain) NSString* finalResponse;
+@property (nonatomic, retain) NSString* allTracksResponse;
+@property (nonatomic, retain) NSString* playlistsResponse;
+@property (nonatomic, retain) NSString* playlistEntriesResponse;
+
 
 @property (nonatomic) NSInteger requestStage;
 
 @property (nonatomic, retain) NSMutableArray* songArray;
+@property (nonatomic, retain) NSMutableArray* playlistsArray;
+@property (nonatomic, retain) NSMutableArray* playlistEntriesArray;
 
 -(BOOL)loginWithUsername:(NSString*)username password:(NSString*)password;
 -(NSString*)getStreamUrl:(NSString*)songID;

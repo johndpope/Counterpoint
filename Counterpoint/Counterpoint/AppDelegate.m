@@ -15,6 +15,7 @@
 #import <AVFoundation/AVAsset.h>
 #import "GoogleMusicController.h"
 #import "CPTrack.h"
+#import "CPPlaylist.h"
 #import "QueuePopoverViewController.h"
 #import	"LastFMController.h"
 
@@ -41,6 +42,13 @@
 	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
 	[self loadAllTables:self];
 	
+	[self setSidebarItemsArray:[NSMutableArray arrayWithObjects:@{@"title" : @"SOURCES",
+																  @"children" :
+																	  @[@{@"title" : @"All Tracks"},
+																		@{@"title" : @"Google Music"},
+																		@{@"title": @"SoundCloud"}],
+																  @"header" : @(YES)}, nil]];
+	
 	//set up AVPlayer
 	[self setPlayer:[[AVQueuePlayer alloc] init]];
 	[[self player] setActionAtItemEnd:AVPlayerActionAtItemEndAdvance];
@@ -52,6 +60,7 @@
 	//set up current track and queue
 	[self setQueueArrayController:[[NSArrayController alloc] init]];
 	[self setTracksArray:[[NSMutableArray alloc] init]];
+	[self setPlaylistsArray:[[NSMutableArray alloc] init]];
 	[self setCurrentTrack:[[CPTrack alloc] init]];
 	[[self queueArrayController] addObserver:self forKeyPath:@"content" options:0 context:nil];
 }
@@ -138,6 +147,17 @@
 	[[self tracksArrayController] setContent:[self tracksArray]];
 }
 
+-(void)finishedLoadingPlaylists
+{
+	NSMutableArray* playlistsToAdd = [NSMutableArray array];
+	for (CPPlaylist* playlist in [self playlistsArray])
+	{
+		[playlistsToAdd addObject:@{@"title": [playlist name]}];
+	}
+	
+	[self setSidebarItemsArray:[NSMutableArray arrayWithArray:@[[self sidebarItemsArray][0], @{@"title": @"PLAYLISTS", @"children" : playlistsToAdd, @"header" : @(YES)}]]];
+}
+
 -(void)getPlayerItemForTrack:(CPTrack*)track
 {
 	if (![track playerItem])
@@ -221,7 +241,12 @@
 	else
 	{
 		if (addToSelectedObjects)
-			[[self queueArrayController] insertObject:track atArrangedObjectIndex:[[[self queueArrayController] selectedObjects] count]+1];
+		{
+			if ([[[self queueArrayController] selectedObjects] count] == 0)
+				[self playSong:track];
+			else
+				[[self queueArrayController] insertObject:track atArrangedObjectIndex:[[[self queueArrayController] selectedObjects] count]+1];
+		}
 	}
 	
 	[self setQueueArrayControllerSelectedIndexes];
@@ -265,17 +290,20 @@
 	NSArray* newQueue = [NSArray array];
 	if ([sender state] == NSOnState)
 	{
-		NSMutableArray* queuedItems = [NSMutableArray arrayWithArray:[[self queueArrayController] content]];
-		NSUInteger count = [queuedItems count];
+		NSMutableArray* tracks = [NSMutableArray arrayWithArray:[[self tracksArrayController] content]];
+		NSUInteger count = [tracks count];
 		//start at second track to leave the currently playing track alone
-		for (NSUInteger i = 1; i < count; ++i)
+		for (NSUInteger i = 0; i < count; ++i)
 		{
 			// Select a random element between i and end of array to swap with.
 			NSInteger nElements = count - i;
 			NSInteger n = arc4random_uniform((int)nElements) + i;
-			[queuedItems exchangeObjectAtIndex:i withObjectAtIndex:n];
+			[tracks exchangeObjectAtIndex:i withObjectAtIndex:n];
 		}
-		newQueue = queuedItems;
+		
+		[tracks exchangeObjectAtIndex:0 withObjectAtIndex:[tracks indexOfObject:[self currentTrack]]];
+		
+		newQueue = tracks;
 	}
 	else
 	{
@@ -288,7 +316,8 @@
 	[[self queueArrayController] setContent:newQueue];
 	
 	NSArray* items = [[self player] items];
-    [[self player] removeItem:[items lastObject]];
+	if ([items count] > 1)
+		[[self player] removeItem:[items lastObject]];
 	 
 	[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
 }
@@ -383,6 +412,21 @@
 	{
 		[[[self currentTrackToolbarItem] viewController] setupTrackDurationSlider];
 	}
+}
+
+#pragma mark - Outline View Delegate
+
+-(NSView*)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)treeNode
+{
+	NSDictionary *item = [treeNode representedObject];
+    BOOL isHeader = [[item objectForKey:@"header"] boolValue];
+    return [outlineView makeViewWithIdentifier: isHeader ? @"HeaderCell" : @"DataCell"
+										 owner:self];
+}
+
+-(void)outlineViewSelectionDidChange:(NSNotification *)notification
+{
+	;
 }
 
 @end

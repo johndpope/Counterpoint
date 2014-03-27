@@ -9,12 +9,15 @@
 #import "GoogleMusicController.h"
 #import "AppDelegate.h"
 #import "CPTrack.h"
+#import "CPPlaylist.h"
 
 typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 {
 	GoogleMusicConnectionStageLoginWithCredentials,
 	GoogleMusicConnectionStageLoginWithAuthenticationToken,
-	GoogleMusicConnectionStageLoadAllTracks
+	GoogleMusicConnectionStageLoadAllTracks,
+	GoogleMusicConnectionStageLoadPlaylists,
+	GoogleMusicConnectionStageLoadPlaylistEntries
 };
 
 @implementation GoogleMusicController
@@ -28,52 +31,14 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 		_xtToken = [[NSString alloc] init];
 		_nextPageToken = [[NSString alloc] init];
 		_songArray = [[NSMutableArray alloc] init];
-		_finalResponse = [[NSMutableString alloc] init];
+		_playlistsArray = [[NSMutableArray alloc] init];
+		_playlistEntriesArray = [[NSMutableArray alloc] init];
+		_allTracksResponse = [[NSMutableString alloc] init];
+		_playlistsResponse = [[NSMutableString alloc] init];
+		_playlistEntriesResponse = [[NSMutableString alloc] init];
 	}
 	return self;
 }
-
-/*
- album = "Live At The Royal Albert Hall";
- albumArtRef =     (
- {
- url = "http://lh5.ggpht.com/h1D6CydsUS0-3t9qp4wzpKjcbj3ZX1HNExEagA4OhPK5aFCEPF88rm8Jko0";
- }
- );
- albumArtist = "";
- albumId = B267ue4pwugvncxajh5posunrau;
- artist = Adele;
- artistArtRef =     (
- {
- url = "http://lh3.ggpht.com/gFUVKoHfRT2U8U-J_S1iYRveT0vTWgkS-vqh4RGYW1PRah1XHj2_62SGD4CadS0EyJ96J7uPNw";
- }
- );
- artistId =     (
- A6zfmftoiq7nkq4xqpqauep73ue
- );
- beatsPerMinute = 81;
- clientId = WZlrwLTLuLuy1agFzOgaGg;
- comment = "";
- composer = "";
- creationTimestamp = 1383599881435166;
- deleted = 0;
- discNumber = 1;
- durationMillis = 236000;
- estimatedSize = 7172376;
- genre = "R&B";
- id = "e2e741e0-6046-3316-9bfd-f963ccdec7dd";
- kind = "sj#track";
- lastModifiedTimestamp = 1383600375884719;
- nid = T4zyinhinxumz4y5mrbb2xeaegq;
- playCount = 2;
- rating = 0;
- recentTimestamp = 1383600375736000;
- title = "I'll Be Waiting";
- totalDiscCount = 1;
- totalTrackCount = 17;
- trackNumber = 2;
- year = 2011;
- */
 
 -(void)loadTracks
 {
@@ -124,6 +89,43 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 	return YES;
 }
 
+-(void)loadPlaylists
+{
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.googleapis.com/sj/v1.1/playlistfeed"]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"googleMusicAuthenticationToken"]] forHTTPHeaderField:@"Authorization"];
+	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+	
+	[self setRequestStage:GoogleMusicConnectionStageLoadPlaylists];
+	
+	NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+	if (!connection)
+		return;
+	
+	return;
+}
+
+-(void)loadPlaylistEntries
+{
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.googleapis.com/sj/v1.1/plentryfeed"]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[NSString stringWithFormat:@"GoogleLogin auth=%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"googleMusicAuthenticationToken"]] forHTTPHeaderField:@"Authorization"];
+	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+	
+	[self setRequestStage:GoogleMusicConnectionStageLoadPlaylistEntries];
+	
+	NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+	if (!connection)
+		return;
+	
+	return;
+
+}
+
 -(void)finishedLoadingTracks
 {
 	[[[NSApp delegate] tracksArray] removeAllObjects];
@@ -153,7 +155,36 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 		
 		[[[NSApp delegate] tracksArray] addObject:trackObject];
 	}
+	
+	[self setAllTracksResponse:[NSMutableString string]];
+	[self setNextPageToken:@""];
+	
 	[[NSApp delegate] finishedLoadingTracks];
+	
+	[self loadPlaylists];
+}
+
+-(void)finishedLoadingPlaylists
+{
+	[[[NSApp delegate] playlistsArray] removeAllObjects];
+	
+	for (NSDictionary* playlist in [self playlistsArray])
+	{
+		CPPlaylist* playlistObject = [[CPPlaylist alloc] init];
+		[playlistObject setName:playlist[@"name"]];
+		[playlistObject setIdString:playlist[@"id"]];
+		[playlistObject setType:playlist[@"type"]];
+		[playlistObject setShareToken:playlist[@"shareToken"]];
+		
+		NSArray* entries = [[self playlistEntriesArray] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K = %@", @"playlistId", [playlistObject idString]]];
+		[playlistObject setTracks:[NSMutableArray arrayWithArray:entries]];
+							
+		[[[NSApp delegate] playlistsArray] addObject:playlistObject];
+	}
+	
+	[self setPlaylistsResponse:[NSMutableString string]];
+	
+	[[NSApp delegate] finishedLoadingPlaylists];
 }
 
 -(BOOL)loginWithUsername:(NSString*)username password:(NSString*)password
@@ -164,7 +195,8 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 	[self setAuthenticationToken:@""];
 	[self setXtToken:@""];
 	[self setNextPageToken:@""];
-	[self setFinalResponse:[[NSMutableString alloc] init]];
+	[self setAllTracksResponse:[[NSMutableString alloc] init]];
+	[self setPlaylistsResponse:[[NSMutableString alloc] init]];
 	[[self songArray] removeAllObjects];
 	
 	NSString *post = [NSString stringWithFormat:@"&Email=%@&Passwd=%@&service=sj",[self username],[self password]];
@@ -245,8 +277,20 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 	{
 		NSString *response = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
 		if (response)
-			[self setFinalResponse:[[self finalResponse] stringByAppendingString:response]];
-	}	
+			[self setAllTracksResponse:[[self allTracksResponse] stringByAppendingString:response]];
+	}
+	else if ([self requestStage] == GoogleMusicConnectionStageLoadPlaylists)
+	{
+		NSString *response = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+		if (response)
+			[self setPlaylistsResponse:[[self playlistsResponse] stringByAppendingString:response]];
+	}
+	else if ([self requestStage] == GoogleMusicConnectionStageLoadPlaylistEntries)
+	{
+		NSString *response = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+		if (response)
+			[self setPlaylistEntriesResponse:[[self playlistEntriesResponse] stringByAppendingString:response]];
+	}
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -262,7 +306,7 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 	else if ([self requestStage] == GoogleMusicConnectionStageLoadAllTracks)
 	{
 		NSError *localerror;
-        NSData *jsonData = [[self finalResponse] dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *jsonData = [[self allTracksResponse] dataUsingEncoding:NSUTF8StringEncoding];
         
         NSDictionary *songDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&localerror];
         if (localerror)
@@ -281,12 +325,40 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 			if (continuationToken && ![continuationToken isEqualToString:@""])
 			{
 				[self setNextPageToken:continuationToken];
-				[self setFinalResponse:@""];
+				[self setAllTracksResponse:@""];
 				[self loadAllTracksMobile];
 			}
 			else
 				[self finishedLoadingTracks];
         }
+	}
+	else if ([self requestStage] == GoogleMusicConnectionStageLoadPlaylists)
+	{
+		NSError *localerror;
+        NSData *jsonData = [[self playlistsResponse] dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSDictionary *playlists = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&localerror];
+		
+		for (NSDictionary* playlist in playlists[@"data"][@"items"])
+		{
+			[[self playlistsArray] addObject:playlist];
+		}
+		
+		[self loadPlaylistEntries];
+	}
+	else if ([self requestStage] == GoogleMusicConnectionStageLoadPlaylistEntries)
+	{
+		NSError *localerror;
+        NSData *jsonData = [[self playlistEntriesResponse] dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSDictionary *playlistEntries = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&localerror];
+		
+		for (NSDictionary* playlistEntry in playlistEntries[@"data"][@"items"])
+		{
+			[[self playlistEntriesArray] addObject:playlistEntry];
+		}
+		
+		[self finishedLoadingPlaylists];
 	}
 }
 

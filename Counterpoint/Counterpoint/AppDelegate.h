@@ -17,7 +17,7 @@
 @class PlayerToolbarItem;
 @class LastFMController;
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate, NSOutlineViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSToolbar* toolbar;
@@ -28,6 +28,8 @@
 @property (assign) IBOutlet NSTableView* table;
 @property (assign) IBOutlet NSTextField* songCountLabel;
 @property (assign) IBOutlet NSSearchField* searchField;
+
+@property (nonatomic, retain) NSMutableArray* sidebarItemsArray;
 
 @property (nonatomic, strong) IBOutlet NSArrayController* queueArrayController;
 
@@ -40,6 +42,8 @@
 
 @property (nonatomic, strong) NSMutableArray* tracksArray;
 @property (assign) IBOutlet NSArrayController* tracksArrayController;
+
+@property (nonatomic, strong) NSMutableArray* playlistsArray;
 
 @property (nonatomic, strong) PreferencesWindowController* preferencesWindowController;
 
