@@ -56,6 +56,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];	
 	[[self player] addObserver:self forKeyPath:@"status" options:0 context:nil];
 	[[self player] addObserver:self forKeyPath:@"currentItem" options:0 context:nil];
+	[[self player] addObserver:self forKeyPath:@"rate" options:0 context:nil];
 	
 	//set up current track and queue
 	[self setQueueArrayController:[[NSArrayController alloc] init]];
@@ -390,17 +391,17 @@
 					[self next:self];
 			}
 			else if ([[[self player] currentItem] status] == AVPlayerStatusUnknown)
-				NSLog(@"What does this mean?");
+				NSLog(@"Current player item state = unknown");
 		}
 		else if (object == [self player])
 		{
 			if ([[self player] status] == AVPlayerStatusFailed)
 			{
-				NSLog(@"Is this happening either?");
+				NSLog(@"Player state = failed");
 			}
 			else if ([[self player] status] == AVPlayerStatusUnknown)
 			{
-				NSLog(@"Is this happening?");
+				NSLog(@"Player state = unknown");
 			}
 		}
 	}
@@ -411,6 +412,10 @@
 	else if ([keyPath isEqualToString:@"currentItem"])
 	{
 		[[[self currentTrackToolbarItem] viewController] setupTrackDurationSlider];
+	}
+	else if ([keyPath isEqualToString:@"rate"])
+	{
+		NSLog(@"Rate changed to: %f", (float)[(AVPlayer*)object rate]);
 	}
 }
 
@@ -426,7 +431,34 @@
 
 -(void)outlineViewSelectionDidChange:(NSNotification *)notification
 {
-	;
+	NSArray* selectedNodes = [[self sidebarController] selectedNodes];
+	if ([selectedNodes count] == 1)
+	{
+		NSTreeNode* selectedNode = selectedNodes[0];
+		if ([selectedNode isLeaf])
+		{
+			NSString* parentNodeTitle = [[selectedNode parentNode] representedObject][@"title"];
+			if ([parentNodeTitle isEqualToString:@"PLAYLISTS"])
+			{
+				NSString* playlistName = [selectedNode representedObject][@"title"];
+				NSArray* playlistsOfTitle = [[self playlistsArray] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@", playlistName]];
+				for (CPPlaylist* playlist in playlistsOfTitle)
+				{
+					NSArray* idsOfTracksInPlaylist = [[playlist tracks] valueForKey:@"trackId"];
+					NSPredicate* playlistFilter = [NSPredicate predicateWithFormat:@"idString IN %@", idsOfTracksInPlaylist];
+					[[self tracksArrayController] setFilterPredicate:playlistFilter];
+				}
+			}
+			else
+			{
+				NSString* sourceName = [selectedNode representedObject][@"title"];
+				if ([sourceName isEqualToString:@"All Tracks"])
+				{
+					[[self tracksArrayController] setFilterPredicate:nil];
+				}
+			}
+		}
+	}
 }
 
 @end

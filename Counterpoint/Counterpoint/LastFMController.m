@@ -7,7 +7,6 @@
 //
 
 #import "LastFMController.h"
-#import "NSString+NSString_MD5.h"
 #import "CPTrack.h"
 
 const NSString* lastFMApiKey = @"529e672da2679864b9e59207d6c9b711";

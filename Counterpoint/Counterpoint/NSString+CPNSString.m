@@ -1,15 +1,15 @@
 //
-//  NSString+NSString_MD5.m
+//  NSString+CPNSString.m
 //  Counterpoint
 //
 //  Created by Rebecca Henderson on 2/12/14.
 //  Copyright (c) 2014 Beckasaurus. All rights reserved.
 //
 
-#import "NSString+NSString_MD5.h"
+#import "NSString+CPNSString.h"
 #import <CommonCrypto/CommonDigest.h>
 
-@implementation NSString (NSString_MD5)
+@implementation NSString (CPNSString)
 
 - (NSString *)MD5String
 {

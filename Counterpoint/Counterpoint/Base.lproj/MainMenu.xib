@@ -660,10 +660,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="951" height="428"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView ambiguous="YES" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNq-QL-UFW">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNq-QL-UFW">
                         <rect key="frame" x="180" y="29" width="750" height="360"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="VtL-it-dj0">
+                        <clipView key="contentView" id="VtL-it-dj0">
                             <rect key="frame" x="1" y="17" width="748" height="342"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -913,7 +913,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MaX-dg-t2I">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MaX-dg-t2I">
                         <rect key="frame" x="484" y="7" width="143" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
@@ -963,10 +963,10 @@
                             </binding>
                         </connections>
                     </searchField>
-                    <scrollView ambiguous="YES" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vM6-hB-IvF">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vM6-hB-IvF">
                         <rect key="frame" x="0.0" y="0.0" width="160" height="429"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="3vo-db-pIM">
+                        <clipView key="contentView" id="3vo-db-pIM">
                             <rect key="frame" x="1" y="1" width="158" height="427"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -1043,6 +1043,7 @@
                                     </tableColumns>
                                     <connections>
                                         <binding destination="rXH-cF-iBT" name="content" keyPath="arrangedObjects" id="DAb-Qv-5KC"/>
+                                        <binding destination="rXH-cF-iBT" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="DAb-Qv-5KC" id="sDF-rC-Px3"/>
                                         <outlet property="delegate" destination="494" id="a32-q6-a9H"/>
                                     </connections>
                                 </outlineView>
@@ -1050,7 +1051,7 @@
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="aGI-gt-l5S">
-                            <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                            <rect key="frame" x="1" y="412" width="0.0" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="enl-HH-9HZ">
@@ -1061,7 +1062,6 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="uwg-or-DyR" firstAttribute="top" secondItem="372" secondAttribute="top" constant="12" id="5w9-dd-dnZ"/>
-                    <constraint firstItem="Deh-Z0-RJd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MaX-dg-t2I" secondAttribute="trailing" constant="296" id="8Tl-lm-JOR"/>
                     <constraint firstItem="Deh-Z0-RJd" firstAttribute="top" secondItem="qNq-QL-UFW" secondAttribute="bottom" constant="6" id="9Dr-AD-SWE"/>
                     <constraint firstItem="qNq-QL-UFW" firstAttribute="top" secondItem="uwg-or-DyR" secondAttribute="bottom" constant="8" id="IyN-rv-jHI"/>
                     <constraint firstAttribute="bottom" secondItem="vM6-hB-IvF" secondAttribute="bottom" id="Nyi-e3-hdO"/>
@@ -1072,6 +1072,7 @@
                     <constraint firstAttribute="trailing" secondItem="Deh-Z0-RJd" secondAttribute="trailing" constant="20" symbolic="YES" id="cLH-fL-WhR"/>
                     <constraint firstItem="qNq-QL-UFW" firstAttribute="top" secondItem="uwg-or-DyR" secondAttribute="bottom" constant="8" symbolic="YES" id="ci5-8T-PxO"/>
                     <constraint firstItem="qNq-QL-UFW" firstAttribute="top" secondItem="uwg-or-DyR" secondAttribute="bottom" constant="8" id="cvD-j5-2OF"/>
+                    <constraint firstItem="qNq-QL-UFW" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="180" id="kMO-bo-hUC"/>
                     <constraint firstItem="vM6-hB-IvF" firstAttribute="top" secondItem="372" secondAttribute="top" constant="-1" id="m56-ca-xuE"/>
                     <constraint firstAttribute="bottom" secondItem="Deh-Z0-RJd" secondAttribute="bottom" constant="5" id="pQs-b6-OQ4"/>
                     <constraint firstItem="MaX-dg-t2I" firstAttribute="centerX" secondItem="qNq-QL-UFW" secondAttribute="centerX" id="s5Y-qg-s3y"/>
@@ -1101,6 +1102,8 @@
         <customObject id="494" customClass="AppDelegate">
             <connections>
                 <outlet property="searchField" destination="uwg-or-DyR" id="52m-fN-NG7"/>
+                <outlet property="sidebar" destination="fnp-Fu-Bbg" id="8bi-bC-mdA"/>
+                <outlet property="sidebarController" destination="rXH-cF-iBT" id="5e3-od-dOJ"/>
                 <outlet property="songCountLabel" destination="MaX-dg-t2I" id="IN8-bJ-YLr"/>
                 <outlet property="table" destination="YBT-qM-rqK" id="gjj-em-kny"/>
                 <outlet property="toolbar" destination="gQu-fE-5hG" id="4AF-hN-hZ3"/>

@@ -377,7 +377,7 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 	
 	if([response statusCode] != 200)
 	{
-		NSLog(@"Bad response (%ld) from getStreamURL:", [response statusCode]);
+		NSLog(@"Error code (%ld) when sending request from getStreamURL:", [response statusCode]);
 		return @"";
 	}
 	
@@ -385,9 +385,10 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
     NSData *jsonData = [test dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *urlDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
 	if (!urlDict)
-	{
-		NSLog(@"error!");
-	}
+		NSLog(@"Error serializing JSON object from data.");
+	
+	if (!urlDict[@"url"])
+		NSLog(@"No URL returned for song id: %@. \nResponse dict: %@", songID, urlDict);
     
     return urlDict[@"url"];
 }

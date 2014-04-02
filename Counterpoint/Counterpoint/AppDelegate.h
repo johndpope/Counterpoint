@@ -21,6 +21,8 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSToolbar* toolbar;
+@property (assign) IBOutlet NSOutlineView* sidebar;
+@property (assign) IBOutlet NSTreeController* sidebarController;
 
 @property (assign) CurrentTrackToolbarItem* currentTrackToolbarItem;
 @property (assign) PlayerToolbarItem* playerToolbarItem;

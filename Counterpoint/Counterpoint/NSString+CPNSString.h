@@ -1,5 +1,5 @@
 //
-//  NSString+NSString_MD5.h
+//  NSString+CPNSString.h
 //  Counterpoint
 //
 //  Created by Rebecca Henderson on 2/12/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (NSString_MD5)
+@interface NSString (CPNSString)
 
 - (NSString *)MD5String;
 

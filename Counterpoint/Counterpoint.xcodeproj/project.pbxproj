@@ -11,7 +11,6 @@
 		0D4C177B188054640086EFD5 /* CurrentTrackToolbarItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C1779188054640086EFD5 /* CurrentTrackToolbarItemViewController.m */; };
 		0D4C177C188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D4C177A188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib */; };
 		0D4C194B188480300086EFD5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D4C194A188480300086EFD5 /* CoreMedia.framework */; };
-		0D4C19B0188586AB0086EFD5 /* NSAnimatedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C19AF188586AB0086EFD5 /* NSAnimatedSlider.m */; };
 		0D4C19B2188587630086EFD5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D4C19B1188587630086EFD5 /* QuartzCore.framework */; };
 		0D4C1AD21886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C1AD11886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m */; };
 		0D9C0A1B18E0A74C009181AC /* CPPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9C0A1A18E0A74C009181AC /* CPPlaylist.m */; };
@@ -37,8 +36,10 @@
 		0DCE24BD184CFA5D0039DDC0 /* CounterpointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE24BC184CFA5D0039DDC0 /* CounterpointTests.m */; };
 		0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE159571858BF880066A829 /* GoogleMusicController.m */; };
 		0DE15A7A185A6C120066A829 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE15A79185A6C120066A829 /* AVFoundation.framework */; };
+		0DF494EA18EB2E2C0085C8EB /* NSArray+CPNSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF494E918EB2E2C0085C8EB /* NSArray+CPNSArray.m */; };
+		0DF494EE18EB4A740085C8EB /* NSAnimatedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF494ED18EB4A740085C8EB /* NSAnimatedSlider.m */; };
 		B37B120118AC6B5D004591F9 /* LastFMController.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B120018AC6B5D004591F9 /* LastFMController.m */; };
-		B37B120418AC776C004591F9 /* NSString+NSString_MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B120318AC776C004591F9 /* NSString+NSString_MD5.m */; };
+		B37B120418AC776C004591F9 /* NSString+CPNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B120318AC776C004591F9 /* NSString+CPNSString.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,8 +73,6 @@
 		0D4C1779188054640086EFD5 /* CurrentTrackToolbarItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentTrackToolbarItemViewController.m; sourceTree = "<group>"; };
 		0D4C177A188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CurrentTrackToolbarItemViewController.xib; sourceTree = "<group>"; };
 		0D4C194A188480300086EFD5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		0D4C19AE188586AB0086EFD5 /* NSAnimatedSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAnimatedSlider.h; sourceTree = "<group>"; };
-		0D4C19AF188586AB0086EFD5 /* NSAnimatedSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAnimatedSlider.m; sourceTree = "<group>"; };
 		0D4C19B1188587630086EFD5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0D4C1AD01886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentlyPlayingValueTransformer.h; sourceTree = "<group>"; };
 		0D4C1AD11886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentlyPlayingValueTransformer.m; sourceTree = "<group>"; };
@@ -117,10 +116,14 @@
 		0DE159561858BF880066A829 /* GoogleMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleMusicController.h; sourceTree = "<group>"; };
 		0DE159571858BF880066A829 /* GoogleMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleMusicController.m; sourceTree = "<group>"; };
 		0DE15A79185A6C120066A829 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0DF494E818EB2E2C0085C8EB /* NSArray+CPNSArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CPNSArray.h"; sourceTree = "<group>"; };
+		0DF494E918EB2E2C0085C8EB /* NSArray+CPNSArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CPNSArray.m"; sourceTree = "<group>"; };
+		0DF494EC18EB4A740085C8EB /* NSAnimatedSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAnimatedSlider.h; sourceTree = "<group>"; };
+		0DF494ED18EB4A740085C8EB /* NSAnimatedSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAnimatedSlider.m; sourceTree = "<group>"; };
 		B37B11FF18AC6B5D004591F9 /* LastFMController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastFMController.h; sourceTree = "<group>"; };
 		B37B120018AC6B5D004591F9 /* LastFMController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastFMController.m; sourceTree = "<group>"; };
-		B37B120218AC776C004591F9 /* NSString+NSString_MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSString_MD5.h"; sourceTree = "<group>"; };
-		B37B120318AC776C004591F9 /* NSString+NSString_MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSString_MD5.m"; sourceTree = "<group>"; };
+		B37B120218AC776C004591F9 /* NSString+CPNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CPNSString.h"; sourceTree = "<group>"; };
+		B37B120318AC776C004591F9 /* NSString+CPNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CPNSString.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,15 +153,13 @@
 		0D4C177D188057C70086EFD5 /* Current Track Control */ = {
 			isa = PBXGroup;
 			children = (
-				0D4C1AD01886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.h */,
-				0D4C1AD11886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m */,
 				0D4C17731880544D0086EFD5 /* CurrentTrackToolbarItem.h */,
 				0D4C17741880544D0086EFD5 /* CurrentTrackToolbarItem.m */,
 				0D4C1778188054640086EFD5 /* CurrentTrackToolbarItemViewController.h */,
 				0D4C1779188054640086EFD5 /* CurrentTrackToolbarItemViewController.m */,
 				0D4C177A188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib */,
-				0D4C19AE188586AB0086EFD5 /* NSAnimatedSlider.h */,
-				0D4C19AF188586AB0086EFD5 /* NSAnimatedSlider.m */,
+				0DF494EC18EB4A740085C8EB /* NSAnimatedSlider.h */,
+				0DF494ED18EB4A740085C8EB /* NSAnimatedSlider.m */,
 			);
 			name = "Current Track Control";
 			sourceTree = "<group>";
@@ -248,8 +249,8 @@
 				0DC8964F187F3C3A006D5D35 /* CPTrack.m */,
 				0D9C0A1918E0A74C009181AC /* CPPlaylist.h */,
 				0D9C0A1A18E0A74C009181AC /* CPPlaylist.m */,
-				0DC5C68218AAA97400F9870B /* DurationValueTransformer.h */,
-				0DC5C68318AAA97400F9870B /* DurationValueTransformer.m */,
+				0DF494E518EB2DD40085C8EB /* Categories */,
+				0DF494EB18EB43380085C8EB /* Transformers */,
 				B37B11FC18AC6B2B004591F9 /* Last.fm */,
 				B38E5A9C186299950049602D /* Google Music */,
 				0DC8964B187F3B74006D5D35 /* Toolbar Items */,
@@ -299,13 +300,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		0DF494E518EB2DD40085C8EB /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				B37B120218AC776C004591F9 /* NSString+CPNSString.h */,
+				B37B120318AC776C004591F9 /* NSString+CPNSString.m */,
+				0DF494E818EB2E2C0085C8EB /* NSArray+CPNSArray.h */,
+				0DF494E918EB2E2C0085C8EB /* NSArray+CPNSArray.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		0DF494EB18EB43380085C8EB /* Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				0DC5C68218AAA97400F9870B /* DurationValueTransformer.h */,
+				0DC5C68318AAA97400F9870B /* DurationValueTransformer.m */,
+				0D4C1AD01886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.h */,
+				0D4C1AD11886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m */,
+			);
+			name = Transformers;
+			sourceTree = "<group>";
+		};
 		B37B11FC18AC6B2B004591F9 /* Last.fm */ = {
 			isa = PBXGroup;
 			children = (
 				B37B11FF18AC6B5D004591F9 /* LastFMController.h */,
 				B37B120018AC6B5D004591F9 /* LastFMController.m */,
-				B37B120218AC776C004591F9 /* NSString+NSString_MD5.h */,
-				B37B120318AC776C004591F9 /* NSString+NSString_MD5.m */,
 			);
 			name = Last.fm;
 			sourceTree = "<group>";
@@ -462,14 +483,15 @@
 				0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */,
 				0DCE249F184CFA5C0039DDC0 /* main.m in Sources */,
 				0DBF93A218623FFC005A9733 /* QueuePopoverViewController.m in Sources */,
+				0DF494EE18EB4A740085C8EB /* NSAnimatedSlider.m in Sources */,
 				0D4C17751880544D0086EFD5 /* CurrentTrackToolbarItem.m in Sources */,
-				0D4C19B0188586AB0086EFD5 /* NSAnimatedSlider.m in Sources */,
 				0DC89650187F3C3A006D5D35 /* CPTrack.m in Sources */,
 				0DB166D4184D422800683551 /* PreferencesWindowController.m in Sources */,
 				0D9C0A1B18E0A74C009181AC /* CPPlaylist.m in Sources */,
 				0DC34F2F1864E09A00096E0A /* PlayerToolbarItemViewController.m in Sources */,
+				0DF494EA18EB2E2C0085C8EB /* NSArray+CPNSArray.m in Sources */,
 				0DC34F2B1864E07200096E0A /* PlayerToolbarItem.m in Sources */,
-				B37B120418AC776C004591F9 /* NSString+NSString_MD5.m in Sources */,
+				B37B120418AC776C004591F9 /* NSString+CPNSString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

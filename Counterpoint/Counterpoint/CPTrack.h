@@ -28,5 +28,6 @@
 @property (nonatomic, strong) NSNumber* bpm;
 @property (nonatomic, strong) NSNumber* durationMilliSeconds;
 @property (nonatomic, strong) NSNumber* playCount;
+@property (nonatomic, strong) NSNumber* absolutePosition;
 
 @end
