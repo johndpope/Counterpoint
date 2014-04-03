@@ -40,6 +40,7 @@
 	//set up music service controllers
 	[self setLastFmController:[[LastFMController alloc] init]];
 	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
+	
 	[self loadAllTables:self];
 	
 	[self setSidebarItemsArray:[NSMutableArray arrayWithObjects:@{@"title" : @"SOURCES",

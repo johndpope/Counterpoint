@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <SoundCloudAPI/SCAPI.h>
 
-@interface PreferencesWindowController : NSWindowController <NSTextFieldDelegate>
+@interface PreferencesWindowController : NSWindowController <NSTextFieldDelegate, SCSoundCloudAPIAuthenticationDelegate>
 
 @property (nonatomic, retain) NSOpenPanel* openPanel;
 
