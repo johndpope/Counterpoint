@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0D1374A818EE025C002796D2 /* SoundCloudAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1374A518EE020B002796D2 /* SoundCloudAPI.framework */; };
-		0D1374AC18EE025D002796D2 /* OAuth2Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1374A918EE025D002796D2 /* OAuth2Client.framework */; };
 		0D1374AD18EE025D002796D2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1374AA18EE025D002796D2 /* AudioToolbox.framework */; };
 		0D1374AE18EE025D002796D2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1374AB18EE025D002796D2 /* Security.framework */; };
 		0D1374B018EE02A5002796D2 /* SoundCloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0D1374AF18EE02A5002796D2 /* SoundCloud.bundle */; };
@@ -46,6 +45,7 @@
 		0DF494EE18EB4A740085C8EB /* NSAnimatedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF494ED18EB4A740085C8EB /* NSAnimatedSlider.m */; };
 		B37B120118AC6B5D004591F9 /* LastFMController.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B120018AC6B5D004591F9 /* LastFMController.m */; };
 		B37B120418AC776C004591F9 /* NSString+CPNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B120318AC776C004591F9 /* NSString+CPNSString.m */; };
+		B3CB79BA18EE410B00280967 /* OAuth2Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3CB79B918EE410B00280967 /* OAuth2Client.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,7 +88,6 @@
 
 /* Begin PBXFileReference section */
 		0D13749C18EE020A002796D2 /* SoundCloudAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SoundCloudAPI.xcodeproj; path = ../SoundCloudAPI/SoundCloudAPI.xcodeproj; sourceTree = "<group>"; };
-		0D1374A918EE025D002796D2 /* OAuth2Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuth2Client.framework; path = "../../../Library/Developer/Xcode/DerivedData/Counterpoint-dyumdwbmtzsalldgrmkrwrkklgpo/Build/Products/Debug/OAuth2Client.framework"; sourceTree = "<group>"; };
 		0D1374AA18EE025D002796D2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0D1374AB18EE025D002796D2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0D1374AF18EE02A5002796D2 /* SoundCloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SoundCloud.bundle; path = ../../SoundCloudAPI/SoundCloud.bundle; sourceTree = "<group>"; };
@@ -151,6 +150,7 @@
 		B37B120018AC6B5D004591F9 /* LastFMController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastFMController.m; sourceTree = "<group>"; };
 		B37B120218AC776C004591F9 /* NSString+CPNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CPNSString.h"; sourceTree = "<group>"; };
 		B37B120318AC776C004591F9 /* NSString+CPNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CPNSString.m"; sourceTree = "<group>"; };
+		B3CB79B918EE410B00280967 /* OAuth2Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuth2Client.framework; path = "../../../Library/Developer/Xcode/DerivedData/Counterpoint-afqurjnbweamangxuznfqbcormwu/Build/Products/Debug/OAuth2Client.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D1374AC18EE025D002796D2 /* OAuth2Client.framework in Frameworks */,
+				B3CB79BA18EE410B00280967 /* OAuth2Client.framework in Frameworks */,
 				0D1374AD18EE025D002796D2 /* AudioToolbox.framework in Frameworks */,
 				0D1374AE18EE025D002796D2 /* Security.framework in Frameworks */,
 				0D1374A818EE025C002796D2 /* SoundCloudAPI.framework in Frameworks */,
@@ -268,7 +268,7 @@
 		0DCE2491184CFA5C0039DDC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0D1374A918EE025D002796D2 /* OAuth2Client.framework */,
+				B3CB79B918EE410B00280967 /* OAuth2Client.framework */,
 				0D1374AA18EE025D002796D2 /* AudioToolbox.framework */,
 				0D1374AB18EE025D002796D2 /* Security.framework */,
 				0D4C19B1188587630086EFD5 /* QuartzCore.framework */,
@@ -702,6 +702,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Counterpoint-dyumdwbmtzsalldgrmkrwrkklgpo/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Counterpoint-afqurjnbweamangxuznfqbcormwu/Build/Products/Debug",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Counterpoint/Counterpoint-Prefix.pch";
@@ -728,6 +729,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Counterpoint-dyumdwbmtzsalldgrmkrwrkklgpo/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Counterpoint-afqurjnbweamangxuznfqbcormwu/Build/Products/Debug",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Counterpoint/Counterpoint-Prefix.pch";

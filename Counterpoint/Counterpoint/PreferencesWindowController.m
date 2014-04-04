@@ -107,4 +107,9 @@
 	}
 }
 
+-(IBAction)loginSoundCloud:(id)sender
+{
+	;
+}
+
 @end
