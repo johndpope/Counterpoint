@@ -269,13 +269,16 @@
 
 -(void)queueSong:(id)sender
 {
-	NSInteger selectedSongIndex = [[self table] selectedRow];
-	CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedSongIndex];
-	
-	if ([[(NSMenuItem*)sender title] isEqualToString:@"Play Next"])
-		[self queueSong:selectedTrack addToFrontOfQueue:YES addToSelectedObjects:YES];
-	else
-		[self queueSong:selectedTrack addToFrontOfQueue:NO addToSelectedObjects:YES];
+	NSIndexSet *indexSet = [[self table] selectedRowIndexes];
+	[indexSet enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger idx, BOOL *stop)
+	{
+		CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:idx];
+		
+		if ([[(NSMenuItem*)sender title] isEqualToString:@"Play Next"])
+			[self queueSong:selectedTrack addToFrontOfQueue:YES addToSelectedObjects:YES];
+		else
+			[self queueSong:selectedTrack addToFrontOfQueue:NO addToSelectedObjects:YES];
+	}];
 }
 
 #pragma mark - Queue Controls
