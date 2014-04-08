@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController">
@@ -24,7 +24,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="283" y="305" width="444" height="576"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="cap-OV-OFk">
                 <rect key="frame" x="0.0" y="0.0" width="444" height="576"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -171,6 +171,29 @@
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
+                    <box autoresizesSubviews="NO" title="SoundCloud" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Acf-hk-vyZ" userLabel="Box - SoundCloud">
+                        <rect key="frame" x="17" y="147" width="410" height="60"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="408" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTE-ka-cal">
+                                    <rect key="frame" x="18" y="13" width="100" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="SoundCloud Connect" imagePosition="overlaps" alignment="center" alternateImage="SoundCloud Connect" imageScaling="proportionallyDown" inset="2" id="sfe-pf-mEr">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="loginSoundCloud:" target="-2" id="N8t-qD-RBV"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
                     <box autoresizesSubviews="NO" title="Last.fm Credentials" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="94u-Ul-hQQ">
                         <rect key="frame" x="17" y="16" width="410" height="127"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -242,14 +265,14 @@
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <box autoresizesSubviews="NO" misplaced="YES" title="Local Music Folder" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Wkj-EF-33g">
+                    <box autoresizesSubviews="NO" title="Local Music Folder" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Wkj-EF-33g">
                         <rect key="frame" x="17" y="212" width="410" height="82"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="408" height="66"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c66-XY-dnu">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c66-XY-dnu">
                                     <rect key="frame" x="18" y="23" width="279" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="gSU-tv-cZw">
@@ -261,7 +284,7 @@
                                         <binding destination="A56-Nu-BGq" name="value" keyPath="values.localMusicFolderPath" id="ojb-lO-COZ"/>
                                     </connections>
                                 </textField>
-                                <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AYq-9X-2Nt">
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AYq-9X-2Nt">
                                     <rect key="frame" x="299" y="17" width="97" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -287,30 +310,23 @@
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTE-ka-cal">
-                        <rect key="frame" x="129" y="156" width="234" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="SoundCloud" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sfe-pf-mEr">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="loginSoundCloud:" target="-2" id="N8t-qD-RBV"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Acf-hk-vyZ" secondAttribute="trailing" constant="20" id="2YI-uq-MYQ"/>
                     <constraint firstItem="A70-Sy-JtX" firstAttribute="leading" secondItem="Wkj-EF-33g" secondAttribute="leading" id="4Vd-0Z-xvU"/>
                     <constraint firstItem="Wkj-EF-33g" firstAttribute="top" secondItem="A70-Sy-JtX" secondAttribute="bottom" constant="8" symbolic="YES" id="4iE-ZW-c2J"/>
                     <constraint firstItem="N4Z-3P-mhn" firstAttribute="top" secondItem="cap-OV-OFk" secondAttribute="top" constant="20" symbolic="YES" id="6iv-Ca-aTh"/>
-                    <constraint firstItem="94u-Ul-hQQ" firstAttribute="top" secondItem="Wkj-EF-33g" secondAttribute="bottom" constant="8" symbolic="YES" id="8AZ-iO-6OA"/>
+                    <constraint firstItem="94u-Ul-hQQ" firstAttribute="top" secondItem="Wkj-EF-33g" secondAttribute="bottom" constant="73" id="8AZ-iO-6OA"/>
+                    <constraint firstItem="Acf-hk-vyZ" firstAttribute="leading" secondItem="cap-OV-OFk" secondAttribute="leading" constant="20" id="FkI-6c-Kmk"/>
                     <constraint firstAttribute="bottom" secondItem="94u-Ul-hQQ" secondAttribute="bottom" constant="20" symbolic="YES" id="G4I-Lo-QYd"/>
                     <constraint firstItem="A70-Sy-JtX" firstAttribute="top" secondItem="N4Z-3P-mhn" secondAttribute="bottom" constant="8" symbolic="YES" id="HH6-Zy-y69"/>
                     <constraint firstItem="94u-Ul-hQQ" firstAttribute="trailing" secondItem="Wkj-EF-33g" secondAttribute="trailing" id="KYL-ia-lQn"/>
                     <constraint firstItem="N4Z-3P-mhn" firstAttribute="leading" secondItem="cap-OV-OFk" secondAttribute="leading" constant="20" symbolic="YES" id="Smi-J3-Vzr"/>
                     <constraint firstItem="A70-Sy-JtX" firstAttribute="trailing" secondItem="Wkj-EF-33g" secondAttribute="trailing" id="WUH-TJ-1v6"/>
                     <constraint firstItem="A70-Sy-JtX" firstAttribute="leading" secondItem="N4Z-3P-mhn" secondAttribute="leading" id="dR3-Sc-bm0"/>
+                    <constraint firstItem="Acf-hk-vyZ" firstAttribute="top" secondItem="Wkj-EF-33g" secondAttribute="bottom" constant="9" id="iME-ge-VWY"/>
                     <constraint firstItem="N4Z-3P-mhn" firstAttribute="trailing" secondItem="A70-Sy-JtX" secondAttribute="trailing" id="jSt-Vu-H3t"/>
+                    <constraint firstItem="94u-Ul-hQQ" firstAttribute="top" secondItem="Acf-hk-vyZ" secondAttribute="bottom" constant="8" id="rBL-BA-e09"/>
                     <constraint firstItem="Wkj-EF-33g" firstAttribute="leading" secondItem="94u-Ul-hQQ" secondAttribute="leading" id="vcl-0h-ZEM"/>
                     <constraint firstAttribute="trailing" secondItem="N4Z-3P-mhn" secondAttribute="trailing" constant="20" symbolic="YES" id="xSP-6E-8fj"/>
                 </constraints>
@@ -318,4 +334,7 @@
         </window>
         <userDefaultsController representsSharedInstance="YES" id="A56-Nu-BGq"/>
     </objects>
+    <resources>
+        <image name="SoundCloud Connect" width="93" height="21"/>
+    </resources>
 </document>

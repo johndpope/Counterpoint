@@ -914,10 +914,10 @@
                         </tableHeaderView>
                     </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MaX-dg-t2I">
-                        <rect key="frame" x="484" y="7" width="143" height="14"/>
+                        <rect key="frame" x="430" y="7" width="250" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="139" id="szk-bj-rfx"/>
+                            <constraint firstAttribute="width" constant="246" id="szk-bj-rfx"/>
                         </constraints>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" continuous="YES" sendsActionOnEndEditing="YES" alignment="center" title="0 Songs Available" id="Fe3-zc-B7v">
                             <font key="font" metaFont="smallSystem"/>

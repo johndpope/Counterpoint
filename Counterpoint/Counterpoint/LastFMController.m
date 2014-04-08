@@ -67,9 +67,9 @@ typedef NS_ENUM (NSInteger, LastFMConnectionStage)
 	[self setScrobbleResponse:@""];
 	
 	NSMutableDictionary* parameterDictionary = [NSMutableDictionary dictionary];
-	[parameterDictionary setObject:[track artist] forKey:@"artist"];
+	[parameterDictionary setObject:[track artist]?:@"" forKey:@"artist"];
 	[parameterDictionary setObject:[track title] forKey:@"track"];
-	[parameterDictionary setObject:[track album] forKey:@"album"];
+	[parameterDictionary setObject:[track album]?:@"" forKey:@"album"];
 	
 	NSTimeInterval duration = [[NSDate date] timeIntervalSince1970];
 	duration = duration - ([[track durationMilliSeconds] intValue]/1000);

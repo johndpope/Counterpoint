@@ -44,6 +44,77 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 	[[self soundCloudAPI] checkAuthentication];
 }
 
+- (void)getUserStream
+{
+	if ([[self soundCloudAPI] isAuthenticated])
+	{
+		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading SoundCloud Stream..."];
+		[[self soundCloudAPI] performMethod:@"GET"
+								 onResource:@"/me/activities/tracks/affiliated?limit=500"
+							 withParameters:nil
+									context:@"getUserStream"
+								   userInfo:nil];
+	}
+}
+
+-(NSURL*)getStreamURLForTrack:(CPTrack*)track
+{
+	NSURL *finalURL = nil;
+	if ([track streamURLString])
+		finalURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?client_id=%@", [track streamURLString], SoundCloudClientId]];
+	
+	return finalURL;
+}
+
+-(void)addSoundCloudStreamTracks:(NSDictionary*)streamActivites
+{
+	
+	[[self tracks] addObjectsFromArray:streamActivites[@"collection"]];
+	
+	if (streamActivites[@"next_href"])
+	{
+		//more to grab still so keep going
+		[[self soundCloudAPI] performMethod:@"GET"
+								 onResource:streamActivites[@"next_href"]
+							 withParameters:nil
+									context:@"getUserStream"
+								   userInfo:nil];
+	}
+	else
+	{
+		for (NSDictionary* trackDict in [self tracks])
+		{
+			NSDictionary* track = trackDict[@"origin"];
+			
+			if (![track[@"streamable"] boolValue])
+				continue;
+			
+			CPTrack* trackObject = [[CPTrack alloc] init];
+			[trackObject setTitle:track[@"title"]];
+			[trackObject setAlbum:track[@"album"]];
+			[trackObject setArtist:track[@"user"][@"username"]];
+			[trackObject setIdString:track[@"id"]];
+			[trackObject setTrackNumber:track[@"trackNumber"]];
+			[trackObject setTotalTracks:track[@"totalTrackCount"]];
+			[trackObject setDiscNumber:track[@"discNumber"]];
+			[trackObject setRating:track[@"rating"]];
+			[trackObject setGenre:track[@"genre"]];
+			[trackObject setBpm:track[@"bpm"]];
+			[trackObject setDurationMilliSeconds:track[@"duration"]];
+			[trackObject setPlayCount:track[@"user_playback_count"]];
+			[trackObject setServiceType:CPServiceTypeGoogleMusic];
+			[trackObject setAlbumArtworkImageURLString:track[@"artwork_url"]];
+			[trackObject setStreamURLString:track[@"stream_url"]];
+			[trackObject setServiceType:CPServiceTypeSoundCloud];
+			
+			[[[NSApp delegate] tracksArray] addObject:trackObject];
+		}
+		
+		[[NSApp delegate] finishedLoadingTracks];
+		
+	}
+}
+
 #pragma mark URL handling
 
 - (void)_registerMyApp;
@@ -83,68 +154,6 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 - (void)soundCloudAPIDidAuthenticate;
 {
 	[self getUserStream];
-}
-
-- (void)getUserStream
-{
-	if ([[self soundCloudAPI] isAuthenticated])
-	{
-		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading SoundCloud Stream..."];
-		[[self soundCloudAPI] performMethod:@"GET"
-								 onResource:@"/me/activities/tracks/affiliated?limit=500"
-							 withParameters:nil
-									context:@"getUserStream"
-								   userInfo:nil];
-	}
-}
-
--(void)addSoundCloudStreamTracks:(NSDictionary*)streamActivites
-{
-	
-	[[self tracks] addObjectsFromArray:streamActivites[@"collection"]];
-	
-	if (streamActivites[@"next_href"])
-	{
-		//more to grab still so keep going
-		[[self soundCloudAPI] performMethod:@"GET"
-								 onResource:streamActivites[@"next_href"]
-							 withParameters:nil
-									context:@"getUserStream"
-								   userInfo:nil];
-	}
-	else
-	{
-		for (NSDictionary* trackDict in [self tracks])
-		{
-			NSDictionary* track = trackDict[@"origin"];
-			
-			if (![track[@"streamable"] boolValue])
-				continue;
-			
-			CPTrack* trackObject = [[CPTrack alloc] init];
-			[trackObject setTitle:track[@"title"]];
-			[trackObject setAlbum:track[@"album"]];
-			[trackObject setArtist:track[@"artist"]];
-			[trackObject setIdString:track[@"id"]];
-			[trackObject setTrackNumber:track[@"trackNumber"]];
-			[trackObject setTotalTracks:track[@"totalTrackCount"]];
-			[trackObject setDiscNumber:track[@"discNumber"]];
-			[trackObject setRating:track[@"rating"]];
-			[trackObject setGenre:track[@"genre"]];
-			[trackObject setBpm:track[@"bpm"]];
-			[trackObject setDurationMilliSeconds:track[@"duration"]];
-			[trackObject setPlayCount:track[@"user_playback_count"]];
-			[trackObject setServiceType:CPServiceTypeGoogleMusic];
-			[trackObject setAlbumArtworkImageURLString:track[@"artwork_url"]];
-			[trackObject setStreamURL:[[NSURL alloc] initWithString:track[@"stream_url"]]];
-			[trackObject setServiceType:CPServiceTypeSoundCloud];
-			
-			[[[NSApp delegate] tracksArray] addObject:trackObject];
-		}
-		
-		[[NSApp delegate] finishedLoadingTracks];
-
-	}
 }
 
 - (void)soundCloudAPIDidResetAuthentication;

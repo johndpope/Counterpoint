@@ -178,7 +178,7 @@
 		}
 		else if ([track serviceType] == CPServiceTypeSoundCloud)
 		{
-			streamURL = [track streamURL];
+			streamURL = [[self soundCloudController] getStreamURLForTrack:track];
 		}
 		
 		AVPlayerItem* playerItem = [AVPlayerItem playerItemWithURL:streamURL];
