@@ -145,6 +145,7 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 		[trackObject setBpm:song[@"beatsPerMinute"]];
 		[trackObject setDurationMilliSeconds:song[@"durationMillis"]];
 		[trackObject setPlayCount:song[@"playCount"]];
+		[trackObject setServiceType:CPServiceTypeGoogleMusic];
 		
 		NSArray* imageURLsArray = song[@"albumArtRef"];
 		if (imageURLsArray && [imageURLsArray count] >= 1)

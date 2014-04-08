@@ -7,11 +7,12 @@
 //
 
 #import "SoundCloudController.h"
+#import "CPTrack.h"
+#import "AppDelegate.h"
 
 NSString* const SoundCloudClientId = @"11b15f89e67359193cd8f89f2bc977e2";
 NSString* const SoundCloudClientSecret = @"0b16bc65cf8e9c872bc98204eff28a9c";
 NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
-//http://iosdevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
 
 @implementation SoundCloudController
 
@@ -20,16 +21,17 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 	self = [super init];
 	if (self)
 	{
-		
+		_tracks = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
 
--(void)awakeFromNib
+-(void)setup
 {
-	SCSoundCloudAPIConfiguration *scAPIConfig = [SCSoundCloudAPIConfiguration configurationForProductionWithClientID:SoundCloudClientId
-																										clientSecret:SoundCloudClientSecret
-																										 redirectURL:[NSURL URLWithString:SoundCloudRedirectURL]];
+	SCSoundCloudAPIConfiguration *scAPIConfig = [SCSoundCloudAPIConfiguration
+												 configurationForProductionWithClientID:SoundCloudClientId
+												 clientSecret:SoundCloudClientSecret
+												 redirectURL:[NSURL URLWithString:SoundCloudRedirectURL]];
 	
 	[self setSoundCloudAPI:[[SCSoundCloudAPI alloc] initWithDelegate:self authenticationDelegate:self apiConfiguration:scAPIConfig]];
 	[[self soundCloudAPI] setResponseFormat:SCResponseFormatJSON];
@@ -46,29 +48,28 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 
 - (void)_registerMyApp;
 {
-	NSAppleEventManager *em = [NSAppleEventManager sharedAppleEventManager];
-	[em setEventHandler:self
-			andSelector:@selector(getUrl:withReplyEvent:)
-		  forEventClass:kInternetEventClass
-			 andEventID:kAEGetURL];
+	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
+	[appleEventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 	
 	NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-	OSStatus result = LSSetDefaultHandlerForURLScheme((CFStringRef)@"x-wrapper-test", (__bridge CFStringRef)bundleID);
-	if(result != noErr) {
-		NSLog(@"could not register to \"x-wrapper-test\" URL scheme");
+	OSStatus result = LSSetDefaultHandlerForURLScheme((__bridge CFStringRef)SoundCloudRedirectURL, (__bridge CFStringRef)bundleID);
+	if(result != noErr)
+	{
+		NSLog(@"could not register to \"%@\" URL scheme", SoundCloudRedirectURL);
 	}
 }
 
-- (void)getUrl:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
-	// Get the URL
-	NSString *urlStr = [[event paramDescriptorForKeyword:keyDirectObject]
-						stringValue];
+    NSString* url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
 	
-	if([urlStr hasPrefix:SoundCloudRedirectURL]) {
-		NSLog(@"handling oauth callback");
-		NSURL *url = [NSURL URLWithString:urlStr];
-		[[self soundCloudAPI] handleRedirectURL:url];
+	if([url hasPrefix:SoundCloudRedirectURL])
+	{
+		BOOL handled = [[self soundCloudAPI] handleRedirectURL:[NSURL URLWithString:url]];
+		if (!handled)
+		{
+			NSLog(@"The URL (%@) could not be handled by the SoundCloud API. Maybe you want to do something with it.", url);
+		}
 	}
 }
 
@@ -81,22 +82,69 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 
 - (void)soundCloudAPIDidAuthenticate;
 {
-	//load stream
 	[self getUserStream];
 }
 
 - (void)getUserStream
 {
-	[[self soundCloudAPI] performMethod:@"GET"
-							 onResource:@"/me/activities/tracks/affiliated"
-						 withParameters:nil
-								context:@"getUserStream"
-							   userInfo:nil];
+	if ([[self soundCloudAPI] isAuthenticated])
+	{
+		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading SoundCloud Stream..."];
+		[[self soundCloudAPI] performMethod:@"GET"
+								 onResource:@"/me/activities/tracks/affiliated?limit=500"
+							 withParameters:nil
+									context:@"getUserStream"
+								   userInfo:nil];
+	}
 }
 
--(void)addSoundCloudStreamTracks:(NSArray*)streamActivites
+-(void)addSoundCloudStreamTracks:(NSDictionary*)streamActivites
 {
-	;
+	
+	[[self tracks] addObjectsFromArray:streamActivites[@"collection"]];
+	
+	if (streamActivites[@"next_href"])
+	{
+		//more to grab still so keep going
+		[[self soundCloudAPI] performMethod:@"GET"
+								 onResource:streamActivites[@"next_href"]
+							 withParameters:nil
+									context:@"getUserStream"
+								   userInfo:nil];
+	}
+	else
+	{
+		for (NSDictionary* trackDict in [self tracks])
+		{
+			NSDictionary* track = trackDict[@"origin"];
+			
+			if (![track[@"streamable"] boolValue])
+				continue;
+			
+			CPTrack* trackObject = [[CPTrack alloc] init];
+			[trackObject setTitle:track[@"title"]];
+			[trackObject setAlbum:track[@"album"]];
+			[trackObject setArtist:track[@"artist"]];
+			[trackObject setIdString:track[@"id"]];
+			[trackObject setTrackNumber:track[@"trackNumber"]];
+			[trackObject setTotalTracks:track[@"totalTrackCount"]];
+			[trackObject setDiscNumber:track[@"discNumber"]];
+			[trackObject setRating:track[@"rating"]];
+			[trackObject setGenre:track[@"genre"]];
+			[trackObject setBpm:track[@"bpm"]];
+			[trackObject setDurationMilliSeconds:track[@"duration"]];
+			[trackObject setPlayCount:track[@"user_playback_count"]];
+			[trackObject setServiceType:CPServiceTypeGoogleMusic];
+			[trackObject setAlbumArtworkImageURLString:track[@"artwork_url"]];
+			[trackObject setStreamURL:[[NSURL alloc] initWithString:track[@"stream_url"]]];
+			[trackObject setServiceType:CPServiceTypeSoundCloud];
+			
+			[[[NSApp delegate] tracksArray] addObject:trackObject];
+		}
+		
+		[[NSApp delegate] finishedLoadingTracks];
+
+	}
 }
 
 - (void)soundCloudAPIDidResetAuthentication;
@@ -134,7 +182,7 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 	if([context isEqualToString:@"getUserStream"])
 	{
 		NSError* error = nil;
-		id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+		NSDictionary* jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
 		[self addSoundCloudStreamTracks:jsonObject];
 		return;
 	}

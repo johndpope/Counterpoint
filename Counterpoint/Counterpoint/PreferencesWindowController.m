@@ -7,8 +7,10 @@
 //
 
 #import "PreferencesWindowController.h"
-#import "LastFMController.h"
+#import "AppDelegate.h"
 #import "GoogleMusicController.h"
+#import "LastFMController.h"
+#import "SoundCloudController.h"
 
 @interface PreferencesWindowController ()
 
@@ -90,8 +92,7 @@
 	
 	if (![username isEqualToString:@""] && ![password isEqualToString:@""])
 	{
-		LastFMController* lastFmController = [[LastFMController alloc] init];
-		[lastFmController requestMobileSession];
+		[[[NSApp delegate] lastFmController] requestMobileSession];
 	}
 }
 
@@ -102,14 +103,13 @@
 
 	if (![username isEqualToString:@""] && ![password isEqualToString:@""])
 	{
-		GoogleMusicController* googleMusicController = [[GoogleMusicController alloc] init];
-		[googleMusicController loginWithUsername:username password:password];
+		[[[NSApp delegate] googleMusicController] loginWithUsername:username password:password];
 	}
 }
 
 -(IBAction)loginSoundCloud:(id)sender
 {
-	;
+	[[[NSApp delegate] soundCloudController] login];
 }
 
 @end

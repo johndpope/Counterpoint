@@ -13,4 +13,11 @@
 
 @property (nonatomic, strong) SCSoundCloudAPI* soundCloudAPI;
 
+@property (nonatomic, strong) NSMutableArray* tracks;
+
+-(void)login;
+-(void)setup;
+-(void)getUserStream;
+-(void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
+
 @end

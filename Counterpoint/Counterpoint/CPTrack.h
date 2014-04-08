@@ -29,5 +29,7 @@
 @property (nonatomic, strong) NSNumber* durationMilliSeconds;
 @property (nonatomic, strong) NSNumber* playCount;
 @property (nonatomic, strong) NSNumber* absolutePosition;
+@property (nonatomic, strong) NSURL* streamURL;
+@property (assign) CPServiceType serviceType;
 
 @end

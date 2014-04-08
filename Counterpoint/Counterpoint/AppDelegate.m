@@ -18,6 +18,8 @@
 #import "CPPlaylist.h"
 #import "QueuePopoverViewController.h"
 #import	"LastFMController.h"
+#import <SoundCloudAPI/SCAPI.h>
+#import "SoundCloudController.h"
 
 @implementation AppDelegate
 
@@ -40,6 +42,8 @@
 	//set up music service controllers
 	[self setLastFmController:[[LastFMController alloc] init]];
 	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
+	[self setSoundCloudController:[[SoundCloudController alloc] init]];
+	[[self soundCloudController] setup];
 	
 	[self loadAllTables:self];
 	
@@ -136,6 +140,7 @@
 -(IBAction)loadAllTables:(id)sender
 {
 	[[self googleMusicController] loadTracks];
+	[[self soundCloudController] getUserStream];
 }
 
 -(void)finishedLoadingTracks
@@ -164,9 +169,17 @@
 {
 	if (![track playerItem])
 	{
-		NSString* songId = [track idString];
-		NSString* streamURLString = [[self googleMusicController] getStreamUrl:songId];
-		NSURL* streamURL = [[NSURL alloc] initWithString:streamURLString];
+		NSURL* streamURL = nil;
+		if ([track serviceType] == CPServiceTypeGoogleMusic)
+		{
+			NSString* songId = [track idString];
+			NSString* streamURLString = [[self googleMusicController] getStreamUrl:songId];
+			streamURL = [[NSURL alloc] initWithString:streamURLString];
+		}
+		else if ([track serviceType] == CPServiceTypeSoundCloud)
+		{
+			streamURL = [track streamURL];
+		}
 		
 		AVPlayerItem* playerItem = [AVPlayerItem playerItemWithURL:streamURL];
 		[track setPlayerItem:playerItem];
@@ -456,6 +469,14 @@
 				if ([sourceName isEqualToString:@"All Tracks"])
 				{
 					[[self tracksArrayController] setFilterPredicate:nil];
+				}
+				else if ([sourceName isEqualToString:@"Google Music"])
+				{
+					[[self tracksArrayController] setFilterPredicate:[NSPredicate predicateWithFormat:@"%K = %ld", @"serviceType", CPServiceTypeGoogleMusic]];
+				}
+				else if ([sourceName isEqualToString:@"SoundCloud"])
+				{
+					[[self tracksArrayController] setFilterPredicate:[NSPredicate predicateWithFormat:@"%K = %ld", @"serviceType", CPServiceTypeSoundCloud]];
 				}
 			}
 		}

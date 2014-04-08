@@ -150,6 +150,7 @@
 		B37B120018AC6B5D004591F9 /* LastFMController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastFMController.m; sourceTree = "<group>"; };
 		B37B120218AC776C004591F9 /* NSString+CPNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CPNSString.h"; sourceTree = "<group>"; };
 		B37B120318AC776C004591F9 /* NSString+CPNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CPNSString.m"; sourceTree = "<group>"; };
+		B3B76A8118F3A338000AB4D1 /* SharedDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedDefinitions.h; sourceTree = "<group>"; };
 		B3CB79B918EE410B00280967 /* OAuth2Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuth2Client.framework; path = "../../../Library/Developer/Xcode/DerivedData/Counterpoint-afqurjnbweamangxuznfqbcormwu/Build/Products/Debug/OAuth2Client.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -321,6 +322,7 @@
 				0DCE249A184CFA5C0039DDC0 /* Counterpoint-Info.plist */,
 				0DCE249B184CFA5C0039DDC0 /* InfoPlist.strings */,
 				0DCE249E184CFA5C0039DDC0 /* main.m */,
+				B3B76A8118F3A338000AB4D1 /* SharedDefinitions.h */,
 				0D1374AF18EE02A5002796D2 /* SoundCloud.bundle */,
 				0DCE24A0184CFA5D0039DDC0 /* Counterpoint-Prefix.pch */,
 				0DCE24A1184CFA5D0039DDC0 /* Credits.rtf */,
@@ -449,7 +451,7 @@
 		0DCE2487184CFA5C0039DDC0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Beckasaurus;
 				TargetAttributes = {
 					0DCE24AF184CFA5D0039DDC0 = {
@@ -628,7 +630,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -666,7 +667,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
