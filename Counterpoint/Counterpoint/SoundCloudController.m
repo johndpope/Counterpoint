@@ -44,6 +44,19 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 	[[self soundCloudAPI] checkAuthentication];
 }
 
+-(void)getUserFavorites
+{
+	if ([[self soundCloudAPI] isAuthenticated])
+	{
+		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading SoundCloud Stream..."];
+		[[self soundCloudAPI] performMethod:@"GET"
+								 onResource:@"/me/favorites"
+							 withParameters:nil
+									context:@"getUserFavorites"
+								   userInfo:nil];
+	}
+}
+
 - (void)getUserStream
 {
 	if ([[self soundCloudAPI] isAuthenticated])
@@ -64,6 +77,39 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 		finalURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?client_id=%@", [track streamURLString], SoundCloudClientId]];
 	
 	return finalURL;
+}
+
+-(void)addSoundCloudFavorites:(NSArray*)favoritedTracks
+{
+	[[self tracks] addObjectsFromArray:favoritedTracks];
+	
+	for (NSDictionary* track in [self tracks])
+	{
+		if (![track[@"streamable"] boolValue])
+			continue;
+		
+		CPTrack* trackObject = [[CPTrack alloc] init];
+		[trackObject setTitle:track[@"title"]];
+		[trackObject setAlbum:track[@"album"]];
+		[trackObject setArtist:track[@"user"][@"username"]];
+		[trackObject setIdString:track[@"id"]];
+		[trackObject setTrackNumber:track[@"trackNumber"]];
+		[trackObject setTotalTracks:track[@"totalTrackCount"]];
+		[trackObject setDiscNumber:track[@"discNumber"]];
+		[trackObject setRating:track[@"rating"]];
+		[trackObject setGenre:track[@"genre"]];
+		[trackObject setBpm:track[@"bpm"]];
+		[trackObject setDurationMilliSeconds:track[@"duration"]];
+		[trackObject setPlayCount:track[@"user_playback_count"]];
+		[trackObject setServiceType:CPServiceTypeGoogleMusic];
+		[trackObject setAlbumArtworkImageURLString:track[@"artwork_url"]];
+		[trackObject setStreamURLString:track[@"stream_url"]];
+		[trackObject setServiceType:CPServiceTypeSoundCloud];
+		
+		[[[NSApp delegate] tracksArray] addObject:trackObject];
+	}
+	
+	[[NSApp delegate] finishedLoadingTracks];
 }
 
 -(void)addSoundCloudStreamTracks:(NSDictionary*)streamActivites
@@ -153,7 +199,7 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 
 - (void)soundCloudAPIDidAuthenticate;
 {
-	[self getUserStream];
+	[self getUserFavorites];
 }
 
 - (void)soundCloudAPIDidResetAuthentication;
@@ -193,6 +239,13 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 		NSError* error = nil;
 		NSDictionary* jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
 		[self addSoundCloudStreamTracks:jsonObject];
+		return;
+	}
+	else if ([context isEqualToString:@"getUserFavorites"])
+	{
+		NSError* error = nil;
+		NSArray* jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+		[self addSoundCloudFavorites:jsonArray];
 		return;
 	}
 }

@@ -20,6 +20,7 @@
 -(void)login;
 -(void)setup;
 -(void)getUserStream;
+-(void)getUserFavorites;
 -(NSURL*)getStreamURLForTrack:(CPTrack*)track;
 -(void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 

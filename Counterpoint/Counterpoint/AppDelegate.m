@@ -140,7 +140,7 @@
 -(IBAction)loadAllTables:(id)sender
 {
 	[[self googleMusicController] loadTracks];
-	[[self soundCloudController] getUserStream];
+	[[self soundCloudController] getUserFavorites];
 }
 
 -(void)finishedLoadingTracks
