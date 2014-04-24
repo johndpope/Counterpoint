@@ -52,7 +52,7 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 }
 
 -(BOOL)loadAllTracksMobile
-{
+{	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.googleapis.com/sj/v1.1/trackfeed"]]];
     [request setHTTPMethod:@"POST"];
@@ -127,9 +127,7 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 }
 
 -(void)finishedLoadingTracks
-{
-	[[[NSApp delegate] tracksArray] removeAllObjects];
-	
+{	
 	for (NSDictionary* song in [self songArray])
 	{
 		CPTrack* trackObject = [[CPTrack alloc] init];

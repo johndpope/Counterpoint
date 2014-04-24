@@ -20,6 +20,7 @@
 #import	"LastFMController.h"
 #import <SoundCloudAPI/SCAPI.h>
 #import "SoundCloudController.h"
+#import "LocalMusicController.h"
 
 @implementation AppDelegate
 
@@ -39,17 +40,21 @@
 	[menu addItemWithTitle:@"Play Next" action:@selector(queueSong:) keyEquivalent:@""];
 	[[self table] setMenu:menu];
 	
+	[self setTracksArray:[NSMutableArray array]];
+	
 	//set up music service controllers
 	[self setLastFmController:[[LastFMController alloc] init]];
 	[self setGoogleMusicController:[[GoogleMusicController alloc] init]];
 	[self setSoundCloudController:[[SoundCloudController alloc] init]];
 	[[self soundCloudController] setup];
+	[self setLocalMusicController:[[LocalMusicController alloc] init]];
 	
 	[self loadAllTables:self];
 	
 	[self setSidebarItemsArray:[NSMutableArray arrayWithObjects:@{@"title" : @"SOURCES",
 																  @"children" :
 																	  @[@{@"title" : @"All Tracks"},
+																		@{@"title" : @"Local Music"},
 																		@{@"title" : @"Google Music"},
 																		@{@"title": @"SoundCloud"}],
 																  @"header" : @(YES)}, nil]];
@@ -65,7 +70,6 @@
 	
 	//set up current track and queue
 	[self setQueueArrayController:[[NSArrayController alloc] init]];
-	[self setTracksArray:[[NSMutableArray alloc] init]];
 	[self setPlaylistsArray:[[NSMutableArray alloc] init]];
 	[self setCurrentTrack:[[CPTrack alloc] init]];
 	[[self queueArrayController] addObserver:self forKeyPath:@"content" options:0 context:nil];
@@ -141,6 +145,7 @@
 {
 	[[self googleMusicController] loadTracks];
 	[[self soundCloudController] getUserFavorites];
+	[[self localMusicController] loadTracks];
 }
 
 -(void)finishedLoadingTracks
@@ -180,6 +185,10 @@
 		{
 			streamURL = [[self soundCloudController] getStreamURLForTrack:track];
 		}
+		else if ([track serviceType] == CPServiceTypeLocalMusic)
+		{
+			streamURL = [NSURL fileURLWithPath:[track streamURLString]];
+		}
 		
 		AVPlayerItem* playerItem = [AVPlayerItem playerItemWithURL:streamURL];
 		[track setPlayerItem:playerItem];
@@ -188,8 +197,11 @@
 
 -(void)getAlbumArtworkForTrack:(CPTrack*)track
 {
-	NSImage* albumArtImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[track albumArtworkImageURLString]]];
-	[track setAlbumArtworkImage:albumArtImage];
+	if ([track albumArtworkImageURLString] && ![[track albumArtworkImageURLString] isKindOfClass:[NSNull class]])
+	{
+		NSImage* albumArtImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[track albumArtworkImageURLString]]];
+		[track setAlbumArtworkImage:albumArtImage];
+	}
 }
 
 //sets the track to the object from tracksArrayController with currently playing flag set to 1
@@ -464,6 +476,7 @@
 					NSArray* idsOfTracksInPlaylist = [[playlist tracks] valueForKey:@"trackId"];
 					NSPredicate* playlistFilter = [NSPredicate predicateWithFormat:@"idString IN %@", idsOfTracksInPlaylist];
 					[[self tracksArrayController] setFilterPredicate:playlistFilter];
+					[[self tracksArrayController] setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"absolutePosition" ascending:YES]]];
 				}
 			}
 			else
@@ -472,6 +485,10 @@
 				if ([sourceName isEqualToString:@"All Tracks"])
 				{
 					[[self tracksArrayController] setFilterPredicate:nil];
+				}
+				else if ([sourceName isEqualToString:@"Local Music"])
+				{
+					[[self tracksArrayController] setFilterPredicate:[NSPredicate predicateWithFormat:@"%K = %ld", @"serviceType", CPServiceTypeLocalMusic]];
 				}
 				else if ([sourceName isEqualToString:@"Google Music"])
 				{

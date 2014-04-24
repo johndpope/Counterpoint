@@ -48,6 +48,8 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 {
 	if ([[self soundCloudAPI] isAuthenticated])
 	{
+		[[self tracks] removeAllObjects];
+		
 		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading SoundCloud Stream..."];
 		[[self soundCloudAPI] performMethod:@"GET"
 								 onResource:@"/me/favorites"

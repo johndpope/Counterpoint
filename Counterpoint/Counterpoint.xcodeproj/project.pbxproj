@@ -40,6 +40,7 @@
 		0DCE24B3184CFA5D0039DDC0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DCE2492184CFA5C0039DDC0 /* Cocoa.framework */; };
 		0DCE24BB184CFA5D0039DDC0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DCE24B9184CFA5D0039DDC0 /* InfoPlist.strings */; };
 		0DCE24BD184CFA5D0039DDC0 /* CounterpointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE24BC184CFA5D0039DDC0 /* CounterpointTests.m */; };
+		0DD764D01907EF0400828347 /* LocalMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD764CF1907EF0400828347 /* LocalMusicController.m */; };
 		0DE159581858BF880066A829 /* GoogleMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE159571858BF880066A829 /* GoogleMusicController.m */; };
 		0DE15A7A185A6C120066A829 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE15A79185A6C120066A829 /* AVFoundation.framework */; };
 		0DF494EA18EB2E2C0085C8EB /* NSArray+CPNSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF494E918EB2E2C0085C8EB /* NSArray+CPNSArray.m */; };
@@ -141,6 +142,8 @@
 		0DCE24BA184CFA5D0039DDC0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0DCE24BC184CFA5D0039DDC0 /* CounterpointTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CounterpointTests.m; sourceTree = "<group>"; };
 		0DCE2549184D20450039DDC0 /* CocoaLibSpotify Mac Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CocoaLibSpotify Mac Framework.xcodeproj"; path = "../cocoalibspotify/Mac Framework/CocoaLibSpotify Mac Framework.xcodeproj"; sourceTree = "<group>"; };
+		0DD764CE1907EF0400828347 /* LocalMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMusicController.h; sourceTree = "<group>"; };
+		0DD764CF1907EF0400828347 /* LocalMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalMusicController.m; sourceTree = "<group>"; };
 		0DE159561858BF880066A829 /* GoogleMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleMusicController.h; sourceTree = "<group>"; };
 		0DE159571858BF880066A829 /* GoogleMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleMusicController.m; sourceTree = "<group>"; };
 		0DE15A79185A6C120066A829 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -310,6 +313,7 @@
 				0DF494E518EB2DD40085C8EB /* Categories */,
 				0DF494EB18EB43380085C8EB /* Transformers */,
 				B37B11FC18AC6B2B004591F9 /* Last.fm */,
+				0DD764C91907EEEC00828347 /* Local Music */,
 				B38E5A9C186299950049602D /* Google Music */,
 				0D1374B118EE0777002796D2 /* SoundCloud */,
 				0DC8964B187F3B74006D5D35 /* Toolbar Items */,
@@ -359,6 +363,15 @@
 				0DCE2551184D20450039DDC0 /* CocoaLSTests.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0DD764C91907EEEC00828347 /* Local Music */ = {
+			isa = PBXGroup;
+			children = (
+				0DD764CE1907EF0400828347 /* LocalMusicController.h */,
+				0DD764CF1907EF0400828347 /* LocalMusicController.m */,
+			);
+			name = "Local Music";
 			sourceTree = "<group>";
 		};
 		0DF494E518EB2DD40085C8EB /* Categories */ = {
@@ -557,6 +570,7 @@
 			files = (
 				B37B120118AC6B5D004591F9 /* LastFMController.m in Sources */,
 				0DCE24A6184CFA5D0039DDC0 /* AppDelegate.m in Sources */,
+				0DD764D01907EF0400828347 /* LocalMusicController.m in Sources */,
 				0D4C1AD21886F7D80086EFD5 /* CurrentlyPlayingValueTransformer.m in Sources */,
 				0DC5C68418AAA97400F9870B /* DurationValueTransformer.m in Sources */,
 				0D4C177B188054640086EFD5 /* CurrentTrackToolbarItemViewController.m in Sources */,

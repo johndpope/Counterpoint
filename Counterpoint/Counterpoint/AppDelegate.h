@@ -17,6 +17,7 @@
 @class PlayerToolbarItem;
 @class LastFMController;
 @class SoundCloudController;
+@class LocalMusicController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate, NSOutlineViewDelegate>
 
@@ -43,6 +44,7 @@
 @property (nonatomic, strong) GoogleMusicController* googleMusicController;
 @property (nonatomic, strong) LastFMController* lastFmController;
 @property (nonatomic, strong) SoundCloudController* soundCloudController;
+@property (nonatomic, strong) LocalMusicController* localMusicController;
 
 @property (nonatomic, strong) NSMutableArray* tracksArray;
 @property (assign) IBOutlet NSArrayController* tracksArrayController;

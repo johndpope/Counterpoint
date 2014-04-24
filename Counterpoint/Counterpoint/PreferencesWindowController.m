@@ -80,7 +80,7 @@
 	{
 		if (result == NSFileHandlingPanelOKButton)
 		{
-			[[NSUserDefaults standardUserDefaults] setObject:[[[self openPanel] directoryURL] absoluteString] forKey:@"localMusicFolderPath"];
+			[[NSUserDefaults standardUserDefaults] setObject:[[[self openPanel] directoryURL] path] forKey:@"localMusicFolderPath"];
 		}
 	}];
 }

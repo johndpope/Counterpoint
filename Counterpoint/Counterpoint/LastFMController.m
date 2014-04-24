@@ -63,6 +63,9 @@ typedef NS_ENUM (NSInteger, LastFMConnectionStage)
 	
 	if (![[NSUserDefaults standardUserDefaults] objectForKey:@"lastfmSessionKey"])
 		return;
+	
+	if (![track title]) //we need this at least!
+		return;
 			
 	[self setScrobbleResponse:@""];
 	

@@ -11,8 +11,9 @@
 
 typedef NS_ENUM(NSUInteger, CPServiceType)
 {
-    CPServiceTypeGoogleMusic,
-    CPServiceTypeSoundCloud
+    CPServiceTypeGoogleMusic = 1,
+    CPServiceTypeSoundCloud,
+	CPServiceTypeLocalMusic,
 };
 
 #endif
