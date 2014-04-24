@@ -38,6 +38,13 @@
 	NSMenu* menu = [[NSMenu alloc] init];
 	[menu addItemWithTitle:@"Add to Queue" action:@selector(queueSong:) keyEquivalent:@""];
 	[menu addItemWithTitle:@"Play Next" action:@selector(queueSong:) keyEquivalent:@""];
+	
+	NSMenuItem* locationMenuItem = [[NSMenuItem alloc] init];
+	[locationMenuItem setTitle:@"Show In Finder"];
+	[locationMenuItem setAction:@selector(showLocation:)];
+	[locationMenuItem setKeyEquivalent:@""];
+	[menu addItem:locationMenuItem];
+	
 	[[self table] setMenu:menu];
 	
 	[self setTracksArray:[NSMutableArray array]];
@@ -75,6 +82,21 @@
 	[[self queueArrayController] addObserver:self forKeyPath:@"content" options:0 context:nil];
 }
 
+-(BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+	if ([[menuItem title] isEqualToString:@"Show In Finder"])
+	{
+		NSInteger selectedRow = [[self table] selectedRow];
+		CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedRow];
+		if ([selectedTrack serviceType] == CPServiceTypeLocalMusic)
+			return YES;
+		
+		return NO;
+	}
+	
+	return YES;
+}
+
 -(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
 {
 	[[self window] setIsVisible:YES];
@@ -86,6 +108,19 @@
 	[_player removeTimeObserver:_playerTimeObserverReturnValue];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[_queueArrayController removeObserver:self forKeyPath:@"content"];
+}
+
+-(IBAction)showLocation:(id)sender
+{
+	NSIndexSet *indexSet = [[self table] selectedRowIndexes];
+	[indexSet enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger idx, BOOL *stop)
+	 {
+		 CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:idx];
+		 NSString* path = [selectedTrack streamURLString];
+		 
+		 if ([selectedTrack serviceType] == CPServiceTypeLocalMusic)
+			[[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL fileURLWithPath:path]]];
+	 }];
 }
 
 #pragma mark - Player Controls
