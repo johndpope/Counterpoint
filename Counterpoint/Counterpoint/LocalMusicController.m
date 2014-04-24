@@ -22,7 +22,7 @@
 		return nil;
 	}
 	
-	NSDirectoryEnumerator* dirEnum = [fileManager enumeratorAtURL:fileURL includingPropertiesForKeys:nil options:0 errorHandler:^BOOL(NSURL *url, NSError *error) {
+	NSDirectoryEnumerator* dirEnum = [fileManager enumeratorAtURL:fileURL includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsHiddenFiles|NSDirectoryEnumerationSkipsPackageDescendants|NSDirectoryEnumerationSkipsSubdirectoryDescendants errorHandler:^BOOL(NSURL *url, NSError *error) {
 		NSLog(@"Error creating directory enumertator for URL: %@\n Error: %@", url, error);
 		return NO;
 	}];
@@ -42,7 +42,51 @@
 			CPTrack* track = [[CPTrack alloc] init];
 			[track setStreamURLString:filePath];
 			[track setServiceType:CPServiceTypeLocalMusic];
-			[tracks addObject:track];
+			
+			AudioFileID audioFile;
+			OSStatus theErr = noErr;
+			theErr = AudioFileOpenURL((__bridge CFURLRef)file,
+									  kAudioFileReadPermission,
+									  0,
+									  &audioFile);
+			
+			assert (theErr == noErr);
+			UInt32 dictionarySize = 0;
+			theErr = AudioFileGetPropertyInfo (audioFile,
+											   kAudioFilePropertyInfoDictionary,
+											   &dictionarySize,
+											   0);
+			assert (theErr == noErr);
+			CFDictionaryRef dictionary;
+			theErr = AudioFileGetProperty (audioFile,
+										   kAudioFilePropertyInfoDictionary,
+										   &dictionarySize,
+										   &dictionary);
+			assert (theErr == noErr);
+			
+			NSDictionary* trackDict = [NSDictionary dictionaryWithDictionary:(__bridge NSDictionary *)(dictionary)];
+			
+			if (trackDict[@"artist"])
+				[track setArtist:trackDict[@"artist"]];
+			if (trackDict[@"album"])
+				[track setAlbum:trackDict[@"album"]];
+			if (trackDict[@"title"])
+				[track setTitle:trackDict[@"title"]];
+			if (trackDict[@"genre"])
+				[track setGenre:trackDict[@"genre"]];
+			if (trackDict[@"tempo"])
+				[track setBpm:[NSNumber numberWithInteger:[trackDict[@"tempo"] integerValue]]];
+			if (trackDict[@"track number"])
+				[track setTrackNumber:[NSNumber numberWithInteger:[trackDict[@"track number"] integerValue]]];
+			if (trackDict[@"approximate duration in seconds"])
+				[track setDurationMilliSeconds:[NSNumber numberWithInteger:([trackDict[@"approximate duration in seconds"] integerValue]*1000)]];
+			
+			CFRelease (dictionary);
+			theErr = AudioFileClose (audioFile);
+			assert (theErr == noErr);
+			
+			if (![tracks containsObject:track])
+				[tracks addObject:track];
 		}
 	}
 	

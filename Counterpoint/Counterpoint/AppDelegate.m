@@ -143,9 +143,9 @@
 
 -(IBAction)loadAllTables:(id)sender
 {
+	[[self localMusicController] loadTracks];
 	[[self googleMusicController] loadTracks];
 	[[self soundCloudController] getUserFavorites];
-	[[self localMusicController] loadTracks];
 }
 
 -(void)finishedLoadingTracks
