@@ -12,7 +12,6 @@
 		0D1374AE18EE025D002796D2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1374AB18EE025D002796D2 /* Security.framework */; };
 		0D1374B018EE02A5002796D2 /* SoundCloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0D1374AF18EE02A5002796D2 /* SoundCloud.bundle */; };
 		0D1374B418EE0795002796D2 /* SoundCloudController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1374B318EE0795002796D2 /* SoundCloudController.m */; };
-		0D471E4518F6FD4A0037FF4A /* PubSub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D471E4418F6FD4A0037FF4A /* PubSub.framework */; };
 		0D4C17751880544D0086EFD5 /* CurrentTrackToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C17741880544D0086EFD5 /* CurrentTrackToolbarItem.m */; };
 		0D4C177B188054640086EFD5 /* CurrentTrackToolbarItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C1779188054640086EFD5 /* CurrentTrackToolbarItemViewController.m */; };
 		0D4C177C188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D4C177A188054640086EFD5 /* CurrentTrackToolbarItemViewController.xib */; };
@@ -95,7 +94,6 @@
 		0D1374AF18EE02A5002796D2 /* SoundCloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SoundCloud.bundle; path = ../../SoundCloudAPI/SoundCloud.bundle; sourceTree = "<group>"; };
 		0D1374B218EE0795002796D2 /* SoundCloudController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundCloudController.h; sourceTree = "<group>"; };
 		0D1374B318EE0795002796D2 /* SoundCloudController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundCloudController.m; sourceTree = "<group>"; };
-		0D471E4418F6FD4A0037FF4A /* PubSub.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PubSub.framework; path = System/Library/Frameworks/PubSub.framework; sourceTree = SDKROOT; };
 		0D4C17731880544D0086EFD5 /* CurrentTrackToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentTrackToolbarItem.h; sourceTree = "<group>"; };
 		0D4C17741880544D0086EFD5 /* CurrentTrackToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentTrackToolbarItem.m; sourceTree = "<group>"; };
 		0D4C1778188054640086EFD5 /* CurrentTrackToolbarItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentTrackToolbarItemViewController.h; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D471E4518F6FD4A0037FF4A /* PubSub.framework in Frameworks */,
 				B3CB79BA18EE410B00280967 /* OAuth2Client.framework in Frameworks */,
 				0D1374AD18EE025D002796D2 /* AudioToolbox.framework in Frameworks */,
 				0D1374AE18EE025D002796D2 /* Security.framework in Frameworks */,
@@ -275,7 +272,6 @@
 		0DCE2491184CFA5C0039DDC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0D471E4418F6FD4A0037FF4A /* PubSub.framework */,
 				B3CB79B918EE410B00280967 /* OAuth2Client.framework */,
 				0D1374AA18EE025D002796D2 /* AudioToolbox.framework */,
 				0D1374AB18EE025D002796D2 /* Security.framework */,
