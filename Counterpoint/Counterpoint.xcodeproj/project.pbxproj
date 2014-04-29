@@ -108,6 +108,7 @@
 		0DB166D1184D422800683551 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		0DB166D2184D422800683551 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		0DB166D3184D422800683551 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
+		0DB6F7DD191022B10027367A /* CPServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPServiceProtocol.h; sourceTree = "<group>"; };
 		0DBF939F18623FFC005A9733 /* QueuePopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueuePopoverViewController.h; sourceTree = "<group>"; };
 		0DBF93A018623FFC005A9733 /* QueuePopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueuePopoverViewController.m; sourceTree = "<group>"; };
 		0DBF93A118623FFC005A9733 /* QueuePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QueuePopoverViewController.xib; sourceTree = "<group>"; };
@@ -217,6 +218,18 @@
 			name = "Current Track Control";
 			sourceTree = "<group>";
 		};
+		0DB6F7DC191022580027367A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0DB6F7DD191022B10027367A /* CPServiceProtocol.h */,
+				B37B11FC18AC6B2B004591F9 /* Last.fm */,
+				0DD764C91907EEEC00828347 /* Local Music */,
+				B38E5A9C186299950049602D /* Google Music */,
+				0D1374B118EE0777002796D2 /* SoundCloud */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		0DC8964B187F3B74006D5D35 /* Toolbar Items */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,10 +321,7 @@
 				0D9C0A1A18E0A74C009181AC /* CPPlaylist.m */,
 				0DF494E518EB2DD40085C8EB /* Categories */,
 				0DF494EB18EB43380085C8EB /* Transformers */,
-				B37B11FC18AC6B2B004591F9 /* Last.fm */,
-				0DD764C91907EEEC00828347 /* Local Music */,
-				B38E5A9C186299950049602D /* Google Music */,
-				0D1374B118EE0777002796D2 /* SoundCloud */,
+				0DB6F7DC191022580027367A /* Services */,
 				0DC8964B187F3B74006D5D35 /* Toolbar Items */,
 				B38E5A9F186299A80049602D /* Preferences */,
 				0DCE24AA184CFA5D0039DDC0 /* Images.xcassets */,

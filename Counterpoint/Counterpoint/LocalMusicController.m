@@ -12,6 +12,71 @@
 
 @implementation LocalMusicController
 
+@synthesize supportsEditingTracks = _supportsEditingTracks;
+@synthesize serviceHasPlaylists = _serviceHasPlaylists;
+@synthesize serviceHasTracklists = _serviceHasTracklists;
+@synthesize serviceName = _serviceName;
+@synthesize serviceType = _serviceType;
+
+-(id)init
+{
+	self = [super init];
+	if (self)
+	{
+		_serviceName = @"Local Music";
+		_serviceType = CPServiceTypeLocalMusic;
+		_supportsEditingTracks = YES;
+		_serviceHasPlaylists = NO;
+		_serviceHasTracklists = YES;
+	}
+	return self;
+}
+
+-(void)login
+{
+	return;
+}
+
+-(void)loadTracks
+{
+	NSString* localMusicFolderPath = [[NSUserDefaults standardUserDefaults] objectForKey:@"localMusicFolderPath"];
+	
+	NSArray* tracks = [NSArray array];
+	if (localMusicFolderPath)
+	{
+		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading Local Music Songs..."];
+		tracks = [self findTracksInDirectoryPath:localMusicFolderPath];
+		[[[NSApp delegate] songCountLabel] setStringValue:@""];
+	}
+	
+	[[[NSApp delegate] tracksArray] addObjectsFromArray:tracks];
+}
+
+-(CPTrack*)CPTrackFromServiceResponseDict:(NSDictionary *)responseDict
+{
+	CPTrack* track = [[CPTrack alloc] init];
+	[track setServiceType:[self serviceType]];
+	
+	if (responseDict[@"filePath"])
+		[track setStreamURLString:responseDict[@"filePath"]];
+	if (responseDict[@"artist"])
+		[track setArtist:responseDict[@"artist"]];
+	if (responseDict[@"album"])
+		[track setAlbum:responseDict[@"album"]];
+	if (responseDict[@"title"])
+		[track setTitle:responseDict[@"title"]];
+	if (responseDict[@"genre"])
+		[track setGenre:responseDict[@"genre"]];
+	if (responseDict[@"tempo"])
+		[track setBpm:[NSNumber numberWithInteger:[responseDict[@"tempo"] integerValue]]];
+	if (responseDict[@"track number"])
+		[track setTrackNumber:[NSNumber numberWithInteger:[responseDict[@"track number"] integerValue]]];
+	if (responseDict[@"approximate duration in seconds"])
+		[track setDurationMilliSeconds:[NSNumber numberWithInteger:([responseDict[@"approximate duration in seconds"] integerValue]*1000)]];
+	
+	return track;
+}
+
 -(NSArray*)findTracksInDirectoryPath:(NSString*)directoryPath
 {
 	NSFileManager* fileManager = [NSFileManager defaultManager];
@@ -22,8 +87,9 @@
 		return nil;
 	}
 	
-	NSDirectoryEnumerator* dirEnum = [fileManager enumeratorAtURL:fileURL includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsHiddenFiles|NSDirectoryEnumerationSkipsPackageDescendants|NSDirectoryEnumerationSkipsSubdirectoryDescendants errorHandler:^BOOL(NSURL *url, NSError *error) {
-		NSLog(@"Error creating directory enumertator for URL: %@\n Error: %@", url, error);
+	NSDirectoryEnumerator* dirEnum = [fileManager enumeratorAtURL:fileURL includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsHiddenFiles|NSDirectoryEnumerationSkipsPackageDescendants|NSDirectoryEnumerationSkipsSubdirectoryDescendants errorHandler:^BOOL(NSURL *url, NSError *error)
+	{
+		NSLog(@"Error creating directory enumerator for URL: %@\n Error: %@", url, error);
 		return NO;
 	}];
 	
@@ -39,10 +105,6 @@
 			[tracks addObjectsFromArray:[self findTracksInDirectoryPath:[file absoluteString]]];
 		else if (fileExists)
 		{
-			CPTrack* track = [[CPTrack alloc] init];
-			[track setStreamURLString:filePath];
-			[track setServiceType:CPServiceTypeLocalMusic];
-			
 			AudioFileID audioFile;
 			OSStatus theErr = noErr;
 			theErr = AudioFileOpenURL((__bridge CFURLRef)file,
@@ -64,26 +126,14 @@
 										   &dictionary);
 			assert (theErr == noErr);
 			
-			NSDictionary* trackDict = [NSDictionary dictionaryWithDictionary:(__bridge NSDictionary *)(dictionary)];
-			
-			if (trackDict[@"artist"])
-				[track setArtist:trackDict[@"artist"]];
-			if (trackDict[@"album"])
-				[track setAlbum:trackDict[@"album"]];
-			if (trackDict[@"title"])
-				[track setTitle:trackDict[@"title"]];
-			if (trackDict[@"genre"])
-				[track setGenre:trackDict[@"genre"]];
-			if (trackDict[@"tempo"])
-				[track setBpm:[NSNumber numberWithInteger:[trackDict[@"tempo"] integerValue]]];
-			if (trackDict[@"track number"])
-				[track setTrackNumber:[NSNumber numberWithInteger:[trackDict[@"track number"] integerValue]]];
-			if (trackDict[@"approximate duration in seconds"])
-				[track setDurationMilliSeconds:[NSNumber numberWithInteger:([trackDict[@"approximate duration in seconds"] integerValue]*1000)]];
+			NSMutableDictionary* trackDict = [NSMutableDictionary dictionaryWithDictionary:(__bridge NSDictionary *)(dictionary)];
+			[trackDict setObject:filePath forKey:@"filePath"];
 			
 			CFRelease (dictionary);
 			theErr = AudioFileClose (audioFile);
 			assert (theErr == noErr);
+			
+			CPTrack* track = [self CPTrackFromServiceResponseDict:trackDict];
 			
 			if (![tracks containsObject:track])
 				[tracks addObject:track];
@@ -91,21 +141,6 @@
 	}
 	
 	return tracks;
-}
-
--(void)loadTracks
-{
-	NSString* localMusicFolderPath = [[NSUserDefaults standardUserDefaults] objectForKey:@"localMusicFolderPath"];
-	
-	NSArray* tracks = [NSArray array];
-	if (localMusicFolderPath)
-	{
-		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading Local Music Songs..."];
-		tracks = [self findTracksInDirectoryPath:localMusicFolderPath];
-		[[[NSApp delegate] songCountLabel] setStringValue:@""];
-	}
-	
-	[[[NSApp delegate] tracksArray] addObjectsFromArray:tracks];
 }
 
 @end

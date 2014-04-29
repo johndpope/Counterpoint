@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CPServiceProtocol.h"
 
-@interface LocalMusicController : NSObject
+@interface LocalMusicController : NSObject <CPServiceProtocol>
 
 -(void)loadTracks;
 
