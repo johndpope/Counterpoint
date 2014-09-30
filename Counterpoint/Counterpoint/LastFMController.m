@@ -30,7 +30,7 @@ typedef NS_ENUM (NSInteger, LastFMConnectionStage)
 
 @implementation LastFMController
 
--(id)init
+-(instancetype)init
 {
 	self = [super init];
 	if (self)
@@ -70,16 +70,16 @@ typedef NS_ENUM (NSInteger, LastFMConnectionStage)
 	[self setScrobbleResponse:@""];
 	
 	NSMutableDictionary* parameterDictionary = [NSMutableDictionary dictionary];
-	[parameterDictionary setObject:[track artist]?:@"" forKey:@"artist"];
-	[parameterDictionary setObject:[track title] forKey:@"track"];
-	[parameterDictionary setObject:[track album]?:@"" forKey:@"album"];
+	parameterDictionary[@"artist"] = [track artist]?:@"";
+	parameterDictionary[@"track"] = [track title];
+	parameterDictionary[@"album"] = [track album]?:@"";
 	
 	NSTimeInterval duration = [[NSDate date] timeIntervalSince1970];
 	duration = duration - ([[track durationMilliSeconds] intValue]/1000);
-	[parameterDictionary setObject:@(roundtol(duration)) forKey:@"timestamp"];
-	[parameterDictionary setObject:lastFMApiKey forKey:@"api_key"];
-	[parameterDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"lastfmSessionKey"] forKey:@"sk"];
-	[parameterDictionary setObject:@"track.scrobble" forKey:@"method"];
+	parameterDictionary[@"timestamp"] = @(roundtol(duration));
+	parameterDictionary[@"api_key"] = lastFMApiKey;
+	parameterDictionary[@"sk"] = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastfmSessionKey"];
+	parameterDictionary[@"method"] = @"track.scrobble";
 	
 	[self sendRequestWithParameterDictionary:parameterDictionary requestStage:LastFMConnectionStageScrobbleTrack];
 }
@@ -147,10 +147,10 @@ typedef NS_ENUM (NSInteger, LastFMConnectionStage)
 	NSString* password = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastfmPassword"];
 	
 	NSMutableDictionary* parameterDictionary = [NSMutableDictionary dictionary];
-	[parameterDictionary setObject:username forKey:@"username"];
-	[parameterDictionary setObject:password forKey:@"password"];
-	[parameterDictionary setObject:lastFMApiKey forKey:@"api_key"];
-	[parameterDictionary setObject:@"auth.getMobileSession" forKey:@"method"];
+	parameterDictionary[@"username"] = username;
+	parameterDictionary[@"password"] = password;
+	parameterDictionary[@"api_key"] = lastFMApiKey;
+	parameterDictionary[@"method"] = @"auth.getMobileSession";
 	
 	[self sendRequestWithParameterDictionary:parameterDictionary requestStage:LastFMConnectionStageRequestMobileSession];
 }

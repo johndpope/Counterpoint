@@ -18,7 +18,7 @@
 @synthesize serviceName = _serviceName;
 @synthesize serviceType = _serviceType;
 
--(id)init
+-(instancetype)init
 {
 	self = [super init];
 	if (self)
@@ -41,15 +41,15 @@
 {
 	NSString* localMusicFolderPath = [[NSUserDefaults standardUserDefaults] objectForKey:@"localMusicFolderPath"];
 	
-	NSArray* tracks = [NSArray array];
+	NSArray* tracks = @[];
 	if (localMusicFolderPath)
 	{
-		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading Local Music Songs..."];
+		[[(AppDelegate*)[NSApp delegate] songCountLabel] setStringValue:@"Loading Local Music Songs..."];
 		tracks = [self findTracksInDirectoryPath:localMusicFolderPath];
-		[[[NSApp delegate] songCountLabel] setStringValue:@""];
+		[[(AppDelegate*)[NSApp delegate] songCountLabel] setStringValue:@""];
 	}
 	
-	[[[NSApp delegate] tracksArray] addObjectsFromArray:tracks];
+	[[(AppDelegate*)[NSApp delegate] tracksArray] addObjectsFromArray:tracks];
 }
 
 -(CPTrack*)CPTrackFromServiceResponseDict:(NSDictionary *)responseDict
@@ -68,11 +68,11 @@
 	if (responseDict[@"genre"])
 		[track setGenre:responseDict[@"genre"]];
 	if (responseDict[@"tempo"])
-		[track setBpm:[NSNumber numberWithInteger:[responseDict[@"tempo"] integerValue]]];
+		[track setBpm:@([responseDict[@"tempo"] integerValue])];
 	if (responseDict[@"track number"])
-		[track setTrackNumber:[NSNumber numberWithInteger:[responseDict[@"track number"] integerValue]]];
+		[track setTrackNumber:@([responseDict[@"track number"] integerValue])];
 	if (responseDict[@"approximate duration in seconds"])
-		[track setDurationMilliSeconds:[NSNumber numberWithInteger:([responseDict[@"approximate duration in seconds"] integerValue]*1000)]];
+		[track setDurationMilliSeconds:@([responseDict[@"approximate duration in seconds"] integerValue]*1000)];
 	
 	return track;
 }
@@ -127,7 +127,7 @@
 			assert (theErr == noErr);
 			
 			NSMutableDictionary* trackDict = [NSMutableDictionary dictionaryWithDictionary:(__bridge NSDictionary *)(dictionary)];
-			[trackDict setObject:filePath forKey:@"filePath"];
+			trackDict[@"filePath"] = filePath;
 			
 			CFRelease (dictionary);
 			theErr = AudioFileClose (audioFile);

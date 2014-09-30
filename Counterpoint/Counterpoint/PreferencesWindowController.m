@@ -30,7 +30,7 @@
 
 @implementation PreferencesWindowController
 
--(id)init
+-(instancetype)init
 {
 	self = [super initWithWindowNibName:@"PreferencesWindowController"];
 	if (self)
@@ -92,7 +92,7 @@
 	
 	if (![username isEqualToString:@""] && ![password isEqualToString:@""])
 	{
-		[[[NSApp delegate] lastFmController] requestMobileSession];
+		[[(AppDelegate*)[NSApp delegate] lastFmController] requestMobileSession];
 	}
 }
 
@@ -103,13 +103,13 @@
 
 	if (![username isEqualToString:@""] && ![password isEqualToString:@""])
 	{
-		[[[NSApp delegate] googleMusicController] loginWithUsername:username password:password];
+		[[(AppDelegate*)[NSApp delegate] googleMusicController] loginWithUsername:username password:password];
 	}
 }
 
 -(IBAction)loginSoundCloud:(id)sender
 {
-	[[[NSApp delegate] soundCloudController] login];
+	[[(AppDelegate*)[NSApp delegate] soundCloudController] login];
 }
 
 @end

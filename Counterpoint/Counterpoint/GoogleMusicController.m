@@ -22,7 +22,7 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 
 @implementation GoogleMusicController
 
--(id)init
+-(instancetype)init
 {
 	self = [super init];
 	if (self)
@@ -46,7 +46,7 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 		return;
 	
 	[[self songArray] removeAllObjects];
-	[[[NSApp delegate] songCountLabel] setStringValue:@"Loading Google Songs..."];
+	[[(AppDelegate*)[NSApp delegate] songCountLabel] setStringValue:@"Loading Google Songs..."];
 	
 	[self loadAllTracksMobile];
 }
@@ -152,20 +152,20 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 			[trackObject setAlbumArtworkImageURLString:imageURLString];
 		}
 		
-		[[[NSApp delegate] tracksArray] addObject:trackObject];
+		[[(AppDelegate*)[NSApp delegate] tracksArray] addObject:trackObject];
 	}
 	
 	[self setAllTracksResponse:[NSMutableString string]];
 	[self setNextPageToken:@""];
 	
-	[[NSApp delegate] finishedLoadingTracks];
+	[(AppDelegate*)[NSApp delegate] finishedLoadingTracks];
 	
 	[self loadPlaylists];
 }
 
 -(void)finishedLoadingPlaylists
 {
-	[[[NSApp delegate] playlistsArray] removeAllObjects];
+	[[(AppDelegate*)[NSApp delegate] playlistsArray] removeAllObjects];
 	
 	for (NSDictionary* playlist in [self playlistsArray])
 	{
@@ -178,12 +178,12 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 		NSArray* entries = [[self playlistEntriesArray] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K = %@", @"playlistId", [playlistObject idString]]];
 		[playlistObject setTracks:[NSMutableArray arrayWithArray:entries]];
 							
-		[[[NSApp delegate] playlistsArray] addObject:playlistObject];
+		[[(AppDelegate*)[NSApp delegate] playlistsArray] addObject:playlistObject];
 	}
 	
 	[self setPlaylistsResponse:[NSMutableString string]];
 	
-	[[NSApp delegate] finishedLoadingPlaylists];
+	[(AppDelegate*)[NSApp delegate] finishedLoadingPlaylists];
 }
 
 -(BOOL)loginWithUsername:(NSString*)username password:(NSString*)password
@@ -257,7 +257,7 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 	{
 		NSString *response = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
         NSArray *respArray = [response componentsSeparatedByString:@"\n"];
-        response = [respArray objectAtIndex:2];
+        response = respArray[2];
         response = [response stringByReplacingOccurrencesOfString:@"Auth=" withString:@""];
 		[[NSUserDefaults standardUserDefaults] setObject:response forKey:@"googleMusicAuthenticationToken"];
 	}
@@ -377,7 +377,7 @@ typedef NS_ENUM (NSInteger, GoogleMusicConnectionStage)
 	if([response statusCode] != 200)
 	{
 		NSLog(@"Error code (%ld) when sending request from getStreamURL:", [response statusCode]);
-		return @"";
+		return nil;
 	}
 	
     NSString *test = [[NSString alloc] initWithData:resp encoding:NSUTF8StringEncoding];

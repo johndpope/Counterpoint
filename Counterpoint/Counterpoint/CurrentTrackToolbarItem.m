@@ -11,7 +11,7 @@
 
 @implementation CurrentTrackToolbarItem
 
--(id)initWithItemIdentifier:(NSString *)itemIdentifier
+-(instancetype)initWithItemIdentifier:(NSString *)itemIdentifier
 {
 	self = [super initWithItemIdentifier:itemIdentifier];
 	if (self)

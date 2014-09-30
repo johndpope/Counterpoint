@@ -87,7 +87,7 @@
 	if ([[menuItem title] isEqualToString:@"Show In Finder"])
 	{
 		NSInteger selectedRow = [[self table] selectedRow];
-		CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:selectedRow];
+		CPTrack* selectedTrack = [[self tracksArrayController] arrangedObjects][selectedRow];
 		if ([selectedTrack serviceType] == CPServiceTypeLocalMusic)
 			return YES;
 		
@@ -115,7 +115,7 @@
 	NSIndexSet *indexSet = [[self table] selectedRowIndexes];
 	[indexSet enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger idx, BOOL *stop)
 	 {
-		 CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:idx];
+		 CPTrack* selectedTrack = [[self tracksArrayController] arrangedObjects][idx];
 		 NSString* path = [selectedTrack streamURLString];
 		 
 		 if ([selectedTrack serviceType] == CPServiceTypeLocalMusic)
@@ -127,7 +127,7 @@
 
 -(void)advanceToNextTrack
 {
-	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[[self queueArrayController] content] objectAtIndex:0]];
+	CPTrack* track = [self getTracksArrayControllerTrackForQueueArrayControllerTrack:[[self queueArrayController] content][0]];
 	[track setCurrentlyPlaying:NO];
 	
 	//remove the first object in the array, initialize the new track
@@ -136,11 +136,11 @@
 	
 	if ([[[self queueArrayController] content] count] > 0)
 	{
-		[self setCurrentTrack:[[[self queueArrayController] content] objectAtIndex:0]];
+		[self setCurrentTrack:[[self queueArrayController] content][0]];
 		[self getAlbumArtworkForTrack:[self currentTrack]];
 		
 		if ([[[self queueArrayController] selectedObjects] count] > 0)
-			[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
+			[self queueSong:[[self queueArrayController] selectedObjects][0] addToFrontOfQueue:YES addToSelectedObjects:NO];
 	}	
 }
 
@@ -251,7 +251,7 @@
 {
 	NSUInteger index = [[[self tracksArrayController] content] indexOfObject:queueArrayControllerTrack];
 	if (index != NSNotFound)
-		return [[[self tracksArrayController] content] objectAtIndex:index];
+		return [[self tracksArrayController] content][index];
 	else
 		return nil;
 }
@@ -279,12 +279,12 @@
 	[[self queueArrayController] setContent:queueArray];
 	
 	if ([[[self queueArrayController] selectedObjects] count] > 0)
-		[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
+		[self queueSong:[[self queueArrayController] selectedObjects][0] addToFrontOfQueue:YES addToSelectedObjects:NO];
 }
 
 -(void)playSongFromTable:(id)sender
 {
-	CPTrack* selectedTrack = [sender objectAtIndex:0];
+	CPTrack* selectedTrack = sender[0];
 	
 	[self playSong:selectedTrack];
 }
@@ -319,7 +319,7 @@
 	NSIndexSet *indexSet = [[self table] selectedRowIndexes];
 	[indexSet enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger idx, BOOL *stop)
 	{
-		CPTrack* selectedTrack = [[[self tracksArrayController] arrangedObjects] objectAtIndex:idx];
+		CPTrack* selectedTrack = [[self tracksArrayController] arrangedObjects][idx];
 		
 		if ([[(NSMenuItem*)sender title] isEqualToString:@"Play Next"])
 			[self queueSong:selectedTrack addToFrontOfQueue:YES addToSelectedObjects:YES];
@@ -346,13 +346,13 @@
 
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex
 {
-	CPTrack* selectedTrack = [[[self queueArrayController] selectedObjects] objectAtIndex:queueIndex];
+	CPTrack* selectedTrack = [[self queueArrayController] selectedObjects][queueIndex];
 	[self playSong:selectedTrack];
 }
 
 -(void)shuffle:(id)sender
 {
-	NSArray* newQueue = [NSArray array];
+	NSArray* newQueue = @[];
 	if ([sender state] == NSOnState)
 	{
 		NSMutableArray* tracks = [NSMutableArray arrayWithArray:[[self tracksArrayController] content]];
@@ -366,7 +366,8 @@
 			[tracks exchangeObjectAtIndex:i withObjectAtIndex:n];
 		}
 		
-		[tracks exchangeObjectAtIndex:0 withObjectAtIndex:[tracks indexOfObject:[self currentTrack]]];
+		if (self.currentTrack)
+			[tracks exchangeObjectAtIndex:0 withObjectAtIndex:[tracks indexOfObject:[self currentTrack]]];
 		
 		newQueue = tracks;
 	}
@@ -383,8 +384,15 @@
 	NSArray* items = [[self player] items];
 	if ([items count] > 1)
 		[[self player] removeItem:[items lastObject]];
-	 
-	[self queueSong:[[[self queueArrayController] selectedObjects] objectAtIndex:0] addToFrontOfQueue:YES addToSelectedObjects:NO];
+	
+	if (!self.currentTrack)
+	{
+		CPTrack* trackToStartPlaying = [[[self queueArrayController] selectedObjects] firstObject];
+		[self playSong:trackToStartPlaying];
+		[[self queueArrayController] removeObject:trackToStartPlaying];
+	}
+		
+	[self queueSong:[[[self queueArrayController] selectedObjects] firstObject] addToFrontOfQueue:YES addToSelectedObjects:NO];
 }
 
 #pragma mark - Preferences
@@ -488,7 +496,7 @@
 -(NSView*)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)treeNode
 {
 	NSDictionary *item = [treeNode representedObject];
-    BOOL isHeader = [[item objectForKey:@"header"] boolValue];
+    BOOL isHeader = [item[@"header"] boolValue];
     return [outlineView makeViewWithIdentifier: isHeader ? @"HeaderCell" : @"DataCell"
 										 owner:self];
 }
@@ -511,7 +519,7 @@
 					NSArray* idsOfTracksInPlaylist = [[playlist tracks] valueForKey:@"trackId"];
 					NSPredicate* playlistFilter = [NSPredicate predicateWithFormat:@"idString IN %@", idsOfTracksInPlaylist];
 					[[self tracksArrayController] setFilterPredicate:playlistFilter];
-					[[self tracksArrayController] setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"absolutePosition" ascending:YES]]];
+//					[[self tracksArrayController] setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"absolutePosition" ascending:YES]]];
 				}
 			}
 			else
@@ -537,5 +545,9 @@
 		}
 	}
 }
+
+#pragma mark - NSFileManager delegate methods
+
+
 
 @end

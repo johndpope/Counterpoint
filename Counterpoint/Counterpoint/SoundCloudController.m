@@ -16,7 +16,7 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 
 @implementation SoundCloudController
 
--(id)init
+-(instancetype)init
 {
 	self = [super init];
 	if (self)
@@ -50,7 +50,7 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 	{
 		[[self tracks] removeAllObjects];
 		
-		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading SoundCloud Stream..."];
+		[[(AppDelegate*)[NSApp delegate] songCountLabel] setStringValue:@"Loading SoundCloud Stream..."];
 		[[self soundCloudAPI] performMethod:@"GET"
 								 onResource:@"/me/favorites"
 							 withParameters:nil
@@ -63,7 +63,7 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 {
 	if ([[self soundCloudAPI] isAuthenticated])
 	{
-		[[[NSApp delegate] songCountLabel] setStringValue:@"Loading SoundCloud Stream..."];
+		[[(AppDelegate*)[NSApp delegate] songCountLabel] setStringValue:@"Loading SoundCloud Stream..."];
 		[[self soundCloudAPI] performMethod:@"GET"
 								 onResource:@"/me/activities/tracks/affiliated?limit=500"
 							 withParameters:nil
@@ -108,10 +108,10 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 		[trackObject setStreamURLString:track[@"stream_url"]];
 		[trackObject setServiceType:CPServiceTypeSoundCloud];
 		
-		[[[NSApp delegate] tracksArray] addObject:trackObject];
+		[[(AppDelegate*)[NSApp delegate] tracksArray] addObject:trackObject];
 	}
 	
-	[[NSApp delegate] finishedLoadingTracks];
+	[(AppDelegate*)[NSApp delegate] finishedLoadingTracks];
 }
 
 -(void)addSoundCloudStreamTracks:(NSDictionary*)streamActivites
@@ -155,10 +155,10 @@ NSString* const SoundCloudRedirectURL = @"counterpoint://soundcloud";
 			[trackObject setStreamURLString:track[@"stream_url"]];
 			[trackObject setServiceType:CPServiceTypeSoundCloud];
 			
-			[[[NSApp delegate] tracksArray] addObject:trackObject];
+			[[(AppDelegate*)[NSApp delegate] tracksArray] addObject:trackObject];
 		}
 		
-		[[NSApp delegate] finishedLoadingTracks];
+		[(AppDelegate*)[NSApp delegate] finishedLoadingTracks];
 		
 	}
 }

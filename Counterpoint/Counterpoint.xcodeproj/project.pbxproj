@@ -44,6 +44,8 @@
 		0DE15A7A185A6C120066A829 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE15A79185A6C120066A829 /* AVFoundation.framework */; };
 		0DF494EA18EB2E2C0085C8EB /* NSArray+CPNSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF494E918EB2E2C0085C8EB /* NSArray+CPNSArray.m */; };
 		0DF494EE18EB4A740085C8EB /* NSAnimatedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF494ED18EB4A740085C8EB /* NSAnimatedSlider.m */; };
+		B372F97519BA912000B89C0F /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B372F97419BA912000B89C0F /* MediaAccessibility.framework */; };
+		B372F97719BA912C00B89C0F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B372F97619BA912C00B89C0F /* CoreText.framework */; };
 		B37B120118AC6B5D004591F9 /* LastFMController.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B120018AC6B5D004591F9 /* LastFMController.m */; };
 		B37B120418AC776C004591F9 /* NSString+CPNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = B37B120318AC776C004591F9 /* NSString+CPNSString.m */; };
 		B3CB79BA18EE410B00280967 /* OAuth2Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3CB79B918EE410B00280967 /* OAuth2Client.framework */; };
@@ -150,6 +152,8 @@
 		0DF494E918EB2E2C0085C8EB /* NSArray+CPNSArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CPNSArray.m"; sourceTree = "<group>"; };
 		0DF494EC18EB4A740085C8EB /* NSAnimatedSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAnimatedSlider.h; sourceTree = "<group>"; };
 		0DF494ED18EB4A740085C8EB /* NSAnimatedSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAnimatedSlider.m; sourceTree = "<group>"; };
+		B372F97419BA912000B89C0F /* MediaAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaAccessibility.framework; path = System/Library/Frameworks/MediaAccessibility.framework; sourceTree = SDKROOT; };
+		B372F97619BA912C00B89C0F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B37B11FF18AC6B5D004591F9 /* LastFMController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastFMController.h; sourceTree = "<group>"; };
 		B37B120018AC6B5D004591F9 /* LastFMController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastFMController.m; sourceTree = "<group>"; };
 		B37B120218AC776C004591F9 /* NSString+CPNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CPNSString.h"; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B372F97719BA912C00B89C0F /* CoreText.framework in Frameworks */,
+				B372F97519BA912000B89C0F /* MediaAccessibility.framework in Frameworks */,
 				B3CB79BA18EE410B00280967 /* OAuth2Client.framework in Frameworks */,
 				0D1374AD18EE025D002796D2 /* AudioToolbox.framework in Frameworks */,
 				0D1374AE18EE025D002796D2 /* Security.framework in Frameworks */,
@@ -285,6 +291,8 @@
 		0DCE2491184CFA5C0039DDC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B372F97619BA912C00B89C0F /* CoreText.framework */,
+				B372F97419BA912000B89C0F /* MediaAccessibility.framework */,
 				B3CB79B918EE410B00280967 /* OAuth2Client.framework */,
 				0D1374AA18EE025D002796D2 /* AudioToolbox.framework */,
 				0D1374AB18EE025D002796D2 /* Security.framework */,
@@ -727,6 +735,7 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Counterpoint-dyumdwbmtzsalldgrmkrwrkklgpo/Build/Products/Debug",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Counterpoint-afqurjnbweamangxuznfqbcormwu/Build/Products/Debug",
+					"/Users/Rebecca/Downloads/GoogleCastFramework-2.3.0-Release",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Counterpoint/Counterpoint-Prefix.pch";
@@ -754,6 +763,7 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Counterpoint-dyumdwbmtzsalldgrmkrwrkklgpo/Build/Products/Debug",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Counterpoint-afqurjnbweamangxuznfqbcormwu/Build/Products/Debug",
+					"/Users/Rebecca/Downloads/GoogleCastFramework-2.3.0-Release",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Counterpoint/Counterpoint-Prefix.pch";

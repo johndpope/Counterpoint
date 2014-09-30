@@ -17,12 +17,12 @@
 
 @implementation CurrentTrackToolbarItemViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:@"CurrentTrackToolbarItemViewController" bundle:nibBundleOrNil];
     if (self)
 	{
-		_appDelegate = [NSApp delegate];
+		
     }
     return self;
 }
@@ -109,7 +109,7 @@
 
 -(IBAction)shuffle:(id)sender
 {
-	[[NSApp delegate] shuffle:sender];
+	[(AppDelegate*)[NSApp delegate] shuffle:sender];
 }
 
 @end

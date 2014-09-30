@@ -19,7 +19,7 @@
 @class SoundCloudController;
 @class LocalMusicController;
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate, NSOutlineViewDelegate>
+@interface AppDelegate : NSObject <NSFileManagerDelegate, NSApplicationDelegate, NSToolbarDelegate, NSTabViewDelegate, NSOutlineViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSToolbar* toolbar;
@@ -59,7 +59,7 @@
 -(void)shuffle:(id)sender;
 
 -(void)finishedLoadingTracks;
-
+-(void)finishedLoadingPlaylists;
 -(void)clickedToQueueItemAtIndex:(NSInteger)queueIndex;
 
 @end
